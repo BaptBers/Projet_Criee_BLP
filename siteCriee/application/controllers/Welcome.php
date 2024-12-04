@@ -45,10 +45,19 @@ class Welcome extends CI_Controller {
 		$this->load->view('enTete');
 		//$this->load->view('menu');
 	
-		if($id=="Pains")
+		if($id=="EncheresEnCours")
 		{
-			$data['labeldatapains']= $this->requetes->getPains(); 
-			$this->load->view('pains', $data); // Créer une vue nommée formulaire.php dans VIEWS		
+			$this->load->view('encheresencours'); // Créer une vue nommée formulaire.php dans VIEWS		
+		}
+
+		if($id=="FuturesEncheres")
+		{
+			$this->load->view('futuresencheres'); // Créer une vue nommée formulaire.php dans VIEWS		
+		}
+
+		if($id=="Panier")
+		{
+			$this->load->view('panier'); // Créer une vue nommée formulaire.php dans VIEWS		
 		}
 		
 		if($id=="affichage") {
