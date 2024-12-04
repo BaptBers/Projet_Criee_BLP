@@ -102,3 +102,24 @@ fieldset{
 
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;  /* Change de 'center' à 'space-between' pour espacer les éléments */
+    align-items: center;
+    width: auto;
+    background-color: #333;
+    padding: 10px;
+  }
+
+  .nav-milieu {
+    display: flex;
+    justify-content: center;  /* Centre les deux premiers boutons */
+    gap: 20px;
+    flex-grow: 1;             /* Permet à .nav-links de prendre toute la place disponible */
+  }
+.nav-droite {
+    margin-left: auto;        /* Pousse le troisième bouton vers la droite */
+  }
+
+  
+
