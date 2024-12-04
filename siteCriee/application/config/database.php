@@ -77,7 +77,7 @@ $db['default'] = array(
 	'dsn'	=> 'mysql:host=localhost; dbname=fournil; charset=utf8;',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'root',
+	'password' => '',
 	'database' => 'fournil',
 	'dbdriver' => 'pdo',//mysqli',
 	'dbprefix' => '',
