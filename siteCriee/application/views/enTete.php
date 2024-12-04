@@ -9,7 +9,7 @@
 
 	<header>
 		<div id="logo">
-			<img src="<?php echo base_url().'assets/img/logo2.jpg';?>" alt="">
+			<img src="<?php echo base_url().'assets/img/logo2.png';?>" alt="">
 		</div>
 		<div id="titre">
 			<h1>Vente aux enchères Cornouailles</h1>
