@@ -50,16 +50,6 @@ class Welcome extends CI_Controller {
 			$data['labeldatapains']= $this->requetes->getPains(); 
 			$this->load->view('pains', $data); // Créer une vue nommée formulaire.php dans VIEWS		
 		}
-		if($id=="Viennoiseries")
-		{
-			$data['labeldataviennoiseries']= $this->requetes->getViennoiseries(); 
-			$this->load->view('viennoiserie', $data); // Créer une vue nommée formulaire.php dans VIEWS		
-		}
-		if($id=="Specialites")
-		{
-			$data['labeldataspecialites']= $this->requetes->getSpecialites(); 
-			$this->load->view('specialites', $data); // Créer une vue nommée formulaire.php dans VIEWS		
-		}
 		
 		if($id=="affichage") {
 			$this->load->view('accueil');
@@ -138,7 +128,7 @@ class Welcome extends CI_Controller {
 			$this->load->view('piedPage'); // Vue piedPage à créer dans le dossier VIEWS
 		}
 	}
-		
+	/*	
 	public function validerCommande()
 	{
 		$this->form_validation->set_rules('quantite_baguette', 'Baguette');
@@ -172,6 +162,6 @@ class Welcome extends CI_Controller {
 		
 
 		$this->load->view('piedPage');
-	}
+	} */
 	
 }

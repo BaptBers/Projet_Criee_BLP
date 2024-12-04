@@ -74,11 +74,11 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost; dbname=fournil; charset=utf8;',
+	'dsn'	=> 'mysql:host=localhost; dbname=projet_criee; charset=utf8;',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'fournil',
+	'database' => 'projet_criee',
 	'dbdriver' => 'pdo',//mysqli',
 	'dbprefix' => '',
 	'pconnect' => TRUE,

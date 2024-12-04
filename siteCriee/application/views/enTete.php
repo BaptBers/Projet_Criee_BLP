@@ -21,7 +21,8 @@
 	</header>
 	
 	<nav>
-			<p>Nos produits : <a href="<?php echo site_url('welcome/contenu/Pains');?>">Pains</a> <a href="<?php echo site_url('welcome/contenu/Viennoiseries');?>">Viennoiseries</a> <a href="<?php echo site_url('welcome/contenu/Specialites');?>">Spécialités</a></p>
+			<p><a href="<?php echo site_url('welcome/contenu/Pains');?>">Enchères en cours</a>  <a href="<?php echo site_url('welcome/contenu/Pains');?>">Futures enchères</a> 
+			<a href="<?php echo site_url('welcome/contenu/Pains');?>">Mon panier</a></p>
 	</nav>
 
 
