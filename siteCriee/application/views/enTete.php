@@ -21,15 +21,8 @@
 	</header>
 	
 	<nav>
-		<div class="nav-milieu">
-			<a href="<?php echo site_url('welcome/contenu/EncheresEnCours');?>" class ="button">Enchères en cours</a>  
-			<a href="<?php echo site_url('welcome/contenu/FuturesEncheres');?>" class ="button">Futures enchères</a> 
-		</div>
-			
-		<div class="nav-droite">
-			<a href="<?php echo site_url('welcome/contenu/Panier');?>" class ="button">Mon panier</a>
-		</div>
-			
+			<p><a href="<?php echo site_url('welcome/contenu/EncheresEnCours');?>">Enchères en cours</a>  <a href="<?php echo site_url('welcome/contenu/FuturesEncheres');?>">Futures enchères</a> 
+			<a href="<?php echo site_url('welcome/contenu/Panier');?>">Mon panier</a></p>
 	</nav>
 
 
