@@ -66,6 +66,11 @@ class Welcome extends CI_Controller {
 			$this->load->view('accueil');
 		}
 		
+		if($id=="EnchereOuverte") {
+			$this->load->view('enchere');
+		}
+
+
 		if($id=="Connexion") {
 			$this->load->view('connexion');
 		}
