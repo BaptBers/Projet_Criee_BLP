@@ -182,12 +182,12 @@ INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
 
 -- Insertion dans la table IMAGE
 INSERT INTO IMAGE (IdImage, ImageLot) VALUES
-(1, 'siteCriee/img/lot1.jpeg'),
-(2, 'siteCriee/img/lot2.jpeg'),
-(3, 'siteCriee/img/lot3.jpg'),
-(4, 'siteCriee/img/lot4.jpg'),
-(5, 'siteCriee/img/lot5.jpg'),
-(6, 'siteCriee/img/lot6.jpg');
+(1, 'img/lot1.jpeg'),
+(2, 'img/lot2.jpeg'),
+(3, 'img/lot3.jpg'),
+(4, 'img/lot4.jpg'),
+(5, 'img/lot5.jpg'),
+(6, 'img/lot6.jpg');
 
 -- Insertion dans la table LOT
 INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixPlancher, prixDepart, prixEncheresMax, dateEnchere, heureDebutEnchere, codeEtat, IdFacture) VALUES
