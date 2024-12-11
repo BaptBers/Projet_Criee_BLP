@@ -18,32 +18,8 @@ header #logo img {
     margin-right: 10px;
 }
 
-.produits-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; 
-    justify-content: center; 
-    padding: 20px; 
-    
-}
-.produits {
-    max-width: 400px;
-    flex: 1 1 calc(33% - 40px);
-    margin: 20px;
-    padding: 20px;
-    background-color: #272727;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid white;
-}
-
 html {
     font-family: 'Roboto', sans-serif;
-}
-
-body img{
-    max-width: 200px;
-    height: auto;
 }
 
 body {
