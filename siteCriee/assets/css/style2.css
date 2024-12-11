@@ -15,52 +15,27 @@ header #logo {
 
 header #logo img {
     max-height: 100px;
-    margin-right: 10px;
-}
-
-.produits-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; 
-    justify-content: center; 
-    padding: 20px; 
-    
-}
-.produits {
-    max-width: 400px;
-    flex: 1 1 calc(33% - 40px);
-    margin: 20px;
-    padding: 20px;
-    background-color: #272727;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid white;
 }
 
 html {
     font-family: 'Roboto', sans-serif;
 }
 
-body img{
-    max-width: 200px;
-    height: auto;
-}
-
 body {
-    margin: 0;
+    margin-left: 40px;
+    margin-right: 40px;
     text-align: center;
-    height: 100vh;
     background-color: #272727 !important;
 }
 
 footer {
     position: absolute;
     bottom: 0; 
-    height: 80px;
+    height: 100px;
     background-color: #272727;
     text-align: center;
     border-top: 1px solid white;
-    width: 100%;
+    width: calc(100% - 80px);  /* 100% de la largeur - 40px à gauche et 40px à droite */
 }
 
 .button {
@@ -118,8 +93,6 @@ nav {
     width: auto;
     background-color: #272727;
     padding: 10px;
-    margin-left : 40px;
-    margin-right : 40px;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
 }
