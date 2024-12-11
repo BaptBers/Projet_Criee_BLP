@@ -56,7 +56,7 @@ CREATE TABLE BAC (
 
 -- Table ACHETEUR
 CREATE TABLE ACHETEUR (
-    IdAcheteur INT PRIMARY KEY,
+    IdAcheteur INT PRIMARY KEY AUTO_INCREMENT,
     login VARCHAR(50) NOT NULL,
     pwd VARCHAR(50) NOT NULL,
     raisonSocialeEntreprise VARCHAR(255) NOT NULL,
@@ -171,9 +171,9 @@ INSERT INTO BAC (IdBac, tare) VALUES
 (2, 60.00);
 
 -- Insertion dans la table ACHETEUR
-INSERT INTO ACHETEUR (IdAcheteur, login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
-(1, 'acheteur1', 'pass123', 'Société de Pêche SA', '1 rue des Pêcheurs', 'Villemarine', '75001', 'HAB1234567'),
-(2, 'acheteur2', 'pass456', 'Pêche et Co', '2 quai du Port', 'Portville', '75002', 'HAB7654321');
+INSERT INTO ACHETEUR (login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
+('acheteur1', 'pass123', 'Société de Pêche SA', '1 rue des Pêcheurs', 'Villemarine', '75001', 'HAB1234567'),
+('acheteur2', 'pass456', 'Pêche et Co', '2 quai du Port', 'Portville', '75002', 'HAB7654321');
 
 -- Insertion dans la table FACTURE
 INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
