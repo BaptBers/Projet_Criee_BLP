@@ -88,10 +88,13 @@ class Welcome extends CI_Controller {
 	public function valider()
 	{
 	// validité du formulaire
-	$this->form_validation->set_rules('nom', 'Nom', 'required');
-	$this->form_validation->set_rules('prenom', 'Prenom', 'required');
-	$this->form_validation->set_rules('email', 'Email', 'required');
-	$this->form_validation->set_rules('motdepasse', 'Motdepasse', 'required');
+	$this->form_validation->set_rules('login', 'login', 'required');
+	$this->form_validation->set_rules('raisonSocialeEntreprise', 'raisonSocialeEntreprise', 'required');
+	$this->form_validation->set_rules('numHabilitation', 'numHabilitation', 'required');
+	$this->form_validation->set_rules('adresse', 'adresse', 'required');
+	$this->form_validation->set_rules('ville', 'ville', 'required');
+	$this->form_validation->set_rules('cp', 'cp', 'required');
+	$this->form_validation->set_rules('pwd', 'pwd', 'required');
 	// est-ce que c'est un retour du formulaire et est-il valide ?
 		if ($this->form_validation->run() === FALSE) {
 			// pas de formulaire ou champs invalides => réafficher le formulaire
@@ -101,8 +104,8 @@ class Welcome extends CI_Controller {
 			// retour des données => afficher le produit
 			$this->load->view('enTete');
 			//$this->load->view('menu');
-			$this->load->view('afficheInscription', $_POST); // valeurs saisies
-			$data['utilisateurs']= $this->requetes->setUtilisateur($_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['motdepasse']); 
+			$this->load->view('inscription', $_POST); // valeurs saisies
+			$data['utilisateurs']= $this->requetes->setUtilisateur($_POST['login'],$_POST['pwd'],$_POST['raisonSocialeEntreprise'],$_POST['adresse'],$_POST['ville'],$_POST['cp'],$_POST['numHabilitation']); 
 			//$data['clients']= $this->requetes->getClients();
 			$this->load->view('piedPage',$data); // Vue piedPage à créer dans le dossier VIEWS
 		}
