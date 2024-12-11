@@ -22,7 +22,7 @@ class Welcome extends CI_Controller {
 		parent::__construct();
 		$this->load->database();	// Chargement du fichier de configuration database lors du démarrage de codeIgniter 
 		$this->load->helper('url_helper');// Charger des fonctions de bases pour gérer les URL
-		$this->load->model('model_fournil','requetes');	// Chargement du modèle modele_bddclient.php associé au label requête
+		$this->load->model('model_criee','requetes');	// Chargement du modèle modele_criee.php associé au label requête
 		$this->load->library('form_validation'); // Charger la validation des formulaires
 		$this->load->helper('form');
 		//$this->load->library('session');
@@ -88,10 +88,13 @@ class Welcome extends CI_Controller {
 	public function valider()
 	{
 	// validité du formulaire
-	$this->form_validation->set_rules('nom', 'Nom', 'required');
-	$this->form_validation->set_rules('prenom', 'Prenom', 'required');
-	$this->form_validation->set_rules('email', 'Email', 'required');
-	$this->form_validation->set_rules('motdepasse', 'Motdepasse', 'required');
+	$this->form_validation->set_rules('login', 'login', 'required');
+	$this->form_validation->set_rules('raisonSocialeEntreprise', 'raisonSocialeEntreprise', 'required');
+	$this->form_validation->set_rules('numHabilitation', 'numHabilitation', 'required');
+	$this->form_validation->set_rules('adresse', 'adresse', 'required');
+	$this->form_validation->set_rules('ville', 'ville', 'required');
+	$this->form_validation->set_rules('cp', 'cp', 'required');
+	$this->form_validation->set_rules('pwd', 'pwd', 'required');
 	// est-ce que c'est un retour du formulaire et est-il valide ?
 		if ($this->form_validation->run() === FALSE) {
 			// pas de formulaire ou champs invalides => réafficher le formulaire
@@ -102,8 +105,7 @@ class Welcome extends CI_Controller {
 			$this->load->view('enTete');
 			//$this->load->view('menu');
 			$this->load->view('afficheInscription', $_POST); // valeurs saisies
-			$data['utilisateurs']= $this->requetes->setUtilisateur($_POST['nom'],$_POST['prenom'],$_POST['email'],$_POST['motdepasse']); 
-			//$data['clients']= $this->requetes->getClients();
+			$data['utilisateurs']= $this->requetes->setUtilisateur($_POST['login'],$_POST['pwd'],$_POST['raisonSocialeEntreprise'],$_POST['adresse'],$_POST['ville'],$_POST['cp'],$_POST['numHabilitation']); 
 			$this->load->view('piedPage',$data); // Vue piedPage à créer dans le dossier VIEWS
 		}
 	}
