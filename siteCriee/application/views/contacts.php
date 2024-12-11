@@ -8,5 +8,5 @@
 		<p>Email : fournilsio@gmail.com</p>
 		<p>Téléphone : 03 90 33 57 23</p>
 	</form>
-	<a href="<?php echo site_url('welcome/contenu/affichage');?>"><input type="button" value="Retourner à la page d'accueil"></a>
+	<a href="<?php echo site_url('welcome/contenu/affichage');?>" class ="button">Retourner à la page d'accueil</a> 
 </body>
