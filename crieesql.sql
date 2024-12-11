@@ -57,23 +57,30 @@ CREATE TABLE BAC (
 -- Table ACHETEUR
 CREATE TABLE ACHETEUR (
     IdAcheteur INT PRIMARY KEY,
-    login CHAR(7) NOT NULL,
-    pwd CHAR(7) NOT NULL,
+    login VARCHAR(50)) NOT NULL,
+    pwd VARCHAR(50) NOT NULL,
     raisonSocialeEntreprise VARCHAR(255) NOT NULL,
     adresse VARCHAR(255) NOT NULL,
     ville VARCHAR(100) NOT NULL,
     codePostal CHAR(5) NOT NULL,
-    numHabilitation CHAR(10) 
+    numHabilitation VARCHAR(50) 
+);
+
+-- Table IMAGE
+CREATE TABLE IMAGE (
+    IdImage INT PRIMARY KEY,
+    ImageLot VARCHAR(255) NOT NULL,
+    
 );
 
 -- Table FACTURE
 CREATE TABLE FACTURE (
     IdFacture INT PRIMARY KEY,
-    IdAcheteur INT NOT NULL,
     dateEmission DATE NOT NULL,
     montantTotal DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)
 );
+
 
 
 
@@ -88,6 +95,7 @@ CREATE TABLE LOT (
     IdBac INT NOT NULL,
     IdAcheteur INT NOT NULL,
     IdQualite INT NOT NULL,
+    idImage INT NOT NULL,
     poidsBrutLot DECIMAL(10, 2) NOT NULL,
     prixPlancher DECIMAL(10, 2) NOT NULL,
     prixDepart DECIMAL(10, 2) NOT NULL,
@@ -170,10 +178,24 @@ INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
 (1, 1, '2024-12-03', 1500.00),
 (2, 2, '2024-12-04', 1200.00);
 
+-- Insertion dans la table IMAGE
+INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
+(1, 'siteCriee/img/lot1.jpeg'),
+(2, 'siteCriee/img/lot2.jpeg'),
+(3, 'siteCriee/img/lot3.jpg'),
+(4, 'siteCriee/img/lot4.jpg'),
+(5, 'siteCriee/img/lot5.jpg'),
+(6, 'siteCriee/img/lot6.jpg');
+
 -- Insertion dans la table LOT
-INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, poidsBrutLot, prixPlancher, prixDepart, prixEncheresMax, dateEnchere, heureDebutEnchere, codeEtat, IdFacture) VALUES
-(1, 1, '2024-12-01', 1, 2, 1, 1, 1, 1, 1000.00, 800.00, 850.00, 1000.00, '2024-12-05', '10:00:00', 'Enchère ouverte', 1),
-(2, 2, '2024-12-02', 2, 1, 2, 2, 2, 2, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2);
+INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixPlancher, prixDepart, prixEncheresMax, dateEnchere, heureDebutEnchere, codeEtat, IdFacture) VALUES
+(1, 1, '2024-12-01', 1, 2, 1, 1, 1, 1, 1, 1000.00, 800.00, 850.00, 1000.00, '2024-12-05', '10:00:00', 'Enchère ouverte', 1),
+(2, 2, '2024-12-02', 2, 1, 2, 2, 2, 2, 2, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2);
+(3, 3, '2024-12-06', 1, 2, 1, 1, 1, 1, 3, 1000.00, 800.00, 850.00, 1000.00, '2024-12-05', '10:00:00', 'Enchère ouverte', 1),
+(4, 3, '2024-12-07', 2, 1, 2, 2, 2, 2, 4, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2);
+(5, 1, '2024-12-09', 1, 2, 1, 1, 1, 1, 5, 1000.00, 800.00, 850.00, 1000.00, '2024-12-05', '10:00:00', 'Enchère ouverte', 1),
+(6, 2, '2024-12-11', 2, 1, 2, 2, 2, 2, 6, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2);
+
 
 -- Insertion dans la table POSTER
 INSERT INTO POSTER (IdLot, datePeche, IdBateau, IdAcheteur, prixEnchere, heureEnchere) VALUES
