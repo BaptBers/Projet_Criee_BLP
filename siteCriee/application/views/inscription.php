@@ -8,11 +8,11 @@
 			<label for="login">Login </label>
 			<input type="text" id="login" name="login" required/><br><br>
 			
-			<label for="raisonSocia">Raison sociale entreprise </label>
-			<input type="text" id="raisonSocia" name="raisonSocia" required/><br><br>
+			<label for="raisonSocialeEntreprise">Raison sociale entreprise </label>
+			<input type="text" id="raisonSocialeEntreprise" name="raisonSocialeEntreprise" required/><br><br>
 			
-			<label for="numHab">Numéro d'habilitation </label>
-			<input type="text" id="numHab" name="numHab" required/><br><br>
+			<label for="numHabilitation">Numéro d'habilitation </label>
+			<input type="text" id="numHabilitation" name="numHabilitation" required/><br><br>
 
 			<label for="adresse">Adresse </label>
 			<input type="text" id="adresse" name="adresse" required/><br><br>
