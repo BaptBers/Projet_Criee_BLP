@@ -78,6 +78,7 @@ CREATE TABLE FACTURE (
     IdFacture INT PRIMARY KEY,
     dateEmission DATE NOT NULL,
     montantTotal DECIMAL(10, 2) NOT NULL,
+    IdAcheteur INT NOT NULL,
     FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)
 );
 
@@ -104,6 +105,7 @@ CREATE TABLE LOT (
     heureDebutEnchere TIME,
     codeEtat VARCHAR(50),
     IdFacture INT,
+    FOREIGN KEY (idImage) REFERENCES IMAGE(IdImage),
     PRIMARY KEY (IdLot, IdBateau, datePeche),
     FOREIGN KEY (IdEspece) REFERENCES ESPECE(IdEspece),
     FOREIGN KEY (IdBateau, datePeche) REFERENCES PECHE(IdBateau, datePeche),
