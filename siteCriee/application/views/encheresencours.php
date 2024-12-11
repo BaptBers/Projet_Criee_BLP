@@ -6,8 +6,8 @@
 			foreach ($labelEncheresEnCours as $row) {
 				echo "<form class = 'produits'>";
 				echo "<div>";
-				echo "<img src='" .base_url()."/assets/". $row['ImageLot'] . "' alt=''>";
 				echo "<p>N° lot :" . $row['IdLot'] . "</p>";
+				echo "<img src='" .base_url()."/assets/". $row['ImageLot'] . "' alt=''>";
 				echo "</div>";
 				echo "</form>";
 			}
