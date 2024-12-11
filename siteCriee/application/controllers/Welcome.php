@@ -22,7 +22,7 @@ class Welcome extends CI_Controller {
 		parent::__construct();
 		$this->load->database();	// Chargement du fichier de configuration database lors du démarrage de codeIgniter 
 		$this->load->helper('url_helper');// Charger des fonctions de bases pour gérer les URL
-		$this->load->model('model_fournil','requetes');	// Chargement du modèle modele_bddclient.php associé au label requête
+		$this->load->model('model_criee','requetes');	// Chargement du modèle modele_bddclient.php associé au label requête
 		$this->load->library('form_validation'); // Charger la validation des formulaires
 		$this->load->helper('form');
 		//$this->load->library('session');
