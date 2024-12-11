@@ -192,9 +192,9 @@ INSERT INTO IMAGE (IdImage, ImageLot) VALUES
 -- Insertion dans la table LOT
 INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixPlancher, prixDepart, prixEncheresMax, dateEnchere, heureDebutEnchere, codeEtat, IdFacture) VALUES
 (1, 1, '2024-12-01', 1, 2, 1, 1, 1, 1, 1, 1000.00, 800.00, 850.00, 1000.00, '2024-12-05', '10:00:00', 'Enchère ouverte', 1),
-(2, 2, '2024-12-02', 2, 1, 2, 2, 2, 2, 2, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2);
+(2, 2, '2024-12-02', 2, 1, 2, 2, 2, 2, 2, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2),
 (3, 3, '2024-12-06', 1, 2, 1, 1, 1, 1, 3, 1000.00, 800.00, 850.00, 1000.00, '2024-12-05', '10:00:00', 'Enchère ouverte', 1),
-(4, 3, '2024-12-07', 2, 1, 2, 2, 2, 2, 4, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2);
+(4, 3, '2024-12-07', 2, 1, 2, 2, 2, 2, 4, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2),
 (5, 1, '2024-12-09', 1, 2, 1, 1, 1, 1, 5, 1000.00, 800.00, 850.00, 1000.00, '2024-12-05', '10:00:00', 'Enchère ouverte', 1),
 (6, 2, '2024-12-11', 2, 1, 2, 2, 2, 2, 6, 500.00, 400.00, 450.00, 500.00, '2024-12-06', '11:00:00', 'Enchère fermée', 2);
 
