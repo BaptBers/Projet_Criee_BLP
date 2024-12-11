@@ -35,7 +35,7 @@ class Model_criee extends CI_Model
 
  public function getLotsFermes()
  {
-	 $search = "SELECT * FROM lot WHERE codeEtat = 'Enchère fermée'";
+	 $search = "SELECT * FROM lot, bateau, espece, taille, bac, qualite, image, presentation WHERE bateau.IdBateau = lot.IdBateau AND espece.IdEspece = lot.IdEspece AND taille.IdTaille = lot.IdTaille AND bac.IdBac = lot.IdBac AND qualite.IdQualite = lot.IdQualite AND image.IdImage = lot.idImage AND presentation.IdPresentation = lot.IdPresentation AND codeEtat = 'Enchère fermée'";
 	 $result = $this->db->conn_id->prepare($search);
 	 $result->execute();
 	 $query_result = $result->fetchAll(PDO::FETCH_ASSOC);

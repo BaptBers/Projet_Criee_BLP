@@ -53,7 +53,8 @@ class Welcome extends CI_Controller {
 
 		if($id=="FuturesEncheres")
 		{
-			$this->load->view('futuresencheres'); // Créer une vue nommée formulaire.php dans VIEWS		
+			$data['labelFuturesEncheres']= $this->requetes->getLotsFermes();
+			$this->load->view('futuresencheres',$data); // Créer une vue nommée formulaire.php dans VIEWS		
 		}
 
 		if($id=="Panier")
