@@ -22,5 +22,26 @@ class Model_criee extends CI_Model
 	 //$this->db = null ;
 	 return $query_result; 
  }
+
+ public function getLotsOuvert()
+ {
+	 $search = "SELECT * FROM lot WHERE codeEtat = 'Enchère ouverte'";
+	 $result = $this->db->conn_id->prepare($search);
+	 $result->execute();
+	 $query_result = $result->fetchAll(PDO::FETCH_ASSOC);
+	// $this->db = null ;
+	 return $query_result; 
+ }
+
+ public function getLotsFermes()
+ {
+	 $search = "SELECT * FROM lot WHERE codeEtat = 'Enchère fermée'";
+	 $result = $this->db->conn_id->prepare($search);
+	 $result->execute();
+	 $query_result = $result->fetchAll(PDO::FETCH_ASSOC);
+	// $this->db = null ;
+	 return $query_result; 
+ }
+ 
 }
 ?>
