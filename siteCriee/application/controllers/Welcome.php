@@ -104,9 +104,8 @@ class Welcome extends CI_Controller {
 			// retour des données => afficher le produit
 			$this->load->view('enTete');
 			//$this->load->view('menu');
-			$this->load->view('inscription', $_POST); // valeurs saisies
+			$this->load->view('afficheInscription', $_POST); // valeurs saisies
 			$data['utilisateurs']= $this->requetes->setUtilisateur($_POST['login'],$_POST['pwd'],$_POST['raisonSocialeEntreprise'],$_POST['adresse'],$_POST['ville'],$_POST['cp'],$_POST['numHabilitation']); 
-			//$data['clients']= $this->requetes->getClients();
 			$this->load->view('piedPage',$data); // Vue piedPage à créer dans le dossier VIEWS
 		}
 	}

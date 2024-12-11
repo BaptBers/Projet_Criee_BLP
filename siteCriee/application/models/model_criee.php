@@ -6,9 +6,9 @@ class Model_criee extends CI_Model
 	parent::__construct();
  }
 
- public function setUtilisateur($nom,$prenom,$email,$motdepasse)
+ public function setUtilisateur($login,$pwd,$raisonSocialeEntreprise,$adresse,$ville,$cp,$numHabilitation)
  {
-	 $search = "INSERT INTO acheteur(login,pwd,raisonSocialeEntreprise,adresse,ville,codePostal,numHabilitation) VALUES(:login,:prenom,:pwd,:raisonSocialeEntreprise,:adresse,:ville,:cp,:numHabilitation);";
+	 $search = "INSERT INTO acheteur(login,pwd,raisonSocialeEntreprise,adresse,ville,codePostal,numHabilitation) VALUES(:login,:pwd,:raisonSocialeEntreprise,:adresse,:ville,:cp,:numHabilitation);";
 	 $result = $this->db->conn_id->prepare($search);
 	 $result->bindParam(':login', $login, PDO::PARAM_STR);
 	 $result->bindParam(':pwd', $pwd, PDO::PARAM_STR);
