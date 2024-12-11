@@ -57,19 +57,19 @@ CREATE TABLE BAC (
 -- Table ACHETEUR
 CREATE TABLE ACHETEUR (
     IdAcheteur INT PRIMARY KEY,
-    login VARCHAR(50)) NOT NULL,
+    login VARCHAR(50) NOT NULL,
     pwd VARCHAR(50) NOT NULL,
     raisonSocialeEntreprise VARCHAR(255) NOT NULL,
     adresse VARCHAR(255) NOT NULL,
     ville VARCHAR(100) NOT NULL,
-    codePostal CHAR(5) NOT NULL,
+    codePostal VARCHAR(5) NOT NULL,
     numHabilitation VARCHAR(50) 
 );
 
 -- Table IMAGE
 CREATE TABLE IMAGE (
     IdImage INT PRIMARY KEY,
-    ImageLot VARCHAR(255) NOT NULL,
+    ImageLot VARCHAR(255) NOT NULL
     
 );
 
