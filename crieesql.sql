@@ -181,7 +181,7 @@ INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
 (2, 2, '2024-12-04', 1200.00);
 
 -- Insertion dans la table IMAGE
-INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
+INSERT INTO IMAGE (IdImage, ImageLot) VALUES
 (1, 'siteCriee/img/lot1.jpeg'),
 (2, 'siteCriee/img/lot2.jpeg'),
 (3, 'siteCriee/img/lot3.jpg'),
