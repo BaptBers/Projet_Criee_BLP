@@ -1,6 +1,5 @@
 <body>
 		<p>Page de Futures encheres</p>
-
 		<div class="produits-container">
 			<?php
 			foreach ($labelFuturesEncheres as $row) {
