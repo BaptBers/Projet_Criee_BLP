@@ -56,19 +56,20 @@ body img{
 body {
     margin: 0;
     text-align: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #272727 !important;
+    display: flex;
+    flex-direction: column;
 }
 
 footer {
-    position: relative;
-    bottom: 0;
-    height: 80px;
+    margin-top: auto;
     background-color: #272727;
     text-align: center;
     border-top: 1px solid white;
     width: calc(100% - 80px);
-    margin: 20px 40px 0 40px;
+    margin-left: 40px;
+    margin-right: 40px;
     padding-bottom: 30px;
 }
 
@@ -140,4 +141,10 @@ nav {
 
 .nav-droite {
     margin-left: auto;
+}
+
+.bouton-retour {
+    text-align: center;
+    margin: 20px auto;
+    width: fit-content;
 }
