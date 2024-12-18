@@ -25,7 +25,7 @@ class Welcome extends CI_Controller {
 		$this->load->model('model_criee','requetes');	// Chargement du modèle modele_criee.php associé au label requête
 		$this->load->library('form_validation'); // Charger la validation des formulaires
 		$this->load->helper('form');
-		//$this->load->library('session');
+		$this->load->library('session');
 	}
 	
 	public function index()
@@ -87,6 +87,10 @@ class Welcome extends CI_Controller {
 			$this->load->view('contacts');
 		}
 		
+		if($id=="Deconnexion"){
+			$this->session->sess_destroy();
+			$this->load->view('accueil');
+		}
 		
 		$this->load->view('piedPage',NULL); // Vue piedPage à créer dans le dossier VIEWS 
 		
@@ -117,35 +121,67 @@ class Welcome extends CI_Controller {
 		}
 	}
 	
-	public function validerConn()
-	{
-	// validité du formulaire
-	$this->form_validation->set_rules('email', 'Email', 'required');
-	$this->form_validation->set_rules('motdepasse', 'Motdepasse', 'required');
-	// est-ce que c'est un retour du formulaire et est-il valide ?
-		if ($this->form_validation->run() === FALSE) {
-			// pas de formulaire ou champs invalides => réafficher le formulaire
-			return $this->index();
+	// public function validerConn()
+	// {
+	// // validité du formulaire
+	// $this->form_validation->set_rules('email', 'Email', 'required');
+	// $this->form_validation->set_rules('motdepasse', 'Motdepasse', 'required');
+	// // est-ce que c'est un retour du formulaire et est-il valide ?
+	// 	if ($this->form_validation->run() === FALSE) {
+	// 		// pas de formulaire ou champs invalides => réafficher le formulaire
+	// 		return $this->index();
 			
+	// 	} else {
+	// 		// retour des données => afficher le produit
+	// 		$this->load->view('enTete');
+	// 		//$this->load->view('menu');
+	// 		$data['conn']= $this->requetes->getConn($_POST['email'],$_POST['motdepasse']); 
+	// 		foreach ($data['conn'] as $row) {
+	// 			$mdp = $row['password'];
+	// 		}
+	// 		if($mdp == $_POST['motdepasse'])
+	// 		{ 
+	// 			$this->load->view('commande', $data); // valeurs saisies
+	// 		}
+	// 		else{
+	// 			$this->load->view('afficheConnexion');
+	// 		}
+	// 		//$data['clients']= $this->requetes->getClients();
+	// 		$this->load->view('piedPage'); // Vue piedPage à créer dans le dossier VIEWS
+	// 	}
+	// }
+
+	public function login() {
+		$this->form_validation->set_rules('login', 'Login', 'required');
+		$this->form_validation->set_rules('pwd', 'Password', 'required');
+	
+		if ($this->form_validation->run() === FALSE) {
+			$this->load->view('connexion'); // Réaffiche la vue de connexion si validation échoue
 		} else {
-			// retour des données => afficher le produit
-			$this->load->view('enTete');
-			//$this->load->view('menu');
-			$data['conn']= $this->requetes->getConn($_POST['email'],$_POST['motdepasse']); 
-			foreach ($data['conn'] as $row) {
-				$mdp = $row['password'];
+			$login = $this->input->post('login');
+			$pwd = $this->input->post('pwd');
+	
+			// Vérifiez les informations dans la base de données
+			$result = $this->requetes->verifyLogin($login, $pwd);
+	
+			if (!empty($result)) {
+				// Stocker les informations utilisateur dans la session
+				$this->session->set_userdata([
+					'user_id' => $result['IdAcheteur'],
+					'user_login' => $result['login'],
+					'is_logged_in' => TRUE,
+				]);
+	
+				// Redirection vers une page après connexion
+				redirect('welcome/contenu/EncheresEnCours');
+			} else {
+				$data['error'] = 'Login ou mot de passe incorrect';
+				$this->load->view('connexion', $data);
 			}
-			if($mdp == $_POST['motdepasse'])
-			{ 
-				$this->load->view('commande', $data); // valeurs saisies
-			}
-			else{
-				$this->load->view('afficheConnexion');
-			}
-			//$data['clients']= $this->requetes->getClients();
-			$this->load->view('piedPage'); // Vue piedPage à créer dans le dossier VIEWS
 		}
 	}
+
+
 	/*	
 	public function validerCommande()
 	{

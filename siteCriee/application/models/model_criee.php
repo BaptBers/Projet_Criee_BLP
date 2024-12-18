@@ -43,5 +43,10 @@ class Model_criee extends CI_Model
 	 return $query_result; 
  }
  
+ public function verifyLogin($login, $pwd) {
+    $query = $this->db->get_where('acheteur', ['login' => $login, 'pwd' => $pwd]);
+    return $query->row_array(); // Retourne la ligne correspondante ou NULL
+}
+
 }
 ?>

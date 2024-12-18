@@ -19,10 +19,18 @@
 		<div id="titre">
 			<h1>Vente aux enchères Cornouailles</h1>
 		</div>
-		<div class="auth-boutons">
+		<?php if(!isset($_SESSION["is_logged_in"])) : ?>
+		<div class="auth-boutons">		
 			<a href="<?php echo site_url('welcome/contenu/Connexion');?>" class ="button">Se connecter</a>
 			<a href="<?php echo site_url('welcome/contenu/Inscription');?>" class ="button">S'inscrire</a>
     	</div>
+		<?php else: 				
+			$login = $_SESSION['user_login'];
+			echo "<p>" . $login. "</p>";?>
+		<div class="auth-boutons">		
+			<a href="<?php echo site_url('welcome/contenu/Deconnexion');?>" class ="button">Déconnexion</a>
+    	</div>
+		<?php endif; ?>
 	</header>
 	
 
