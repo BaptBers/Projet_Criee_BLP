@@ -2,6 +2,7 @@
     <h2>Inscription</h2>
 	<?php echo validation_errors(); ?>
 	<form action="<?php echo site_url('welcome/valider'); ?>" method='POST' class="conn">
+
 		<fieldset id="InfoI" name="InfoI">
 			<legend>Vos Informations</legend>
 			
