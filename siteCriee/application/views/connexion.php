@@ -1,11 +1,11 @@
 <body>          
-    <h2>Formulaire</h2>
+    <h2>Connexion</h2>
 	<?php echo validation_errors(); ?>
 	<form action="<?php echo site_url('welcome/validerConn'); ?>" method='POST' class="conn">
 		<fieldset id="INFO" name="InfoVI">
-		<legend>Vos Informations</legend>
+		<legend>Se connecter</legend>
 		
-		<label for="email">Adresse email </label>
+		<label for="email">Login </label>
 		<input type="email" id="email" name="email" required/><br><br>
 		
 		<label for="motdepasse">Mot de passe </label>
