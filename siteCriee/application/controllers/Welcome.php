@@ -66,10 +66,27 @@ class Welcome extends CI_Controller {
 			$this->load->view('accueil');
 		}
 		
-		if($id=="EnchereOuverte") {
-			$this->load->view('enchere');
+		if ($id == "EnchereOuverte") {
+			// Récupérer l'ID du lot depuis la requête POST
+			$idLot = $this->input->post('idLot');
+			
+			// Si un idLot a été envoyé
+			if ($idLot) {
+				// Récupérer les détails du lot
+				$lotDetails = $this->requetes->getLotById($idLot);
+				
+				if ($lotDetails) {
+					// Passer les détails du lot à la vue 'enchere'
+					$this->load->view('enchere', ['lotDetails' => $lotDetails]);
+				} else {
+					// Si aucun lot trouvé
+					echo "Aucun détail trouvé pour ce lot.";
+				}
+			} else {
+				// Si l'idLot est manquant
+				echo "ID du lot manquant.";
+			}
 		}
-
 
 		if($id=="Connexion") {
 			$this->load->view('connexion');
@@ -96,6 +113,27 @@ class Welcome extends CI_Controller {
 		
 	}
 	
+	public function enchereOuverte() {
+		// Vérifier si l'ID du lot a été envoyé via POST
+		$idLot = $this->input->post('idLot');
+	
+		// Si l'ID du lot est valide, récupérer les détails du lot
+		if ($idLot) {
+			$lotDetails = $this->requetes->getLotById($idLot); // Appel de la méthode pour récupérer les informations du lot
+	
+			// Si les détails du lot sont trouvés, afficher la vue 'enchere'
+			if ($lotDetails) {
+				$this->load->view('enTete');
+				$this->load->view('enchere', ['lotDetails' => $lotDetails]);
+				$this->load->view('piedPage',NULL);
+			} else {
+				echo "Aucun détail trouvé pour ce lot.";
+			}
+		} else {
+			echo "L'ID du lot est manquant.";
+		}
+	}
+
 	public function valider()
 	{
 	// validité du formulaire
@@ -120,36 +158,6 @@ class Welcome extends CI_Controller {
 			$this->load->view('piedPage',$data); // Vue piedPage à créer dans le dossier VIEWS
 		}
 	}
-	
-	// public function validerConn()
-	// {
-	// // validité du formulaire
-	// $this->form_validation->set_rules('email', 'Email', 'required');
-	// $this->form_validation->set_rules('motdepasse', 'Motdepasse', 'required');
-	// // est-ce que c'est un retour du formulaire et est-il valide ?
-	// 	if ($this->form_validation->run() === FALSE) {
-	// 		// pas de formulaire ou champs invalides => réafficher le formulaire
-	// 		return $this->index();
-			
-	// 	} else {
-	// 		// retour des données => afficher le produit
-	// 		$this->load->view('enTete');
-	// 		//$this->load->view('menu');
-	// 		$data['conn']= $this->requetes->getConn($_POST['email'],$_POST['motdepasse']); 
-	// 		foreach ($data['conn'] as $row) {
-	// 			$mdp = $row['password'];
-	// 		}
-	// 		if($mdp == $_POST['motdepasse'])
-	// 		{ 
-	// 			$this->load->view('commande', $data); // valeurs saisies
-	// 		}
-	// 		else{
-	// 			$this->load->view('afficheConnexion');
-	// 		}
-	// 		//$data['clients']= $this->requetes->getClients();
-	// 		$this->load->view('piedPage'); // Vue piedPage à créer dans le dossier VIEWS
-	// 	}
-	// }
 
 	public function login() {
 		$this->form_validation->set_rules('login', 'Login', 'required');
@@ -180,42 +188,5 @@ class Welcome extends CI_Controller {
 			}
 		}
 	}
-
-
-	/*	
-	public function validerCommande()
-	{
-		$this->form_validation->set_rules('quantite_baguette', 'Baguette');
-		$this->form_validation->set_rules('quantite_campagne', 'Campagne');
-		$this->form_validation->set_rules('quantite_cereales', 'Cereales');
-		$this->form_validation->set_rules('quantite_croissant', 'Croissant');
-		$this->form_validation->set_rules('quantite_chocolat', 'Chocolat');
-		$this->form_validation->set_rules('quantite_chausson', 'Chausson');
-		$this->form_validation->set_rules('quantite_fougasse', 'Fougasse');
-		$this->form_validation->set_rules('quantite_epices', 'Epices');
-		$this->form_validation->set_rules('quantite_galette', 'Galette');
-
-		$this->load->view('enTete');
-			
-			$idUtilisateur = 1; // À remplacer par l'ID réel de l'utilisateur connecté
-
-			$this->requetes->envoieCommande(
-				$idUtilisateur,
-				$_POST['quantite_baguette'],
-				$_POST['quantite_campagne'],
-				$_POST['quantite_cereales'],
-				$_POST['quantite_croissant'],
-				$_POST['quantite_chocolat'],
-				$_POST['quantite_chausson'],
-				$_POST['quantite_fougasse'],
-				$_POST['quantite_epices'],
-				$_POST['quantite_galette']
-			);
-
-			$this->load->view('afficheCommande', $_POST);
-		
-
-		$this->load->view('piedPage');
-	} */
 	
 }

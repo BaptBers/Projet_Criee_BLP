@@ -48,5 +48,11 @@ class Model_criee extends CI_Model
     return $query->row_array(); // Retourne la ligne correspondante ou NULL
 }
 
+public function getLotById($idLot) {
+    $sql = "SELECT * FROM lot, bateau, espece, taille, bac, qualite, image, presentation WHERE bateau.IdBateau = lot.IdBateau AND espece.IdEspece = lot.IdEspece AND taille.IdTaille = lot.IdTaille AND bac.IdBac = lot.IdBac AND qualite.IdQualite = lot.IdQualite AND image.IdImage = lot.idImage AND presentation.IdPresentation = lot.IdPresentation AND IdLot = ?";
+    $query = $this->db->query($sql, [$idLot]);
+    return $query->row_array();
+}
+
 }
 ?>
