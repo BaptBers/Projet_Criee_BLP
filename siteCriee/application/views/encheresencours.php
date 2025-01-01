@@ -1,5 +1,5 @@
 	<body>
-		<p>Page de Encheres en cours</p>
+		<p>Voici les enchères en cours</p>
 		
     <div class="produits-container">
         <?php

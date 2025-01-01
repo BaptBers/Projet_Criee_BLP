@@ -1,5 +1,5 @@
 <body>
-		<p>Page de Futures encheres</p>
+		<p>Voici les futures enchères</p>
 		<div class="produits-container">
 			<?php
 			foreach ($labelFuturesEncheres as $row) {
