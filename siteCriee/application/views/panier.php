@@ -1,6 +1,41 @@
 <body>
-		<p>Page de Panier</p>
-		<a href="<?php echo site_url('welcome/contenu/affichage');?>" class ="button">Retourner à la page d'accueil</a> 		
-    
+    <div class="container-panier">
+        <h1 class="panier-header">Mon Panier</h1>
 
-	</body>
+        <?php if (isset($panier) && !empty($panier)): ?>
+            <!-- Si le panier contient des éléments -->
+            <div>
+                <?php
+                    foreach ($panier as $row) {
+                        echo "<form>";
+                        echo "<div class='lot'>";
+                        echo "<p><strong>N° lot :</strong> " . $row['IdLot'] . "</p>";
+                        echo "<p><strong>Montant de l'enchère :</strong> " . $row['montantEnchere'] . " €</p>";
+                        echo "</div>";
+                        echo "</form>";
+                    }
+                ?>
+            </div>
+
+            <!-- Affichage du total -->
+            <?php if (isset($total)): ?>
+                <div class="total">
+                    <p>Total du panier : <span><?= number_format($total, 2, '.', ' ') ?> €</span></p>
+                </div>
+            <?php endif; ?>
+
+			<!-- Ajouter un bouton de paiement -->
+			<div class="payment-button-container">
+                <form action="<?= site_url('welcome/contenu/Paiement') ?>" method="post">
+                    <button type="submit" class="btn-payer">Payer</button>
+                </form>
+            </div>
+
+        <?php else: ?>
+            <!-- Si le panier est vide -->
+            <div class="empty-panier">
+                <p>Votre panier est vide. Remportez des lots dans les enchères en cours pour continuer.</p>
+            </div>
+        <?php endif; ?>
+    </div>
+</body>
