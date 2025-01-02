@@ -17,7 +17,7 @@
                 <!-- Bloc 2 : Nom du bateau et date de pêche -->
                 <div class="info-group">
                     <p><strong>Nom du bateau :</strong> <?= isset($lotDetails['nomBateau']) ? $lotDetails['nomBateau'] : 'Non spécifié'; ?></p>
-                    <p><strong>Date de pêche :</strong> <?= isset($lotDetails['datePeche']) ? $lotDetails['datePeche'] : 'Non spécifiée'; ?></p>
+                    <p><strong>Date de pêche :</strong> <span id="date"><?= isset($lotDetails['datePeche']) ? $lotDetails['datePeche'] : 'Non spécifiée'; ?></span></p>
                 </div>
 
                 <!-- Bloc 3 : Taille, qualité et description -->
@@ -31,7 +31,7 @@
                 <div class="info-group">
                     <p><strong>Poids brut du lot :</strong> <?= isset($lotDetails['poidsBrutLot']) ? $lotDetails['poidsBrutLot'] . ' kg' : 'Non spécifié'; ?></p>
                     <p><strong>Prix de départ :</strong> <?= isset($lotDetails['prixDepart']) ? $lotDetails['prixDepart'] : 'Prix non disponible'; ?> €</p>
-                    <p><strong>Prix d'enchère actuelle :</strong> <?= isset($lotDetails['prixEnchereActuelle']) ? $lotDetails['prixEnchereActuelle'] : 'Prix non disponible'; ?> €</p>
+                    <p><strong>Prix d'enchère actuelle :</strong> <span id="prix"> <?= isset($lotDetails['prixEnchereActuelle']) ? $lotDetails['prixEnchereActuelle'] : 'Prix non disponible'; ?> € </span></p>
                 </div>
 
                 <!-- Bloc 5 : Temps restant -->

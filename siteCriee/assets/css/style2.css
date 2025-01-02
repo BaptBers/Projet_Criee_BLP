@@ -57,10 +57,15 @@ header #logo img {
     margin-bottom: 15px;
 }
 
+.produits h3 {
+    color: #555;
+}
+
 /* Texte des lots */
 .produits p {
     margin: 8px 0;
     color: #555;
+    font-weight: bold;
 }
 
 .produits p strong {
@@ -114,12 +119,31 @@ footer {
     border-radius: 15px;
 }
 
+.buttonEnchere {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    color: #00ff00;
+    font-weight: bold;
+    background-color: #4a4a4a;
+}
+
 header .auth-boutons {
     display: flex;
     gap: 15px; /* Espacement entre les boutons */
 }
 
 .button:hover {
+    background-color: #949494;
+}
+
+.buttonEnchere:hover {
     background-color: #949494;
 }
 
@@ -223,6 +247,16 @@ nav {
     overflow: hidden; /* Coupe le texte s'il dépasse */
     text-overflow: ellipsis; /* Ajoute "..." si le texte est trop long */
     text-align: justify; /* Justifie le texte */
+}
+
+#prix {
+    color: #00bb00;
+    font-weight: bold;
+}
+
+#date{
+    color: #002cbb;
+    font-weight: bold;
 }
 
 #timer {
