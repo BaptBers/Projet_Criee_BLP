@@ -26,6 +26,8 @@ class Welcome extends CI_Controller {
 		$this->load->library('form_validation'); // Charger la validation des formulaires
 		$this->load->helper('form');
 		$this->load->library('session');
+		// Réglage du fuseau horaire
+        date_default_timezone_set('Europe/Paris');
 	}
 	
 	public function index()
@@ -45,15 +47,20 @@ class Welcome extends CI_Controller {
 		$this->load->view('enTete');
 		//$this->load->view('menu');
 	
+		// Met à jour les enchères avant d'afficher les pages
+		$this->requetes->updateEncheresOuvertes();  // Pour ouvrir les enchères futures
+		$this->requetes->updateEncheresExpirees();  // Pour fermer les enchères ouvertes expirées
+
 		if($id=="EncheresEnCours")
 		{
 			$data['labelEncheresEnCours']= $this->requetes->getLotsOuvert();
+			$data['currentTime'] = date('Y-m-d H:i:s'); // Ajoute l'heure actuelle pour le calcul côté vue
 			$this->load->view('encheresencours',$data); // Créer une vue nommée formulaire.php dans VIEWS		
 		}
 
 		if($id=="FuturesEncheres")
 		{
-			$data['labelFuturesEncheres']= $this->requetes->getLotsFermes();
+			$data['labelFuturesEncheres']= $this->requetes->getLotsFutures();
 			$this->load->view('futuresencheres',$data); // Créer une vue nommée formulaire.php dans VIEWS		
 		}
 
@@ -77,7 +84,9 @@ class Welcome extends CI_Controller {
 				
 				if ($lotDetails) {
 					// Passer les détails du lot à la vue 'enchere'
-					$this->load->view('enchere', ['lotDetails' => $lotDetails]);
+					$data['lotDetails'] = $lotDetails;
+                	$data['dateFin'] = $lotDetails['dateFin'] . ' ' . $lotDetails['heureFin']; // Date et heure de fin
+					$this->load->view('enchere',$data);
 				} else {
 					// Si aucun lot trouvé
 					echo "Aucun détail trouvé pour ce lot.";
@@ -86,6 +95,14 @@ class Welcome extends CI_Controller {
 				// Si l'idLot est manquant
 				echo "ID du lot manquant.";
 			}
+		}
+
+		if($id=="ConfirmationEnchere") {
+			$this->load->view('confirmation');
+		}
+		
+		if($id=="EchecEnchere") {
+			$this->load->view('echec');
 		}
 
 		if($id=="Connexion") {
@@ -111,27 +128,6 @@ class Welcome extends CI_Controller {
 		
 		$this->load->view('piedPage',NULL); // Vue piedPage à créer dans le dossier VIEWS 
 		
-	}
-	
-	public function enchereOuverte() {
-		// Vérifier si l'ID du lot a été envoyé via POST
-		$idLot = $this->input->post('idLot');
-	
-		// Si l'ID du lot est valide, récupérer les détails du lot
-		if ($idLot) {
-			$lotDetails = $this->requetes->getLotById($idLot); // Appel de la méthode pour récupérer les informations du lot
-	
-			// Si les détails du lot sont trouvés, afficher la vue 'enchere'
-			if ($lotDetails) {
-				$this->load->view('enTete');
-				$this->load->view('enchere', ['lotDetails' => $lotDetails]);
-				$this->load->view('piedPage',NULL);
-			} else {
-				echo "Aucun détail trouvé pour ce lot.";
-			}
-		} else {
-			echo "L'ID du lot est manquant.";
-		}
 	}
 
 	public function valider()
@@ -188,5 +184,27 @@ class Welcome extends CI_Controller {
 			}
 		}
 	}
+
+	public function placerEnchere() {
+		if ($this->session->userdata('is_logged_in')) {
+			$idLot = $this->input->post('IdLot');
+			$montantEnchere = $this->input->post('montantEnchere');
+			$idAcheteur = $this->session->userdata('user_id'); // Récupérer l'ID de l'acheteur à partir de la session
+			
+			// Vérifiez si le montant de l'enchère est valide
+			if ($this->requetes->enregistreEnchere($idLot, $idAcheteur, $montantEnchere)) {
+				// Redirigez l'utilisateur vers une page de confirmation après l'enchère
+				redirect('welcome/contenu/ConfirmationEnchere');
+			} else {
+				redirect('welcome/contenu/EchecEnchere');
+			}
+			
+		} else {
+			// Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+			$this->session->set_flashdata('error', 'Vous devez être connecté pour enchérir.');
+			redirect('welcome/connexion');
+		}
+	}
 	
+
 }

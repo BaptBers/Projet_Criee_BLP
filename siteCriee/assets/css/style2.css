@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'DS Digital';
+    src: url('../fonts/DS-DIGI.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -150,37 +157,64 @@ nav {
 }
 
 .enchere {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    max-width: 1100px;
+    margin: 20px auto;
+    display: flex;
     background-color: #fff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    gap: 20px;
 }
 
 .enchere img {
-    width: 250px;
-    height: 250px;
+    flex-shrink: 0;
+    width: 200px; /* Taille fixe pour l'image */
+    height: auto;
+    border-radius: 5px;
     object-fit: cover;
-    border-radius: 8px;
-    margin-right: 20px;
-    border: 1px solid #ccc;
 }
 
-.enchere div {
-    flex: 1;
+.enchere-details {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
-.enchere p {
-    font-size: 18px;
-    margin: 10px 0;
+.enchere-details .info-group {
+    display: flex;
+    flex-wrap: nowrap; /* Empêche les éléments d'aller à la ligne */
+    justify-content: space-between;
+    align-items: center; /* Centre les éléments verticalement */
+    margin-bottom: 15px;
+}
+
+.enchere-details .info-group p {
+    flex: 1; /* Chaque élément occupe un espace égal */
+    font-size: 16px;
     color: #555;
+    margin: 0 10px; /* Espacement entre les éléments */
+    line-height: 1.5;
+    white-space: nowrap; /* Empêche les sauts de ligne dans un paragraphe */
+    overflow: hidden; /* Coupe le texte s'il dépasse */
+    text-overflow: ellipsis; /* Ajoute "..." si le texte est trop long */
+    text-align: justify; /* Justifie le texte */
+}
+
+#timer {
+    background-color: #2a2a2a; /* Fond noir */
+    color: #e75517; /* Couleur de texte rouge */
+    font-family: 'DS Digital', sans-serif; /* Utilisation de la police DS Digital */
+    font-size: 24px; /* Taille de police plus grande */
+    padding: 5px 10px; /* Espacement interne */
+    display: inline-block; /* Pour que le chronomètre soit sur une ligne */
+    border: 2px solid grey; /* Bordure grise autour du chronomètre */
+    border-radius: 10px; /* Coins arrondis */
+    text-align: center; /* Centrer le texte à l'intérieur */
+    width: fit-content; /* Ajuster la largeur en fonction du texte */
+    margin-top: 10px; /* Un peu d'espacement au-dessus */
+    letter-spacing: 1px; /* Espacement des lettres pour un effet plus marqué */
+    transition: all 0.3s ease-in-out; /* Transition pour un effet fluide */
 }
