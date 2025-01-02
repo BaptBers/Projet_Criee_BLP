@@ -66,7 +66,22 @@ class Welcome extends CI_Controller {
 
 		if($id=="Panier")
 		{
-			$this->load->view('panier'); // Créer une vue nommée formulaire.php dans VIEWS		
+			if ($this->session->userdata('is_logged_in')) {
+				$idAcheteur = $this->session->userdata('user_id');
+				$panier = $this->requetes->getInfosPanier($idAcheteur);
+				$total = $this->requetes->getTotalPanier($idAcheteur);
+
+				$data = [
+					'panier' => $panier,
+					'total' => $total
+				];
+				
+				// Charger la vue avec les données du panier
+				$this->load->view('panier', $data);
+			} else { 
+				// Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+				redirect('welcome/contenu/Connexion');
+			} 
 		}
 		
 		if($id=="affichage") {
@@ -205,6 +220,21 @@ class Welcome extends CI_Controller {
 			redirect('welcome/connexion');
 		}
 	}
-	
+
+	public function afficherPanier() {
+        // Récupérer l'ID de l'acheteur à partir de la session
+        $userId = $this->session->userdata('user_id');
+        
+        // Si l'utilisateur est connecté, récupérer les informations du panier
+        if ($userId) {
+            $data['panier'] = $this->requetes->getInfosPanier($userId);
+            
+            // Charger la vue avec les données du panier
+            $this->load->view('panier', $data);
+        } else {
+            // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+            redirect('login');
+        }
+    }
 
 }

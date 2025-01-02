@@ -34,14 +34,6 @@ CREATE TABLE QUALITE (
     descriptionQualite VARCHAR(255) NOT NULL
 );
 
--- Table PECHE
-CREATE TABLE PECHE (
-    IdBateau INT NOT NULL,
-    datePeche DATE NOT NULL,
-    PRIMARY KEY (IdBateau, datePeche),
-    FOREIGN KEY (IdBateau) REFERENCES BATEAU(IdBateau)
-);
-
 -- Table BAC
 CREATE TABLE BAC (
     IdBac INT PRIMARY KEY,
@@ -62,7 +54,7 @@ CREATE TABLE ACHETEUR (
 
 -- Table IMAGE
 CREATE TABLE IMAGE (
-    IdImage INT PRIMARY KEY,
+    IdImage INT AUTO_INCREMENT PRIMARY KEY,
     ImageLot VARCHAR(255) NOT NULL
     
 );
@@ -91,7 +83,6 @@ CREATE TABLE LOT (
     poidsBrutLot DECIMAL(10, 2) NOT NULL,
     prixDepart DECIMAL(10, 2) NOT NULL,
     prixEnchereActuelle DECIMAL(10, 2) NOT NULL,
-    prixFinal DECIMAL(10, 2),
     dateOuverture DATE,
     dateFin DATE,
     heureOuverture TIME,
@@ -99,27 +90,15 @@ CREATE TABLE LOT (
     statut VARCHAR(50),
     IdFacture INT,
     FOREIGN KEY (idImage) REFERENCES IMAGE(IdImage),
-    PRIMARY KEY (IdLot, IdBateau, datePeche),
+    PRIMARY KEY (IdLot),
+    FOREIGN KEY (IdBateau) REFERENCES BATEAU(IdBateau),
     FOREIGN KEY (IdEspece) REFERENCES ESPECE(IdEspece),
     FOREIGN KEY (IdBateau, datePeche) REFERENCES PECHE(IdBateau, datePeche),
     FOREIGN KEY (IdTaille) REFERENCES TAILLE(IdTaille),
     FOREIGN KEY (IdPresentation) REFERENCES PRESENTATION(IdPresentation),
     FOREIGN KEY (IdBac) REFERENCES BAC(IdBac),
-    FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur),
+    FOREIGN KEY (IdAcheteur) REFERENCES HISTORIQUE_ENCHERES(IdAcheteur),
     FOREIGN KEY (IdQualite) REFERENCES QUALITE(IdQualite)
-);
-
--- Table POSTER
-CREATE TABLE POSTER (
-    IdLot INT NOT NULL,
-    datePeche DATE NOT NULL,
-    IdBateau INT NOT NULL,
-    IdAcheteur INT NOT NULL,
-    prixEnchere DECIMAL(10, 2),
-    heureEnchere TIME,
-    PRIMARY KEY (IdLot, IdAcheteur, datePeche, IdBateau),
-    FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur),
-    FOREIGN KEY (IdLot, IdBateau, datePeche) REFERENCES LOT(IdLot, IdBateau, datePeche)
 );
 
 CREATE TABLE HISTORIQUE_ENCHERES(
@@ -130,6 +109,15 @@ CREATE TABLE HISTORIQUE_ENCHERES(
     PRIMARY KEY (IdLot, IdAcheteur, dateEnchere),
     FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur),
     FOREIGN KEY (IdLot) REFERENCES LOT(IdLot)
+);
+
+CREATE TABLE PANIER (
+    IdPanier INT AUTO_INCREMENT PRIMARY KEY,
+    IdLot INT NOT NULL,
+    IdAcheteur INT NOT NULL,
+    montantEnchere DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (IdLot) REFERENCES LOT(IdLot),
+    FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)
 );
 
 -- Insertion dans la table BATEAU
@@ -162,12 +150,6 @@ INSERT INTO QUALITE (IdQualite, descriptionQualite) VALUES
 (2, 'Bonne'),
 (3, 'Moyenne');
 
--- Insertion dans la table PECHE
-INSERT INTO PECHE (IdBateau, datePeche) VALUES
-(1, '2024-12-01'),
-(2, '2024-12-02'),
-(3, '2024-12-03');
-
 -- Insertion dans la table BAC
 INSERT INTO BAC (IdBac, tare) VALUES
 (1, 50.00),
@@ -185,25 +167,74 @@ INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
 (2, 2, '2024-12-04', 1200.00);
 
 -- Insertion dans la table IMAGE
-INSERT INTO IMAGE (IdImage, ImageLot) VALUES
-(1, 'img/lot1.jpeg'),
-(2, 'img/lot2.jpeg'),
-(3, 'img/lot3.jpg'),
-(4, 'img/lot4.jpg'),
-(5, 'img/lot5.jpg'),
-(6, 'img/lot6.jpg');
+INSERT INTO IMAGE (ImageLot) VALUES
+('img/lot1.jpg'),
+('img/lot2.jpg'),
+('img/lot3.jpg'),
+('img/lot4.jpg'),
+('img/lot5.jpg'),
+('img/lot6.jpg'),
+('img/lot7.jpg'),
+('img/lot8.jpg');
 
 -- Insertion dans la table LOT
-INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, prixFinal, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture) VALUES
-(1, 1, '2024-12-01', 1, 2, 1, 1, 1, 1, 1, 1000.00, 800.00, 800.00, null, '2025-01-01', '2025-01-02', '05:00:00','23:59:59', 'future', 1),
-(2, 2, '2024-12-02', 2, 1, 2, 2, 2, 2, 2, 500.00, 400.00, 400.00, null, '2025-01-02', '2025-01-05', '05:00:00','23:59:59', 'future', 2),
-(3, 3, '2024-12-06', 1, 2, 1, 1, 1, 1, 3, 1000.00, 800.00, 800.00, null, '2025-01-03', '2025-01-07', '05:00:00','23:59:59', 'future', 1),
-(4, 3, '2024-12-07', 2, 1, 2, 2, 2, 2, 4, 500.00, 400.00, 400.00, null, '2025-01-02', '2025-01-03', '05:00:00','23:59:59', 'future', 2),
-(5, 1, '2024-12-09', 1, 2, 1, 1, 1, 1, 5, 1000.00, 800.00, 800.00, null, '2025-01-03', '2025-01-04', '05:00:00','23:59:59', 'future', 1),
-(6, 2, '2024-12-11', 2, 1, 2, 2, 2, 2, 6, 500.00, 400.00, 400.00, null, '2025-01-03', '2025-01-05', '05:00:00','23:59:59', 'future', 2);
+INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture) VALUES
+(1, 1, '2024-12-12', 1, 2, 1, 1, null, 1, 1, 1000.00, 800.00, 800.00, '2025-01-01', '2025-01-02', '05:00:00','22:30:00', 'future', 1),
+(2, 2, '2024-12-18', 2, 1, 3, 2, null, 2, 2, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-06', '05:00:00','23:59:59', 'future', 2),
+(3, 3, '2024-12-03', 3, 3, 2, 1, null, 3, 3, 1000.00, 800.00, 800.00, '2025-01-02', '2025-01-05', '05:00:00','23:59:59', 'future', 1),
+(4, 3, '2024-12-08', 2, 1, 3, 2, null, 2, 4, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 2),
+(5, 1, '2024-12-22', 1, 2, 1, 1, null, 1, 5, 1000.00, 800.00, 800.00, '2025-03-01', '2025-03-04', '05:00:00','23:59:59', 'future', 1),
+(6, 2, '2024-12-30', 3, 3, 2, 1, null, 2, 6, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2),
+(7, 3, '2024-12-31', 2, 2, 3, 2, null, 3, 7, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2),
+(8, 1, '2024-12-04', 2, 1, 2, 2, null, 2, 8, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2);
 
+DELIMITER //
+CREATE TRIGGER after_lot_closed
+AFTER UPDATE ON lot
+FOR EACH ROW
+BEGIN
+    -- Déclarer les variables nécessaires
+    DECLARE winning_bidder INT;
+    DECLARE winning_bid DECIMAL(10, 2);
 
--- Insertion dans la table POSTER
-INSERT INTO POSTER (IdLot, datePeche, IdBateau, IdAcheteur, prixEnchere, heureEnchere) VALUES
-(1, '2024-12-01', 1, 1, 900.00, '10:15:00'),
-(2, '2024-12-02', 2, 2, 450.00, '11:30:00');
+    -- Vérifier si le statut du lot a changé en "fermee"
+    IF NEW.statut = 'fermee' AND OLD.statut = 'ouverte' THEN
+        -- Trouver l'acheteur ayant la plus grande enchère pour ce lot
+        SELECT IdAcheteur, MAX(montantEnchere) INTO winning_bidder, winning_bid
+        FROM historique_encheres
+        WHERE IdLot = NEW.IdLot
+        GROUP BY IdLot
+        ORDER BY winning_bid DESC
+        LIMIT 1;
+
+        -- Si un gagnant est trouvé
+        IF winning_bidder IS NOT NULL THEN
+            -- Insérer l'acheteur dans la table panier
+            INSERT INTO panier (IdLot, IdAcheteur, montantEnchere)
+            VALUES (NEW.IdLot, winning_bidder, winning_bid);
+        END IF;
+    END IF;
+END; //
+DELIMITER ;
+
+DELIMITER //
+
+CREATE FUNCTION calculer_total_panier(idAcheteur INT) 
+RETURNS DECIMAL(10, 2)
+DETERMINISTIC
+BEGIN
+    DECLARE total DECIMAL(10, 2) DEFAULT 0;
+
+    -- Sélectionner le total des enchères gagnées pour cet acheteur
+    SELECT SUM(p.montantEnchere) 
+    INTO total
+    FROM panier p
+    JOIN lot l ON p.IdLot = l.IdLot
+    WHERE p.IdAcheteur = idAcheteur;
+
+    -- Retourner le total calculé
+    RETURN total;
+END //
+
+DELIMITER ;
+
