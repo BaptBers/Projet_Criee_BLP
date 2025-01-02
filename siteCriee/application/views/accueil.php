@@ -1,5 +1,4 @@
 	<body>
 		<br>
-		<br>
-		<h3>Bienvenue sur le site Projet Criée !</h3>
+		<h3>Bienvenue sur le site de la criée de Cornouailles !</h3>
 	</body>
