@@ -1,13 +1,13 @@
 <body>          
-    <h2>Inscription</h2>
 	<?php echo validation_errors(); ?>
+	<div class="produits-container">
 	<form action="<?php echo site_url('welcome/valider'); ?>" method='POST' class="conn">
 
 		<fieldset id="InfoI" name="InfoI">
-			<legend>Vos Informations</legend>
+			<legend>Créer son compte</legend>
 			
 			<label for="login">Login </label>
-			<input type="text" id="login" name="login" required/><br><br>
+			<input type="login" id="login" name="login" required/><br><br>
 			
 			<label for="raisonSocialeEntreprise">Raison sociale entreprise </label>
 			<input type="text" id="raisonSocialeEntreprise" name="raisonSocialeEntreprise" required/><br><br>
@@ -34,4 +34,5 @@
     <br>
     <a href="<?php echo site_url('welcome/contenu/affichage');?>" class ="button">Retourner à la page d'accueil</a> 
     </form>
+	</div>
 </body>
