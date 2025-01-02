@@ -5,9 +5,9 @@
 			foreach ($labelFuturesEncheres as $row) {
 				echo "<form class = 'produits'>";
 				echo "<div>";
-				echo "<p>N° lot :" . $row['IdLot'] . "</p>";
+				echo "<h3>N° lot : " . $row['IdLot'] . "</h3>";
 				echo "<img src='" .base_url()."/assets/". $row['ImageLot'] . "' alt=''>";
-				echo "<p>Date d'ouverture du lot : " . $row['dateOuverture'] . "</p>";
+				echo "<p>Date d'ouverture du lot : <span id='date'>" . $row['dateOuverture'] . "</span></p>";
 				echo "<p>Heure d'ouverture du lot : " . $row['heureOuverture'] . "</p>";
 				echo "<p>Description : " . $row['nomCommun'] . "</p>";
 				echo "</div>";

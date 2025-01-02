@@ -5,14 +5,14 @@
         foreach ($labelEncheresEnCours as $row) {
             echo "<form method='POST' action='" . site_url('welcome/contenu/EnchereOuverte') . "' class='produits'>";
             echo "<div>";
-            echo "<p>N° lot : " . $row['IdLot'] . "</p>";
+            echo "<h3>N° lot : " . $row['IdLot'] . "</h3>";
             echo "<img src='" . base_url() . "/assets/" . $row['ImageLot'] . "' alt='Image du Lot'>";
-            echo "<br><br>";
+            echo "<br>";
             echo "<p id='timer" . $row['IdLot'] . "'>Calcul en cours...</p>"; // Zone pour le chronomètre
-
+            echo "<br>";
             // Passer la date et l'heure de fin dans un attribut data
             echo "<input type='hidden' name='idLot' value='" . $row['IdLot'] . "'>";
-            echo "<button type='submit' class='button'>ENCHERIR</button>";
+            echo "<button type='submit' class='buttonEnchere'>Enchérir</button>";
             echo "</div>";
             echo "</form>";
 
