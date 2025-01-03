@@ -1,4 +1,5 @@
-<body>          
+<body>     
+	<br><br>     
 	<?php echo validation_errors(); ?>
 	<div class="produits-container">
 	<form action="<?php echo site_url('welcome/login'); ?>" method='POST' class="conn">
@@ -16,7 +17,7 @@
 				
 	</fieldset>
     <br>
-    <a href="<?php echo site_url('welcome/contenu/affichage');?>" class ="button">Retourner à la page d'accueil</a> 
+    <a href="<?php echo site_url('welcome/contenu/Accueil');?>" class ="button">Retourner à la page d'accueil</a> 
     </form>
 </div>
 </body>

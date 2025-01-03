@@ -33,13 +33,8 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('enTete'); // créer un fichier enTete.php dans le répertoire views
-		//$this->load->view('menu'); // créer un fichier menu.php dans le répertoire views
-		$this->load->view('accueil'); // créer affichage.php dans le répertoire views
-
-		
-		
+		$this->load->view('accueil'); // créer accueil.php dans le répertoire views
 		$this->load->view('piedPage'); // Vue piedPage à créer dans le dossier VIEWS
-		//$this->load->view('piedPage',NULL); // Vue piedPage à créer dans le dossier VIEWS 
 	}
 	
 	public function contenu($id)
@@ -84,7 +79,7 @@ class Welcome extends CI_Controller {
 			} 
 		}
 		
-		if($id=="affichage") {
+		if($id=="Accueil") {
 			$this->load->view('accueil');
 		}
 		
@@ -120,6 +115,10 @@ class Welcome extends CI_Controller {
 			$this->load->view('echec');
 		}
 
+		if($id=="ErreurConn") {
+			$this->load->view('afficheConnexion');
+		}
+
 		if($id=="Connexion") {
 			$this->load->view('connexion');
 		}
@@ -128,6 +127,10 @@ class Welcome extends CI_Controller {
 			$this->load->view('inscription');
 		}
 		
+		if($id=="Ajout") {
+			$this->load->view('ajoutLots');
+		}
+
 		if($id=="MentionsLegales") {
 			$this->load->view('mentionslegales');
 		}
@@ -138,7 +141,7 @@ class Welcome extends CI_Controller {
 		
 		if($id=="Deconnexion"){
 			$this->session->sess_destroy();
-			$this->load->view('accueil');
+			redirect('welcome/contenu/Accueil');
 		}
 		
 		$this->load->view('piedPage',NULL); // Vue piedPage à créer dans le dossier VIEWS 
@@ -161,7 +164,7 @@ class Welcome extends CI_Controller {
 			return $this->index();
 			
 		} else {
-			// retour des données => afficher le produit
+			// retour des données
 			$this->load->view('enTete');
 			//$this->load->view('menu');
 			$this->load->view('afficheInscription', $_POST); // valeurs saisies
@@ -179,23 +182,35 @@ class Welcome extends CI_Controller {
 		} else {
 			$login = $this->input->post('login');
 			$pwd = $this->input->post('pwd');
-	
-			// Vérifiez les informations dans la base de données
-			$result = $this->requetes->verifyLogin($login, $pwd);
-	
+			
+			$result = $this->requetes->verifyAdmin($login, $pwd);
 			if (!empty($result)) {
 				// Stocker les informations utilisateur dans la session
 				$this->session->set_userdata([
-					'user_id' => $result['IdAcheteur'],
-					'user_login' => $result['login'],
+					'user_id' => $result['IdAdmin'],
+					'user_login' => $result['loginAdmin'],
 					'is_logged_in' => TRUE,
+					'is_admin' => TRUE,
 				]);
 	
 				// Redirection vers une page après connexion
 				redirect('welcome/contenu/EncheresEnCours');
 			} else {
-				$data['error'] = 'Login ou mot de passe incorrect';
-				$this->load->view('connexion', $data);
+				// Vérifiez les informations dans la base de données
+				$result = $this->requetes->verifyLogin($login, $pwd);	
+				if (!empty($result)) {
+					// Stocker les informations utilisateur dans la session
+					$this->session->set_userdata([
+						'user_id' => $result['IdAcheteur'],
+						'user_login' => $result['login'],
+						'is_logged_in' => TRUE,
+					]);
+		
+					// Redirection vers une page après connexion
+					redirect('welcome/contenu/EncheresEnCours');
+				} else {
+					redirect('welcome/contenu/ErreurConn');
+				}
 			}
 		}
 	}
@@ -217,7 +232,7 @@ class Welcome extends CI_Controller {
 		} else {
 			// Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
 			$this->session->set_flashdata('error', 'Vous devez être connecté pour enchérir.');
-			redirect('welcome/connexion');
+			redirect('welcome/contenu/Connexion');
 		}
 	}
 
@@ -233,7 +248,7 @@ class Welcome extends CI_Controller {
             $this->load->view('panier', $data);
         } else {
             // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
-            redirect('login');
+            redirect('welcome/contenu/Connexion');
         }
     }
 

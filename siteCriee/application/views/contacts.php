@@ -1,6 +1,5 @@
 <body>
-	<br>
-	<h2>Nous contacter</h2>
+	<h2 class="titre">Nous contacter</h2>
 	<div class="produits-container">
 	<form class="contact">
 		<p>Pour toutes demandes liées à notre site, n'hésitez pas à nous contacter via les moyens suivants :</p>
@@ -11,6 +10,6 @@
 	</form>
 	</div>
 	<div class="bouton-retour">
-			<a href="<?php echo site_url('welcome/contenu/affichage');?>" class="button">Retourner à la page d'accueil</a>
+			<a href="<?php echo site_url('welcome/contenu/Accueil');?>" class="buttonRetour">Retourner à la page d'accueil</a>
 	</div>
 </body>

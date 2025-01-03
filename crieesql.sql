@@ -52,6 +52,15 @@ CREATE TABLE ACHETEUR (
     numHabilitation VARCHAR(50) 
 );
 
+-- Table ADMINISTRATEUR
+CREATE TABLE ADMINISTRATEUR (
+    IdAdmin INT AUTO_INCREMENT PRIMARY KEY,
+    loginAdmin VARCHAR(50) NOT NULL UNIQUE,
+    pwdAdmin VARCHAR(50) NOT NULL,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL
+);
+
 -- Table IMAGE
 CREATE TABLE IMAGE (
     IdImage INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,6 +98,8 @@ CREATE TABLE LOT (
     heureFin TIME,
     statut VARCHAR(50),
     IdFacture INT,
+    IdAdmin INT NOT NULL, 
+    FOREIGN KEY (IdAdmin) REFERENCES ADMINISTRATEUR(IdAdmin),
     FOREIGN KEY (idImage) REFERENCES IMAGE(IdImage),
     PRIMARY KEY (IdLot),
     FOREIGN KEY (IdBateau) REFERENCES BATEAU(IdBateau),
@@ -161,6 +172,12 @@ INSERT INTO ACHETEUR (login, pwd, raisonSocialeEntreprise, adresse, ville, codeP
 ('acheteur2', 'pass456', 'Pêche et Co', '2 quai du Port', 'Portville', '75002', 'HAB7654321'),
 ('test', 'test', 'test', 'test', 'test', 'test', 'test');
 
+-- Insertion dans la table ADMINISTRATEUR (nouveau)
+INSERT INTO ADMINISTRATEUR (loginAdmin, pwdAdmin, nom, prenom) VALUES
+('admin1', 'test123', 'Bersuder', 'Baptiste'),
+('admin2', 'test456', 'Pham', 'Billy'),
+('admin3', 'test789', 'Laaraj', 'Mohamed');
+
 -- Insertion dans la table FACTURE
 INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
 (1, 1, '2024-12-03', 1500.00),
@@ -178,15 +195,15 @@ INSERT INTO IMAGE (ImageLot) VALUES
 ('img/lot8.jpg');
 
 -- Insertion dans la table LOT
-INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture) VALUES
-(1, 1, '2024-12-12', 1, 2, 1, 1, null, 1, 1, 1000.00, 800.00, 800.00, '2025-01-01', '2025-01-06', '05:00:00','22:30:00', 'future', 1),
-(2, 2, '2024-12-18', 2, 1, 3, 2, null, 2, 2, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-06', '05:00:00','23:59:59', 'future', 2),
-(3, 3, '2024-12-03', 3, 3, 2, 1, null, 3, 3, 1000.00, 800.00, 800.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 1),
-(4, 3, '2024-12-08', 2, 1, 3, 2, null, 2, 4, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 2),
-(5, 1, '2024-12-22', 1, 2, 1, 1, null, 1, 5, 1000.00, 800.00, 800.00, '2025-03-01', '2025-03-04', '05:00:00','23:59:59', 'future', 1),
-(6, 2, '2024-12-30', 3, 3, 2, 1, null, 2, 6, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2),
-(7, 3, '2024-12-31', 2, 2, 3, 2, null, 3, 7, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2),
-(8, 1, '2024-12-04', 2, 1, 2, 2, null, 2, 8, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2);
+INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
+(1, 1, '2024-12-12', 1, 2, 1, 1, null, 1, 1, 1000.00, 800.00, 800.00, '2025-01-01', '2025-01-06', '05:00:00','22:30:00', 'future', 1, 1),
+(2, 2, '2024-12-18', 2, 1, 3, 2, null, 2, 2, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-06', '05:00:00','23:59:59', 'future', 2, 2),
+(3, 3, '2024-12-03', 3, 3, 2, 1, null, 3, 3, 1000.00, 800.00, 800.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 1, 3),
+(4, 3, '2024-12-08', 2, 1, 3, 2, null, 2, 4, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 2, 2),
+(5, 1, '2024-12-22', 1, 2, 1, 1, null, 1, 5, 1000.00, 800.00, 800.00, '2025-03-01', '2025-03-04', '05:00:00','23:59:59', 'future', 1, 1),
+(6, 2, '2024-12-30', 3, 3, 2, 1, null, 2, 6, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 3),
+(7, 3, '2024-12-31', 2, 2, 3, 2, null, 3, 7, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 1),
+(8, 1, '2024-12-04', 2, 1, 2, 2, null, 2, 8, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 2);
 
 DELIMITER //
 CREATE TRIGGER after_lot_closed
