@@ -1,5 +1,5 @@
 <body>
-		<p>Voici les futures enchères</p>
+	<br><br>
 		<div class="produits-container">
 			<?php
 			foreach ($labelFuturesEncheres as $row) {
@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="bouton-retour">
-			<a href="<?php echo site_url('welcome/contenu/affichage');?>" class="button">Retourner à la page d'accueil</a>
+			<a href="<?php echo site_url('welcome/contenu/Accueil');?>" class="buttonRetour">Retourner à la page d'accueil</a>
 		</div>
 
 	</body>

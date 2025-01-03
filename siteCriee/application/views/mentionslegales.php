@@ -1,5 +1,6 @@
 ﻿<body>
-	<h2>Les mentions légales</h2>
+	<h2 class="titre">Les mentions légales</h2>
+	<br>
 	<div class="produits-container">
 	<form class="mentions">
 		<p>Conformément à l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, 
@@ -15,6 +16,6 @@
 	</form>
 	</div>
 	<div class="bouton-retour">
-		<a href="<?php echo site_url('welcome/contenu/affichage');?>" class="button">Retourner à la page d'accueil</a>
+		<a href="<?php echo site_url('welcome/contenu/Accueil');?>" class="buttonRetour">Retourner à la page d'accueil</a>
 	</div>
 </body>

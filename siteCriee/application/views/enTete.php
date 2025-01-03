@@ -8,10 +8,6 @@
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/style2.css');?>">
 	</head>
 
-
-
-
-
 	<header>
 		<div id="logo">
 			<img src="<?php echo base_url().'assets/img/logo3.png';?>" alt="">
@@ -24,22 +20,22 @@
 			<a href="<?php echo site_url('welcome/contenu/Connexion');?>" class ="button">Se connecter</a>
 			<a href="<?php echo site_url('welcome/contenu/Inscription');?>" class ="button">S'inscrire</a>
     	</div>
-		<?php else: 				
-			$login = $_SESSION['user_login'];
-			echo "<p>" . $login. "</p>";?>
+		<?php else: 
+			$login = $_SESSION['user_login']; ?> 
 		<div class="auth-boutons">		
+			<?php echo "<p class ='login'>" . $login. "</p>";?>
 			<a href="<?php echo site_url('welcome/contenu/Deconnexion');?>" class ="button">Déconnexion</a>
-    	</div>
+		</div>
 		<?php endif; ?>
 	</header>
-	
-
-
 
 	<nav>
 		<div class="nav-milieu">
 			<a href="<?php echo site_url('welcome/contenu/EncheresEnCours');?>" class ="button">Enchères en cours</a>  
 			<a href="<?php echo site_url('welcome/contenu/FuturesEncheres');?>" class ="button">Futures enchères</a> 
+			<?php if(isset($_SESSION["is_admin"])):?>
+				<a href="<?php echo site_url('welcome/contenu/Ajout');?>" class ="button">Ajout de lots</a>	
+			<?php endif; ?>
 		</div>
 			
 		<div class="nav-droite">
