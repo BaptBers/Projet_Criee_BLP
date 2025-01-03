@@ -2,12 +2,21 @@
     <?php if (isset($_SESSION['is_admin'])) { ?>
         <br><br>
         <div class="produits-container">
-        <form action="<?php echo site_url('admin/ajouterLot'); ?>" method="POST" enctype="multipart/form-data" class="form-ajout-lot">
+        <form action="<?php echo site_url('welcome/validerAjoutLot'); ?>" method="POST" class="formajoutlot">
             <fieldset>
                 <legend>Informations du lot</legend>
                 
-                <label for="nomLot">Nom du lot</label>
-                <input type="text" id="nomLot" name="nomLot" required><br><br>
+                <label for="nomScientifique">Nom scientifique</label>
+                <input type="text" id="nomScientifique" name="nomScientifique" required><br><br>
+
+                <label for="nomCommun">Nom commun</label>
+                <input type="text" id="nomCommun" name="nomCommun" required><br><br>
+
+                <label for="datePeche">Date de pêche</label>
+                <input type="date" id="datePeche" name="datePeche" required><br><br>
+
+                <label for="nomBateau">Nom du bateau</label>
+                <input type="text" id="nomBateau" name="nomBateau" required><br><br>
                 
                 <label for="dateOuverture">Date d'ouverture</label>
                 <input type="date" id="dateOuverture" name="dateOuverture" required><br><br>

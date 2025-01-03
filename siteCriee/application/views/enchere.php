@@ -13,24 +13,29 @@
                     <p><strong>Numéro du lot :</strong> <?= $lotDetails['IdLot']; ?></p>
                     <p><strong>Nom scientifique :</strong> <?= isset($lotDetails['nomScientifique']) ? $lotDetails['nomScientifique'] : 'Non spécifiée'; ?></p>
                     <p><strong>Espèce :</strong> <?= isset($lotDetails['nomCommun']) ? $lotDetails['nomCommun'] : 'Non spécifiée'; ?></p>
+                    <p><strong>Taille :</strong> <?= isset($lotDetails['IdTaille']) ? $lotDetails['IdTaille'] : 'Non spécifiée'; ?></p>
                 </div>
 
                 <!-- Bloc 2 : Nom du bateau et date de pêche -->
                 <div class="info-group">
                     <p><strong>Nom du bateau :</strong> <?= isset($lotDetails['nomBateau']) ? $lotDetails['nomBateau'] : 'Non spécifié'; ?></p>
-                    <p><strong>Date de pêche :</strong> <span id="date"><?= isset($lotDetails['datePeche']) ? $lotDetails['datePeche'] : 'Non spécifiée'; ?></span></p>
+                    <p><strong>Date de pêche :</strong> <span id="date"><?= isset($lotDetails['datePeche']) ? $lotDetails['datePeche'] : 'Non spécifiée'; ?></span></p>                  
+                    <p><strong>Description :</strong> <?= isset($lotDetails['descriptionPresentation']) ? $lotDetails['descriptionPresentation'] : 'Description non disponible'; ?></p>
                 </div>
 
                 <!-- Bloc 3 : Taille, qualité et description -->
-                <div class="info-group">
-                    <p><strong>Taille :</strong> <?= isset($lotDetails['descriptionTaille']) ? $lotDetails['descriptionTaille'] : 'Non spécifiée'; ?></p>
-                    <p><strong>Qualité :</strong> <?= isset($lotDetails['descriptionQualite']) ? $lotDetails['descriptionQualite'] : 'Non spécifiée'; ?></p>
-                    <p><strong>Description :</strong> <?= isset($lotDetails['descriptionPresentation']) ? $lotDetails['descriptionPresentation'] : 'Description non disponible'; ?></p>
+                <div class="info-group">   
+                    <p><strong>Qualité :</strong> <strong><?= isset($lotDetails['IdQualite']) ? $lotDetails['IdQualite'] : 'Non spécifiée'; ?></strong>, <?= isset($lotDetails['descriptionQualite']) ? $lotDetails['descriptionQualite'] : 'Non spécifiée'; ?></p>
+                    <p><strong>Bac :</strong> <strong><?= isset($lotDetails['IdBac']) ? $lotDetails['IdBac'] : 'Non spécifiée'; ?></strong>, <?= isset($lotDetails['designationTaille']) ? $lotDetails['designationTaille'] : 'Non spécifiée'; ?></p>
+                    <p><strong>Poids brut du lot :</strong> <?= isset($lotDetails['poidsBrutLot']) ? $lotDetails['poidsBrutLot'] . ' kg' : 'Non spécifié'; ?></p>
+                    <p><strong>Tare :</strong> <?= isset($lotDetails['tare']) ? $lotDetails['tare'] : 'Non spécifiée'; ?> kg</p>
+                    
                 </div>
 
                 <!-- Bloc 4 : Poids brut et prix -->
                 <div class="info-group">
-                    <p><strong>Poids brut du lot :</strong> <?= isset($lotDetails['poidsBrutLot']) ? $lotDetails['poidsBrutLot'] . ' kg' : 'Non spécifié'; ?></p>
+                    
+                    <p><strong>Poids net du lot :</strong> <?= isset($poidsNet) ? $poidsNet . ' kg' : 'Non spécifié'; ?>
                     <p><strong>Prix de départ :</strong> <?= isset($lotDetails['prixDepart']) ? $lotDetails['prixDepart'] : 'Prix non disponible'; ?> €</p>
                     <p><strong>Prix d'enchère actuelle :</strong> <span id="prix"> <?= isset($lotDetails['prixEnchereActuelle']) ? $lotDetails['prixEnchereActuelle'] : 'Prix non disponible'; ?> € </span></p>
                 </div>
@@ -41,16 +46,18 @@
                 ?>
                 <div class="info-group">
                     <p><strong>Temps restant :</strong> <span id="timer"></span></p>
+                    <p><strong>Acheteur actuel :</strong> <span id="acheteur"><?= isset($acheteur['login']) ? $acheteur['login'] : "Pas encore d'acheteur"; ?></span></p>
                     <!-- Formulaire d'enchère -->
-                    <?php if (isset($_SESSION['user_id'])) { ?>
+                    <?php if (isset($_SESSION['user_id']) && !isset($_SESSION['is_admin'])) { ?>
                         <div class="enchere-form">
-                            <form method="POST" action="<?= site_url('welcome/placerEnchere'); ?>">
-                            <label for="montantEnchere">Votre enchère : </label>
-                            <input type="number" id="montantEnchere" name="montantEnchere" step="0.01" min="<?= isset($lotDetails['prixEnchereActuelle']) + 1 ? $lotDetails['prixEnchereActuelle'] : 0 ?>" placeholder="Entrez votre enchère" required>
+                            <form method="POST" action="<?= site_url('welcome/placerEnchere'); ?>">  
+                            <input type="number" id="montantEnchere" name="montantEnchere" step="0.50" min="<?= isset($lotDetails['prixEnchereActuelle']) + 0.5 ? $lotDetails['prixEnchereActuelle'] : 0 ?>" placeholder="Entrez votre enchère" required>
                             <input type="hidden" name="IdLot" value="<?= $lotDetails['IdLot']; ?>">
                             <button type="submit" class="button">Placer l'enchère</button>
                             </form>
                         </div>
+                    <?php } elseif (isset($_SESSION['is_admin'])) { ?>
+                        <p>Vous devez être acheteur pour enchérir sur ce lot.</p>
                     <?php } else { ?>
                         <p>Vous devez être connecté pour enchérir sur ce lot.</p>
                     <?php } ?>

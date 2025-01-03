@@ -1,6 +1,9 @@
 <body>
-    <p>Echec de l'enregistrement de l'enchère. Vérifiez bien que l'enchère soit strictement supérieure à celle actuelle.</p>
+    <br>
+    <div class ="resultat">
+        <p id="fail">Échec de l'enregistrement de l'enchère. Vérifiez bien que l'enchère soit <strong>STRICTEMENT</strong> supérieure à celle actuelle.</p>
+    </div>
     <div class="bouton-retour">
-        <a href="<?php echo site_url('welcome/contenu/EncheresEnCours'); ?>" class="button">Retour</a>
+        <a href="<?php echo site_url('welcome/contenu/EncheresEnCours'); ?>" class="buttonRetour">Retour</a>
     </div>
 </body>

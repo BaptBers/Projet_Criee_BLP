@@ -59,6 +59,12 @@ class Model_criee extends CI_Model
         return $query->row_array();
     }
 
+    public function getAcheteur($idLot) {
+        $sql = "SELECT * FROM lot, bateau, espece, taille, bac, qualite, image, presentation, historique_encheres, acheteur WHERE historique_encheres.IdAcheteur = acheteur.IdAcheteur AND lot.IdLot = historique_encheres.IdLot AND lot.IdAcheteur = historique_encheres.IdAcheteur AND bateau.IdBateau = lot.IdBateau AND espece.IdEspece = lot.IdEspece AND taille.IdTaille = lot.IdTaille AND bac.IdBac = lot.IdBac AND qualite.IdQualite = lot.IdQualite AND image.IdImage = lot.idImage AND presentation.IdPresentation = lot.IdPresentation AND lot.IdLot = ?";
+        $query = $this->db->query($sql, [$idLot]);
+        return $query->row_array();
+    }
+
     public function updateEncheresOuvertes() {
         $sql = "UPDATE lot 
                 SET statut = 'ouverte' 
@@ -107,17 +113,17 @@ class Model_criee extends CI_Model
     }
 
     public function getInfosPanier($idAcheteur){
-    // Définir la requête SQL pour récupérer les informations du panier de l'acheteur
-    $sql = "SELECT panier.IdLot, panier.IdAcheteur, panier.montantEnchere
-    FROM panier, lot
-    WHERE lot.IdLot = panier.IdLot 
-    AND panier.IdAcheteur = ?";
+        // Définir la requête SQL pour récupérer les informations du panier de l'acheteur
+        $sql = "SELECT panier.IdLot, panier.IdAcheteur, panier.montantEnchere
+        FROM panier, lot
+        WHERE lot.IdLot = panier.IdLot 
+        AND panier.IdAcheteur = ?";
 
-    // Exécution de la requête
-    $query = $this->db->query($sql, [$idAcheteur]);
+        // Exécution de la requête
+        $query = $this->db->query($sql, [$idAcheteur]);
 
-    // Retourner les résultats sous forme de tableau associatif
-    return $query->result_array();
+        // Retourner les résultats sous forme de tableau associatif
+        return $query->result_array();
     }
 
     public function getTotalPanier($idAcheteur) {
@@ -129,5 +135,13 @@ class Model_criee extends CI_Model
         return $query->row()->total_panier;
     }
 
+    public function getPoidsNet($idLot) {
+        // Appeler la fonction stockée pour récupérer le total du panier
+        $sql = "SELECT calcul_poids_net(?) AS poidsNet";
+        $query = $this->db->query($sql, array($idLot));
+    
+        // Retourner le résultat
+        return $query->row()->poidsNet;
+    }
 }
 ?>

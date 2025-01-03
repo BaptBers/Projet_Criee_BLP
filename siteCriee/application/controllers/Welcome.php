@@ -85,15 +85,18 @@ class Welcome extends CI_Controller {
 		
 		if ($id == "EnchereOuverte") {
 			// Récupérer l'ID du lot depuis la requête POST
-			$idLot = $this->input->post('idLot');
-			
+			$idLot = $this->input->post('idLot');	
+
 			// Si un idLot a été envoyé
 			if ($idLot) {
 				// Récupérer les détails du lot
 				$lotDetails = $this->requetes->getLotById($idLot);
-				
 				if ($lotDetails) {
 					// Passer les détails du lot à la vue 'enchere'
+					$acheteur = $this->requetes->getAcheteur($idLot);
+					$data['acheteur'] = $acheteur;	
+					$total = $this->requetes->getPoidsNet($idLot);
+					$data['poidsNet'] = $total;		
 					$data['lotDetails'] = $lotDetails;
                 	$data['dateFin'] = $lotDetails['dateFin'] . ' ' . $lotDetails['heureFin']; // Date et heure de fin
 					$this->load->view('enchere',$data);
@@ -148,7 +151,7 @@ class Welcome extends CI_Controller {
 		
 	}
 
-	public function valider()
+	public function validerInscription()
 	{
 	// validité du formulaire
 	$this->form_validation->set_rules('login', 'login', 'required');
