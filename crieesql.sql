@@ -5,8 +5,16 @@ USE PROJET_CRIEE;
 -- Table BATEAU
 CREATE TABLE BATEAU (
     IdBateau INT PRIMARY KEY,
-    nomBateau VARCHAR(255) NOT NULL,
-    capaciteBateau DECIMAL(10, 2) NOT NULL
+    immatBateau VARCHAR(255) NOT NULL,
+    nomBateau VARCHAR(255) NOT NULL
+);
+
+-- Table PECHE
+CREATE TABLE PECHE (
+    IdBateau INT,
+    datePeche DATE NOT NULL,
+    PRIMARY KEY(IdBateau, datePeche),
+    FOREIGN KEY (IdBateau) REFERENCES BATEAU(IdBateau)
 );
 
 -- Table ESPECE
@@ -24,19 +32,19 @@ CREATE TABLE PRESENTATION (
 
 -- Table TAILLE
 CREATE TABLE TAILLE (
-    IdTaille INT PRIMARY KEY,
-    descriptionTaille VARCHAR(255) NOT NULL
+    IdTaille INT PRIMARY KEY
 );
 
 -- Table QUALITE
 CREATE TABLE QUALITE (
-    IdQualite INT PRIMARY KEY,
+    IdQualite VARCHAR(1) PRIMARY KEY,
     descriptionQualite VARCHAR(255) NOT NULL
 );
 
 -- Table BAC
 CREATE TABLE BAC (
-    IdBac INT PRIMARY KEY,
+    IdBac VARCHAR(1) PRIMARY KEY,
+    designationTaille VARCHAR(255) NOT NULL,
     tare DECIMAL(10, 2) NOT NULL
 );
 
@@ -85,9 +93,9 @@ CREATE TABLE LOT (
     IdEspece INT NOT NULL,
     IdTaille INT NOT NULL,
     IdPresentation INT NOT NULL,
-    IdBac INT NOT NULL,
+    IdBac VARCHAR(1) NOT NULL,
     IdAcheteur INT,
-    IdQualite INT NOT NULL,
+    IdQualite VARCHAR(1) NOT NULL,
     idImage INT NOT NULL,
     poidsBrutLot DECIMAL(10, 2) NOT NULL,
     prixDepart DECIMAL(10, 2) NOT NULL,
@@ -99,12 +107,11 @@ CREATE TABLE LOT (
     statut VARCHAR(50),
     IdFacture INT,
     IdAdmin INT NOT NULL, 
+    PRIMARY KEY (IdLot,IdBateau,datePeche),
+    FOREIGN KEY (IdBateau, datePeche) REFERENCES PECHE(IdBateau, datePeche),
     FOREIGN KEY (IdAdmin) REFERENCES ADMINISTRATEUR(IdAdmin),
     FOREIGN KEY (idImage) REFERENCES IMAGE(IdImage),
-    PRIMARY KEY (IdLot),
-    FOREIGN KEY (IdBateau) REFERENCES BATEAU(IdBateau),
     FOREIGN KEY (IdEspece) REFERENCES ESPECE(IdEspece),
-    FOREIGN KEY (IdBateau, datePeche) REFERENCES PECHE(IdBateau, datePeche),
     FOREIGN KEY (IdTaille) REFERENCES TAILLE(IdTaille),
     FOREIGN KEY (IdPresentation) REFERENCES PRESENTATION(IdPresentation),
     FOREIGN KEY (IdBac) REFERENCES BAC(IdBac),
@@ -132,10 +139,19 @@ CREATE TABLE PANIER (
 );
 
 -- Insertion dans la table BATEAU
-INSERT INTO BATEAU (IdBateau, nomBateau, capaciteBateau) VALUES
-(1, 'Le Neptune', 200.00),
-(2, "L'Horizon", 150.00),
-(3, "L'Aventurier", 180.00);
+INSERT INTO BATEAU (IdBateau, immatBateau, nomBateau) VALUES
+(1, "KJ-567-PH", "Le Neptune"),
+(2, "ML-231-HA", "L'Horizon"),
+(3, "HA-903-BZ", "L'Aventurier");
+
+-- Insertion dans la table PECHE
+INSERT INTO PECHE (IdBateau, datePeche) VALUES
+(1, '2024-12-07'),
+(2, '2024-12-10'),
+(2, '2024-12-08'),
+(1, '2024-12-12'),
+(3, '2024-12-17'),
+(3, '2024-12-22');
 
 -- Insertion dans la table ESPECE
 INSERT INTO ESPECE (IdEspece, nomScientifique, nomCommun) VALUES
@@ -146,25 +162,32 @@ INSERT INTO ESPECE (IdEspece, nomScientifique, nomCommun) VALUES
 -- Insertion dans la table PRESENTATION
 INSERT INTO PRESENTATION (IdPresentation, descriptionPresentation) VALUES
 (1, 'Filets'),
-(2, 'Poisson entier'),
-(3, 'Découpé en morceaux');
+(2, 'Entier'),
+(3, 'Vidé'),
+(4, 'Morceaux');
 
 -- Insertion dans la table TAILLE
-INSERT INTO TAILLE (IdTaille, descriptionTaille) VALUES
-(1, 'Petite taille'),
-(2, 'Moyenne taille'),
-(3, 'Grande taille');
+INSERT INTO TAILLE (IdTaille) VALUES
+(10),
+(20),
+(30),
+(40),
+(50),
+(60),
+(70),
+(80),
+(90);
 
 -- Insertion dans la table QUALITE
 INSERT INTO QUALITE (IdQualite, descriptionQualite) VALUES
-(1, 'Excellente'),
-(2, 'Bonne'),
-(3, 'Moyenne');
+('E', 'Extra'),
+('A', 'Glacé'),
+('B', 'Déclassé');
 
 -- Insertion dans la table BAC
-INSERT INTO BAC (IdBac, tare) VALUES
-(1, 50.00),
-(2, 60.00);
+INSERT INTO BAC (IdBac, designationTaille, tare) VALUES
+('B', 'Petite taille', 2.5),
+('F', 'Grande taille', 4.0);
 
 -- Insertion dans la table ACHETEUR
 INSERT INTO ACHETEUR (login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
@@ -196,14 +219,14 @@ INSERT INTO IMAGE (ImageLot) VALUES
 
 -- Insertion dans la table LOT
 INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
-(1, 1, '2024-12-12', 1, 2, 1, 1, null, 1, 1, 1000.00, 800.00, 800.00, '2025-01-01', '2025-01-06', '05:00:00','22:30:00', 'future', 1, 1),
-(2, 2, '2024-12-18', 2, 1, 3, 2, null, 2, 2, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-06', '05:00:00','23:59:59', 'future', 2, 2),
-(3, 3, '2024-12-03', 3, 3, 2, 1, null, 3, 3, 1000.00, 800.00, 800.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 1, 3),
-(4, 3, '2024-12-08', 2, 1, 3, 2, null, 2, 4, 500.00, 400.00, 400.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 2, 2),
-(5, 1, '2024-12-22', 1, 2, 1, 1, null, 1, 5, 1000.00, 800.00, 800.00, '2025-03-01', '2025-03-04', '05:00:00','23:59:59', 'future', 1, 1),
-(6, 2, '2024-12-30', 3, 3, 2, 1, null, 2, 6, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 3),
-(7, 3, '2024-12-31', 2, 2, 3, 2, null, 3, 7, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 1),
-(8, 1, '2024-12-04', 2, 1, 2, 2, null, 2, 8, 500.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 2);
+(1, 1, '2024-12-07', 1, 10, 1, 'B', null, 'E', 1, 7.50, 800.00, 800.00, '2025-01-01', '2025-01-06', '05:00:00','22:30:00', 'future', 1, 1),
+(2, 1, '2024-12-07', 2, 20, 3, 'F', null, 'A', 2, 10.00, 400.00, 400.00, '2025-01-02', '2025-01-06', '05:00:00','23:59:59', 'future', 2, 2),
+(3, 1, '2024-12-07', 3, 30, 2, 'F', null, 'B', 3, 5.00, 800.00, 800.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 1, 3),
+(4, 1, '2024-12-07', 2, 40, 4, 'B', null, 'A', 4, 6.50, 400.00, 400.00, '2025-01-02', '2025-01-07', '05:00:00','23:59:59', 'future', 2, 2),
+(5, 1, '2024-12-07', 1, 50, 1, 'F', null, 'B', 5, 9.50, 800.00, 800.00, '2025-03-01', '2025-03-04', '05:00:00','23:59:59', 'future', 1, 1),
+(6, 1, '2024-12-07', 3, 60, 2, 'B', null, 'A', 6, 13.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 3),
+(7, 1, '2024-12-07', 2, 70, 3, 'B', null, 'E', 7, 4.50, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 1),
+(8, 1, '2024-12-02', 2, 80, 4, 'F', null, 'A', 8, 8.00, 400.00, 400.00, '2025-03-01', '2025-03-05', '05:00:00','23:59:59', 'future', 2, 2);
 
 DELIMITER //
 CREATE TRIGGER after_lot_closed
@@ -250,6 +273,24 @@ BEGIN
     WHERE p.IdAcheteur = idAcheteur;
 
     -- Retourner le total calculé
+    RETURN total;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE FUNCTION calcul_poids_net(idLot INT) 
+RETURNS DECIMAL(10, 2)
+DETERMINISTIC
+BEGIN
+    DECLARE total DECIMAL(10, 2) DEFAULT 0;
+
+    SELECT poidsBrutLot - tare
+    INTO total
+    FROM lot, bac
+    WHERE lot.IdBac = bac.IdBac AND lot.IdLot = idLot;
+
     RETURN total;
 END //
 
