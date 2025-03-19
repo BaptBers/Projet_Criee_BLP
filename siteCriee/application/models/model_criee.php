@@ -143,5 +143,51 @@ class Model_criee extends CI_Model
         // Retourner le résultat
         return $query->row()->poidsNet;
     }
+
+    public function getNomScientifiques() {
+        $sql = "SELECT nomScientifique FROM ESPECE"; // Table ESPECE
+        $result = $this->db->query($sql); // Exécution de la requête avec CodeIgniter DB
+    
+        // Remplacez fetchAll() par result_array() pour obtenir les résultats sous forme de tableau
+        return $result->result_array();
+    }
+
+    // Fonction pour récupérer les noms communs (de la table ESPECE)
+    public function getNomCommuns() {
+        $sql = "SELECT nomCommun FROM ESPECE"; // Table ESPECE
+        $result = $this->db->query($sql);
+        return $result->result_array();
+    }
+
+    // Fonction pour récupérer les noms de bateaux (de la table BATEAU)
+    public function getNomBateaux() {
+        $sql = "SELECT nomBateau FROM BATEAU"; // Table BATEAU
+        $result = $this->db->query($sql);
+        return $result->result_array();
+    }
+
+    public function getDescription() {
+        $sql = "SELECT descriptionPresentation FROM presentation"; // Table presentation
+        $result = $this->db->query($sql);
+        return $result->result_array();
+    }
+
+    public function getQualité() {
+        $sql = "SELECT descriptionQualite FROM qualite"; // Table qualité
+        $result = $this->db->query($sql);
+        return $result->result_array();
+    }
+
+    public function getTaille() {
+        $sql = "SELECT IdTaille FROM taille"; // Table taille
+        $result = $this->db->query($sql);
+        return $result->result_array();
+    }
+
+    public function getTare() {
+        $sql = "SELECT tare FROM bac"; // Table bac
+        $result = $this->db->query($sql);
+        return $result->result_array();
+    }
 }
 ?>
