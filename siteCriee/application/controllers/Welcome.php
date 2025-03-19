@@ -66,6 +66,7 @@ class Welcome extends CI_Controller {
 				$panier = $this->requetes->getInfosPanier($idAcheteur);
 				$total = $this->requetes->getTotalPanier($idAcheteur);
 
+
 				$data = [
 					'panier' => $panier,
 					'total' => $total
@@ -130,9 +131,24 @@ class Welcome extends CI_Controller {
 			$this->load->view('inscription');
 		}
 		
-		if($id=="Ajout") {
-			$this->load->view('ajoutLots');
-		}
+		 if($id=="Ajout") {
+			// Charger les données nécessaires pour le formulaire (noms scientifiques, communs, bateaux)
+            $data['nomsScientifiques'] = $this->requetes->getNomScientifiques();
+            $data['nomsCommuns'] = $this->requetes->getNomCommuns();
+            $data['nomsBateaux'] = $this->requetes->getNomBateaux();
+			$data['descriptionPresentation'] = $this->requetes->getDescription();
+			$data['qualites'] = $this->requetes->getQualité();  // Liste des qualités
+    		$data['tailles'] = $this->requetes->getTaille();  // Liste des tailles
+    		$data['tares'] = $this->requetes->getTare();  // Liste des tares
+
+
+			
+
+
+
+		 	$this->load->view('ajoutLots',$data);
+			
+		 }
 
 		if($id=="MentionsLegales") {
 			$this->load->view('mentionslegales');
@@ -150,6 +166,8 @@ class Welcome extends CI_Controller {
 		$this->load->view('piedPage',NULL); // Vue piedPage à créer dans le dossier VIEWS 
 		
 	}
+
+	
 
 	public function validerInscription()
 	{
