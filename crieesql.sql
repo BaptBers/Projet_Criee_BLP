@@ -154,7 +154,7 @@ INSERT INTO PECHE (IdBateau, datePeche) VALUES
 (3, '2024-12-22');
 
 -- Insertion dans la table ESPECE
-INSERT INTO ESPECE (IdEspece, nomScientifique, nomCommun) VALUES
+INSERT INTO ESPECE ( IdEspece, nomScientifique, nomCommun) VALUES
 (1, 'Gadus morhua', 'Morue'),
 (2, 'Sardina pilchardus', 'Sardine'),
 (3, 'Psetta maxima', 'Sole');
@@ -219,7 +219,7 @@ INSERT INTO IMAGE (ImageLot) VALUES
 
 -- Insertion dans la table LOT
 INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
-(1, 1, '2024-12-07', 1, 10, 1, 'B', null, 'E', 1, 7.50, 800.00, 800.00, '2025-03-19', '2025-03-19', '05:00:00','15:30:00', 'future', 1, 1),
+(1, 1, '2024-12-07', 1, 10, 1, 'B', null, 'E', 1, 7.50, 800.00, 800.00, '2025-03-19', '2025-03-28', '05:00:00','15:30:00', 'future', 1, 1),
 (2, 1, '2024-12-07', 2, 20, 3, 'F', null, 'A', 2, 10.00, 400.00, 400.00, '2025-03-19', '2025-03-19', '05:00:00','16:59:59', 'future', 2, 2),
 (3, 1, '2024-12-07', 3, 30, 2, 'F', null, 'B', 3, 5.00, 800.00, 800.00, '2025-03-19', '2025-03-19', '05:00:00','11:59:59', 'future', 1, 3),
 (4, 1, '2024-12-07', 2, 40, 4, 'B', null, 'A', 4, 6.50, 400.00, 400.00, '2025-03-19', '2025-03-19', '05:00:00','13:59:59', 'future', 2, 2),
