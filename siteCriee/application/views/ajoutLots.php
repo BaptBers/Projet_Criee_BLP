@@ -23,11 +23,11 @@
                 <input type="text" id="nomCommun" name="nomCommun" required><br><br> -->
 
 
-                <label for="nomCommun">Nom commun</label>
-                    <select id="nomCommun" name="nomCommun" required style="display: block; width: 100%; margin-bottom: 10px;">
+                <label for="IdEspece">Nom commun</label>
+                    <select id="IdEspece" name="IdEspece" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner un nom commun</option>
                         <?php foreach ($nomsCommuns as $commun): ?>
-                            <option value="<?php echo $commun['nomCommun']; ?>"><?php echo $commun['nomCommun']; ?></option>
+                            <option value="<?php echo $commun['IdEspece']; ?>"><?php echo $commun['nomCommun']; ?></option>
                         <?php endforeach; ?>
                     </select><br>
 
@@ -39,12 +39,12 @@
                 <input type="text" id="nomBateau" name="nomBateau" required><br><br>
                  -->
 
-                 <label for="nomBateau">Nom du bateau</label>
-                    <select id="nomBateau" name="nomBateau" required style="display: block; width: 100%; margin-bottom: 10px;">
+                 <label for="IdBateau">Nom du bateau</label>
+                    <select id="IdBateau" name="IdBateau" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner un bateau</option>
                         <br/>
                         <?php foreach ($nomsBateaux as $bateau): ?>
-                            <option value="<?php echo $bateau['nomBateau']; ?>"><?php echo $bateau['nomBateau']; ?></option>
+                            <option value="<?php echo $bateau['IdBateau']; ?>"><?php echo $bateau['nomBateau']; ?></option>
                         <?php endforeach; ?>
                     </select><br>
 
@@ -54,6 +54,12 @@
                 
                 <label for="heureOuverture">Heure d'ouverture</label>
                 <input type="time" id="heureOuverture" name="heureOuverture" required><br>
+
+                <label for="dateFermeture">Date de fermeture</label>
+                <input type="date" id="dateFermeture" name="dateFermeture" required><br>
+                
+                <label for="heureFermeture">Heure de fermeture</label>
+                <input type="time" id="heureFermeture" name="heureFermeture" required><br>
                 
                 <label for="prixDepart">Prix de départ (€)</label>
                 <input type="number" id="prixDepart" name="prixDepart" step="0.01" required><br>
@@ -65,11 +71,11 @@
                 <input type="number" id="PoidsNet" name="PoidsNet" step="0.25" required><br>
 
 
-                <label for="qualite">Qualité</label>
-                    <select id="qualite" name="qualite" required style="display: block; width: 100%; margin-bottom: 10px;">
+                <label for="IdQualite">Qualité</label>
+                    <select id="IdQualite" name="IdQualite" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner une qualité</option>
                         <?php foreach ($qualites as $qualite): ?>
-                            <option value="<?php echo $qualite['descriptionQualite']; ?>">
+                            <option value="<?php echo $qualite['IdQualite']; ?>">
                                 <?php echo $qualite['descriptionQualite']; ?>
                             </option>
                         <?php endforeach; ?>
@@ -85,11 +91,11 @@
                         <?php endforeach; ?>
                     </select><br>
 
-                <label for="tare">Tare</label>
-                    <select id="tare" name="tare" required style="display: block; width: 100%; margin-bottom: 10px;">
+                <label for="IdBac">Tare</label>
+                    <select id="IdBac" name="IdBac" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner une tare</option>
                         <?php foreach ($tares as $tare): ?>
-                            <option value="<?php echo $tare['tare']; ?>"> <!-- Utilise 'designationTaille' ici -->
+                            <option value="<?php echo $tare['IdBac']; ?>"> <!-- Utilise 'designationTaille' ici -->
                                 <?php echo $tare['tare']; ?>  <!-- Affiche la bonne valeur -->
                             </option>
                         <?php endforeach; ?>
@@ -101,11 +107,11 @@
                  -->
 
 
-                 <label for="description">Description</label>
-                    <select id="description" name="description" required style="display: block; width: 100%; margin-bottom: 10px;">
+                 <label for="IdPresentation">Description</label>
+                    <select id="IdPresentation" name="IdPresentation" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner une description</option>
                         <?php foreach ($descriptionPresentation as $description): ?>
-                            <option value="<?php echo $description['descriptionPresentation']; ?>">
+                            <option value="<?php echo $description['IdPresentation']; ?>">
                                 <?php echo $description['descriptionPresentation']; ?>
                             </option>
                         <?php endforeach; ?>
@@ -117,7 +123,8 @@
                 <label for="image">Image du lot</label>
                 <input type="file" id="image" name="image" required><br><br>
                 
-                <input type="submit" value="Ajouter le lot">
+                <button type="submit">Valider</button>
+
             </fieldset>
         </form>
     </div>

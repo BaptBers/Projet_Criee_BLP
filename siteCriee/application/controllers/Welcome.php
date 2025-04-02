@@ -194,6 +194,72 @@ class Welcome extends CI_Controller {
 		}
 	}
 
+	public function validerAjoutLot() {
+		// Vérification des données du formulaire (tu peux ajouter des règles de validation si nécessaire)
+		$this->form_validation->set_rules('nomScientifique', 'Nom scientifique', 'required');
+		$this->form_validation->set_rules('IdEspece', 'Nom commun', 'required');
+		$this->form_validation->set_rules('datePeche', 'Date de pêche', 'required');
+		$this->form_validation->set_rules('IdBateau', 'Nom du bateau', 'required');
+		$this->form_validation->set_rules('dateOuverture', 'Date d\'ouverture', 'required');
+		$this->form_validation->set_rules('heureOuverture', 'Heure d\'ouverture', 'required');
+		$this->form_validation->set_rules('dateFermeture', 'Date de fermeture', 'required');
+		$this->form_validation->set_rules('heureFermeture', 'Heure de fermeture', 'required');
+		$this->form_validation->set_rules('prixDepart', 'Prix de départ', 'required');
+		$this->form_validation->set_rules('PoidsBrut', 'Poids brut', 'required');
+		$this->form_validation->set_rules('PoidsNet', 'Poids net', 'required');
+		$this->form_validation->set_rules('IdQualite', 'Qualité', 'required');
+		$this->form_validation->set_rules('taille', 'Taille', 'required');
+		$this->form_validation->set_rules('IdBac', 'Tare', 'required');
+		$this->form_validation->set_rules('IdPresentation', 'Description', 'required');
+	
+		if ($this->form_validation->run() === FALSE) {
+			// Si la validation échoue, afficher à nouveau le formulaire
+			$this->load->view('ajoutLots');
+		} else {
+			// Récupération des données du formulaire
+			$lotData = [
+				'IdBateau' => $this->input->post('IdBateau'),
+				'datePeche' => $this->input->post('datePeche'),
+				'IdEspece' => $this->input->post('IdEspece'), // Cette méthode doit extraire l'ID de l'espèce
+				'IdTaille' => $this->input->post('taille'),
+				'IdPresentation' => $this->input->post('IdPresentation'),
+				'IdBac' => $this->input->post('IdBac'),
+				'IdQualite' => $this->input->post('IdQualite'),
+				// 'idImage' => NULL, // Gestion de l'image, doit être traitée pour l'insertion
+				'poidsBrutLot' => $this->input->post('PoidsBrut'),
+				'prixDepart' => $this->input->post('prixDepart'),
+				'prixEnchereActuelle' => $this->input->post('prixDepart'), // Tu peux aussi définir un prix initial
+				'dateOuverture' => $this->input->post('dateOuverture'),
+				'dateFin' => $this->input->post('dateFermeture'), // Doit être défini après un certain temps ou sur demande
+				'heureOuverture' => $this->input->post('heureOuverture'),
+				'heureFin' => $this->input->post('heureFermeture'), // Pareil, défini après un certain temps ou sur demande
+				'IdAdmin' => $this->session->userdata('user_id') // ID Admin récupéré de la session
+			];
+	
+			// Appel au modèle pour insérer le lot dans la base de données
+			$this->requetes->setLot(
+				$lotData['IdBateau'],
+				$lotData['IdEspece'],
+				$lotData['datePeche'],
+				$lotData['IdTaille'],
+				$lotData['IdPresentation'],
+				$lotData['IdBac'],
+				$lotData['IdQualite'],
+				$lotData['poidsBrutLot'],
+				$lotData['prixDepart'],
+				$lotData['prixEnchereActuelle'],
+				$lotData['dateOuverture'],
+				$lotData['dateFin'],
+				$lotData['heureOuverture'],
+				$lotData['heureFin'],
+				$lotData['IdAdmin']
+			);
+	
+			// Rediriger après insertion
+			redirect('welcome/contenu/EncheresEnCours');
+		}
+	}
+
 	public function login() {
 		$this->form_validation->set_rules('login', 'Login', 'required');
 		$this->form_validation->set_rules('pwd', 'Password', 'required');

@@ -23,6 +23,29 @@ class Model_criee extends CI_Model
         return $query_result; 
     }
 
+    public function setLot($IdBateau, $IdEspece, $datePeche, $IdTaille, $IdPresentation, $IdBac, $IdQualite, $PoidsBrutLot, $prixDepart, $prixEnchereActuelle, $dateOuverture, $dateFin, $heureOuverture, $heureFin, $idAdmin)
+{
+    $search = "INSERT INTO lot (
+        IdBateau, IdEspece, datePeche, IdTaille, IdPresentation, IdBac, IdQualite, poidsBrutLot, 
+        prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, idAdmin
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+    )";
+
+    $result = $this->db->query($search, [
+        $IdBateau, $IdEspece, $datePeche, $IdTaille, $IdPresentation, $IdBac, 
+        $IdQualite, $PoidsBrutLot, $prixDepart, $prixEnchereActuelle, 
+        $dateOuverture, $dateFin, $heureOuverture, $heureFin, $idAdmin
+    ]);
+
+    if ($result) {
+        return "Insertion réussie ! Nombre de lignes affectées : " . $this->db->affected_rows();
+    } else {
+        return "Erreur d'insertion : " . $this->db->error();
+    }
+}
+
+
     public function getLotsOuvert()
     {
         $search = "SELECT * FROM lot, bateau, espece, taille, bac, qualite, image, presentation WHERE bateau.IdBateau = lot.IdBateau AND espece.IdEspece = lot.IdEspece AND taille.IdTaille = lot.IdTaille AND bac.IdBac = lot.IdBac AND qualite.IdQualite = lot.IdQualite AND image.IdImage = lot.idImage AND presentation.IdPresentation = lot.IdPresentation AND statut = 'ouverte'";
@@ -145,7 +168,7 @@ class Model_criee extends CI_Model
     }
 
     public function getNomScientifiques() {
-        $sql = "SELECT nomScientifique FROM ESPECE"; // Table ESPECE
+        $sql = "SELECT IdEspece, nomScientifique FROM ESPECE"; // Table ESPECE
         $result = $this->db->query($sql); // Exécution de la requête avec CodeIgniter DB
     
         // Remplacez fetchAll() par result_array() pour obtenir les résultats sous forme de tableau
@@ -154,26 +177,26 @@ class Model_criee extends CI_Model
 
     // Fonction pour récupérer les noms communs (de la table ESPECE)
     public function getNomCommuns() {
-        $sql = "SELECT nomCommun FROM ESPECE"; // Table ESPECE
+        $sql = "SELECT IdEspece, nomCommun FROM ESPECE"; // Table ESPECE
         $result = $this->db->query($sql);
         return $result->result_array();
     }
 
     // Fonction pour récupérer les noms de bateaux (de la table BATEAU)
     public function getNomBateaux() {
-        $sql = "SELECT nomBateau FROM BATEAU"; // Table BATEAU
+        $sql = "SELECT IdBateau, nomBateau FROM BATEAU"; // Table BATEAU
         $result = $this->db->query($sql);
         return $result->result_array();
     }
 
     public function getDescription() {
-        $sql = "SELECT descriptionPresentation FROM presentation"; // Table presentation
+        $sql = "SELECT IdPresentation, descriptionPresentation FROM presentation"; // Table presentation
         $result = $this->db->query($sql);
         return $result->result_array();
     }
 
     public function getQualité() {
-        $sql = "SELECT descriptionQualite FROM qualite"; // Table qualité
+        $sql = "SELECT  IdQualite, descriptionQualite FROM qualite"; // Table qualité
         $result = $this->db->query($sql);
         return $result->result_array();
     }
@@ -185,7 +208,7 @@ class Model_criee extends CI_Model
     }
 
     public function getTare() {
-        $sql = "SELECT tare FROM bac"; // Table bac
+        $sql = "SELECT IdBac, tare FROM bac"; // Table bac
         $result = $this->db->query($sql);
         return $result->result_array();
     }
