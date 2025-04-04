@@ -24,27 +24,57 @@ class Model_criee extends CI_Model
     }
 
     public function setLot($IdBateau, $IdEspece, $datePeche, $IdTaille, $IdPresentation, $IdBac, $IdQualite, $PoidsBrutLot, $prixDepart, $prixEnchereActuelle, $dateOuverture, $dateFin, $heureOuverture, $heureFin, $idAdmin)
-{
-    $search = "INSERT INTO lot (
-        IdBateau, IdEspece, datePeche, IdTaille, IdPresentation, IdBac, IdQualite, poidsBrutLot, 
-        prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, idAdmin
-    ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-    )";
+    {
+        $search = "INSERT INTO lot (
+            IdBateau, IdEspece, datePeche, IdTaille, IdPresentation, IdBac, IdQualite, IdImage, 
+            poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, 
+            heureOuverture, heureFin, idAdmin
+        ) VALUES (
+            :IdBateau, :IdEspece, :datePeche, :IdTaille, :IdPresentation, :IdBac, :IdQualite, :IdImage, 
+            :PoidsBrutLot, :prixDepart, :prixEnchereActuelle, :dateOuverture, :dateFin, 
+            :heureOuverture, :heureFin, :idAdmin
+        )";
+    
+        $result = $this->db->conn_id->prepare($search);
+        $result->bindParam(':IdBateau', $IdBateau, PDO::PARAM_INT);
+        $result->bindParam(':IdEspece', $IdEspece, PDO::PARAM_INT);
+        $result->bindParam(':datePeche', $datePeche, PDO::PARAM_STR);
+        $result->bindParam(':IdTaille', $IdTaille, PDO::PARAM_INT);
+        $result->bindParam(':IdPresentation', $IdPresentation, PDO::PARAM_INT);
+        $result->bindParam(':IdBac', $IdBac, PDO::PARAM_INT);
+        $result->bindParam(':IdQualite', $IdQualite, PDO::PARAM_INT);
+        $result->bindParam(':IdImage', $IdEspece, PDO::PARAM_INT); // si IdImage = IdEspece
+        $result->bindParam(':PoidsBrutLot', $PoidsBrutLot, PDO::PARAM_STR);
+        $result->bindParam(':prixDepart', $prixDepart, PDO::PARAM_STR);
+        $result->bindParam(':prixEnchereActuelle', $prixEnchereActuelle, PDO::PARAM_STR);
+        $result->bindParam(':dateOuverture', $dateOuverture, PDO::PARAM_STR);
+        $result->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
+        $result->bindParam(':heureOuverture', $heureOuverture, PDO::PARAM_STR);
+        $result->bindParam(':heureFin', $heureFin, PDO::PARAM_STR);
+        $result->bindParam(':idAdmin', $idAdmin, PDO::PARAM_INT);
+    
+        $result->execute();
+        $query_result = $result->fetchAll(PDO::FETCH_ASSOC); // facultatif pour un INSERT
+    
+        return $query_result;
+    }    
 
-    $result = $this->db->query($search, [
-        $IdBateau, $IdEspece, $datePeche, $IdTaille, $IdPresentation, $IdBac, 
-        $IdQualite, $PoidsBrutLot, $prixDepart, $prixEnchereActuelle, 
-        $dateOuverture, $dateFin, $heureOuverture, $heureFin, $idAdmin
-    ]);
-
-    if ($result) {
-        return "Insertion réussie ! Nombre de lignes affectées : " . $this->db->affected_rows();
-    } else {
-        return "Erreur d'insertion : " . $this->db->error();
+    public function setPeche($idBateau, $datePeche)
+    {
+        $query = "INSERT INTO peche (IdBateau, datePeche) VALUES (:idBateau, :datePeche)";
+        
+        $stmt = $this->db->conn_id->prepare($query);
+        $stmt->bindParam(':idBateau', $idBateau, PDO::PARAM_INT);
+        $stmt->bindParam(':datePeche', $datePeche, PDO::PARAM_STR);
+    
+        if ($stmt->execute()) {
+            return "Insertion réussie ! Nombre de lignes affectées : " . $stmt->rowCount();
+        } else {
+            $error = $stmt->errorInfo();
+            return "Erreur d'insertion : " . $error[2]; // message d'erreur
+        }
     }
-}
-
+    
 
     public function getLotsOuvert()
     {
@@ -52,17 +82,17 @@ class Model_criee extends CI_Model
         $result = $this->db->conn_id->prepare($search);
         $result->execute();
         $query_result = $result->fetchAll(PDO::FETCH_ASSOC);
-        // $this->db = null ;
+        //$this->db = null ;
         return $query_result; 
     }
 
     public function getLotsFutures()
     {
-        $search = "SELECT * FROM lot, bateau, espece, taille, bac, qualite, image, presentation WHERE bateau.IdBateau = lot.IdBateau AND espece.IdEspece = lot.IdEspece AND taille.IdTaille = lot.IdTaille AND bac.IdBac = lot.IdBac AND qualite.IdQualite = lot.IdQualite AND image.IdImage = lot.idImage AND presentation.IdPresentation = lot.IdPresentation AND statut = 'future'";
+        $search = "SELECT * FROM lot, bateau, espece, taille, bac, qualite, image , presentation WHERE bateau.IdBateau = lot.IdBateau AND espece.IdEspece = lot.IdEspece AND taille.IdTaille = lot.IdTaille AND bac.IdBac = lot.IdBac AND qualite.IdQualite = lot.IdQualite AND image.IdImage = lot.idImage AND presentation.IdPresentation = lot.IdPresentation AND statut = 'future'";
         $result = $this->db->conn_id->prepare($search);
         $result->execute();
         $query_result = $result->fetchAll(PDO::FETCH_ASSOC);
-        // $this->db = null ;
+        //$this->db = null ;
         return $query_result; 
     }
  
@@ -208,7 +238,7 @@ class Model_criee extends CI_Model
     }
 
     public function getTare() {
-        $sql = "SELECT IdBac, tare FROM bac"; // Table bac
+        $sql = "SELECT IdBac, designationTaille FROM bac"; // Table bac
         $result = $this->db->query($sql);
         return $result->result_array();
     }

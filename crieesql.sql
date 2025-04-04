@@ -87,7 +87,7 @@ CREATE TABLE FACTURE (
 
 -- Table LOT
 CREATE TABLE LOT (
-    IdLot INT NOT NULL,
+    IdLot INT AUTO_INCREMENT,
     IdBateau INT NOT NULL,
     datePeche DATE NOT NULL,
     IdEspece INT NOT NULL,
@@ -116,7 +116,9 @@ CREATE TABLE LOT (
     FOREIGN KEY (IdPresentation) REFERENCES PRESENTATION(IdPresentation),
     FOREIGN KEY (IdBac) REFERENCES BAC(IdBac),
     FOREIGN KEY (IdAcheteur) REFERENCES HISTORIQUE_ENCHERES(IdAcheteur),
-    FOREIGN KEY (IdQualite) REFERENCES QUALITE(IdQualite)
+    FOREIGN KEY (IdQualite) REFERENCES QUALITE(IdQualite),
+    FOREIGN KEY (IdFacture) REFERENCES FACTURE(IdFacture)
+
 );
 
 CREATE TABLE HISTORIQUE_ENCHERES(
@@ -157,7 +159,12 @@ INSERT INTO PECHE (IdBateau, datePeche) VALUES
 INSERT INTO ESPECE ( IdEspece, nomScientifique, nomCommun) VALUES
 (1, 'Gadus morhua', 'Morue'),
 (2, 'Sardina pilchardus', 'Sardine'),
-(3, 'Psetta maxima', 'Sole');
+(3, 'Psetta maxima', 'Sole'),
+(4, 'Merluccius merluccius', 'Merlu'),
+(5, 'Pollachius pollachius', 'Lieu jaune'),
+(6, 'Micromesistius poutassou', 'Merlan bleu'),
+(7, 'Scomber scombrus', 'Maquereau'),
+(8, 'Melanogrammus aeglefinus', 'Églefin');
 
 -- Insertion dans la table PRESENTATION
 INSERT INTO PRESENTATION (IdPresentation, descriptionPresentation) VALUES
@@ -218,15 +225,15 @@ INSERT INTO IMAGE (ImageLot) VALUES
 ('img/lot8.jpg');
 
 -- Insertion dans la table LOT
-INSERT INTO LOT (IdLot, IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
-(1, 1, '2024-12-07', 1, 10, 1, 'B', null, 'E', 1, 7.50, 800.00, 800.00, '2025-03-19', '2025-03-28', '05:00:00','15:30:00', 'future', 1, 1),
-(2, 1, '2024-12-07', 2, 20, 3, 'F', null, 'A', 2, 10.00, 400.00, 400.00, '2025-03-19', '2025-03-19', '05:00:00','16:59:59', 'future', 2, 2),
-(3, 1, '2024-12-07', 3, 30, 2, 'F', null, 'B', 3, 5.00, 800.00, 800.00, '2025-03-19', '2025-03-19', '05:00:00','11:59:59', 'future', 1, 3),
-(4, 1, '2024-12-07', 2, 40, 4, 'B', null, 'A', 4, 6.50, 400.00, 400.00, '2025-03-19', '2025-03-19', '05:00:00','13:59:59', 'future', 2, 2),
-(5, 1, '2024-12-07', 1, 50, 1, 'F', null, 'B', 5, 9.50, 800.00, 800.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 1, 1),
-(6, 1, '2024-12-07', 3, 60, 2, 'B', null, 'A', 6, 13.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 3),
-(7, 1, '2024-12-07', 2, 70, 3, 'B', null, 'E', 7, 4.50, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 1),
-(8, 1, '2024-12-02', 2, 80, 4, 'F', null, 'A', 8, 8.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 2);
+INSERT INTO LOT (IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
+(1, '2024-12-07', 1, 10, 1, 'B', null, 'E', 1, 7.50, 800.00, 800.00, '2025-04-04', '2025-04-07', '05:00:00','11:08:00', 'future' , 1, 1),
+(1, '2024-12-07', 2, 20, 3, 'F', null, 'A', 2, 10.00, 400.00, 400.00, '2025-04-04', '2025-04-17', '11:09:00','16:59:59', 'future' , 1, 2),
+(1, '2024-12-07', 3, 30, 2, 'F', null, 'B', 3, 5.00, 800.00, 800.00, '2025-04-19', '2025-04-19', '05:00:00','11:59:59', 'future', 1, 3),
+(1, '2024-12-07', 2, 40, 4, 'B', null, 'A', 4, 6.50, 400.00, 400.00, '2025-03-19', '2025-03-19', '05:00:00','13:59:59', 'future', 2, 2),
+(1, '2024-12-07', 1, 50, 1, 'F', null, 'B', 5, 9.50, 800.00, 800.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 1, 1),
+(1, '2024-12-07', 3, 60, 2, 'B', null, 'A', 6, 13.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 3),
+(1, '2024-12-07', 2, 70, 3, 'B', null, 'E', 7, 4.50, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 1),
+(1, '2024-12-02', 2, 80, 4, 'F', null, 'A', 8, 8.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 2);
 
 DELIMITER //
 CREATE TRIGGER after_lot_closed
@@ -294,5 +301,15 @@ BEGIN
     RETURN total;
 END //
 
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER before_lot_insert
+BEFORE INSERT ON lot
+FOR EACH ROW
+BEGIN
+    -- Déclarer les variables nécessaires
+    SET NEW.statut = 'future';
+END; //
 DELIMITER ;
 
