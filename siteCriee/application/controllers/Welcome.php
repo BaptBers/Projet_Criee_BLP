@@ -140,12 +140,6 @@ class Welcome extends CI_Controller {
 			$data['qualites'] = $this->requetes->getQualité();  // Liste des qualités
     		$data['tailles'] = $this->requetes->getTaille();  // Liste des tailles
     		$data['tares'] = $this->requetes->getTare();  // Liste des tares
-
-
-			
-
-
-
 		 	$this->load->view('ajoutLots',$data);
 			
 		 }
@@ -196,17 +190,16 @@ class Welcome extends CI_Controller {
 
 	public function validerAjoutLot() {
 		// Vérification des données du formulaire (tu peux ajouter des règles de validation si nécessaire)
-		$this->form_validation->set_rules('nomScientifique', 'Nom scientifique', 'required');
-		$this->form_validation->set_rules('IdEspece', 'Nom commun', 'required');
+		
 		$this->form_validation->set_rules('datePeche', 'Date de pêche', 'required');
 		$this->form_validation->set_rules('IdBateau', 'Nom du bateau', 'required');
+		$this->form_validation->set_rules('IdEspece', 'Nom commun', 'required');
 		$this->form_validation->set_rules('dateOuverture', 'Date d\'ouverture', 'required');
 		$this->form_validation->set_rules('heureOuverture', 'Heure d\'ouverture', 'required');
 		$this->form_validation->set_rules('dateFermeture', 'Date de fermeture', 'required');
 		$this->form_validation->set_rules('heureFermeture', 'Heure de fermeture', 'required');
 		$this->form_validation->set_rules('prixDepart', 'Prix de départ', 'required');
 		$this->form_validation->set_rules('PoidsBrut', 'Poids brut', 'required');
-		$this->form_validation->set_rules('PoidsNet', 'Poids net', 'required');
 		$this->form_validation->set_rules('IdQualite', 'Qualité', 'required');
 		$this->form_validation->set_rules('taille', 'Taille', 'required');
 		$this->form_validation->set_rules('IdBac', 'Tare', 'required');
@@ -254,9 +247,15 @@ class Welcome extends CI_Controller {
 				$lotData['heureFin'],
 				$lotData['IdAdmin']
 			);
+
+			// Appel au modèle pour insérer peche dans la base de données
+			$this->requetes->setPeche(
+				$lotData['IdBateau'],
+				$lotData['datePeche']
+			);
 	
 			// Rediriger après insertion
-			redirect('welcome/contenu/EncheresEnCours');
+			redirect('welcome/contenu/Accueil');
 		}
 	}
 

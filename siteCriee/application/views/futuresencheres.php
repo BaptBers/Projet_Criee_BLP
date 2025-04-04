@@ -1,6 +1,8 @@
 <body>
 	<br><br>
 		<div class="produits-container">
+		<?php var_dump($labelFuturesEncheres); ?>
+
 			<?php
 			foreach ($labelFuturesEncheres as $row) {
 				echo "<form class = 'produits'>";

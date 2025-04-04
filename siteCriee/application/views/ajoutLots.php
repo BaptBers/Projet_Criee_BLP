@@ -10,13 +10,7 @@
                 <input type="text" id="nomScientifique" name="nomScientifique" required><br><br> -->
 
 
-                <label for="nomScientifique">Nom scientifique</label>
-                    <select id="nomScientifique" name="nomScientifique" required style="display: block; width: 100%; margin-bottom: 10px;">
-                        <option value="">Sélectionner un nom scientifique</option>
-                        <?php foreach ($nomsScientifiques as $scientifique): ?>
-                            <option value="<?php echo $scientifique['nomScientifique']; ?>"><?php echo $scientifique['nomScientifique']; ?></option>
-                        <?php endforeach; ?>
-                    </select><br>
+               
 
 
                 <!-- <label for="nomCommun">Nom commun</label>
@@ -67,9 +61,7 @@
                 <label for="poidsBrut">Poids brut (KG)</label>
                 <input type="number" id="PoidsBrut" name="PoidsBrut" step="0.25" required><br>
 
-                <label for="poidsBrut">Poids net (KG)</label>
-                <input type="number" id="PoidsNet" name="PoidsNet" step="0.25" required><br>
-
+               
 
                 <label for="IdQualite">Qualité</label>
                     <select id="IdQualite" name="IdQualite" required style="display: block; width: 100%; margin-bottom: 10px;">
@@ -91,12 +83,12 @@
                         <?php endforeach; ?>
                     </select><br>
 
-                <label for="IdBac">Tare</label>
+                <label for="IdBac">Taille du bac</label>
                     <select id="IdBac" name="IdBac" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner une tare</option>
                         <?php foreach ($tares as $tare): ?>
-                            <option value="<?php echo $tare['IdBac']; ?>"> <!-- Utilise 'designationTaille' ici -->
-                                <?php echo $tare['tare']; ?>  <!-- Affiche la bonne valeur -->
+                            <option value="<?php echo $tare['designationTaille']; ?>"> <!-- Utilise 'designationTaille' ici -->
+                                <?php echo $tare['designationTaille']; ?>  <!-- Affiche la bonne valeur -->
                             </option>
                         <?php endforeach; ?>
                     </select><br>
@@ -120,8 +112,7 @@
                 
 
                 
-                <label for="image">Image du lot</label>
-                <input type="file" id="image" name="image" required><br><br>
+                
                 
                 <button type="submit">Valider</button>
 
