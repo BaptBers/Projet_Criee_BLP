@@ -553,3 +553,23 @@ form.formajoutlot input[type="submit"] {
 form.formajoutlot input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+
+body.accueil {
+    margin: 0;
+    text-align: center;
+    min-height: 100vh; /* Assure que le body couvre toute la hauteur de la fenêtre */
+    background-image: url('assets/img/Photo_fond.jpg'); /* Le chemin correct vers ton image */
+    background-size: cover; /* Couvre toute la fenêtre */
+    background-position: center center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrer le contenu verticalement */
+}
+
+body.accueil h3 {
+    font-size: 2.5em;
+    color: rgb(108, 13, 13); /* Texte en blanc */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Ajoute une ombre pour améliorer la lisibilité */
+}
