@@ -54,9 +54,18 @@ class Model_criee extends CI_Model
         $result->bindParam(':idAdmin', $idAdmin, PDO::PARAM_INT);
     
         $result->execute();
-        $query_result = $result->fetchAll(PDO::FETCH_ASSOC); // facultatif pour un INSERT
-    
-        return $query_result;
+        // return true;
+
+        $lastId = $this->db->conn_id->lastInsertId();
+
+        // Vérifier l'insertion
+        $checkQuery = "SELECT * FROM lot WHERE IdLot = :id";
+        $checkStmt = $this->db->conn_id->prepare($checkQuery);
+        $checkStmt->bindParam(':id', $lastId, PDO::PARAM_INT);
+        $checkStmt->execute();
+        $insertedData = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+        return $insertedData;
     }    
 
     public function setPeche($idBateau, $datePeche)

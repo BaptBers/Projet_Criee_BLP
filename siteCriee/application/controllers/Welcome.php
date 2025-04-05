@@ -209,6 +209,11 @@ class Welcome extends CI_Controller {
 			// Si la validation échoue, afficher à nouveau le formulaire
 			$this->load->view('ajoutLots');
 		} else {
+
+			// echo '<pre>';
+    		// print_r($_POST);
+    		// echo '</pre>';
+    		// exit;
 			// Récupération des données du formulaire
 			$lotData = [
 				'IdBateau' => $this->input->post('IdBateau'),

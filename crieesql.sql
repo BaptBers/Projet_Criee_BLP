@@ -37,13 +37,13 @@ CREATE TABLE TAILLE (
 
 -- Table QUALITE
 CREATE TABLE QUALITE (
-    IdQualite VARCHAR(1) PRIMARY KEY,
+    IdQualite INT PRIMARY KEY,
     descriptionQualite VARCHAR(255) NOT NULL
 );
 
 -- Table BAC
 CREATE TABLE BAC (
-    IdBac VARCHAR(1) PRIMARY KEY,
+    IdBac INT PRIMARY KEY,
     designationTaille VARCHAR(255) NOT NULL,
     tare DECIMAL(10, 2) NOT NULL
 );
@@ -93,9 +93,9 @@ CREATE TABLE LOT (
     IdEspece INT NOT NULL,
     IdTaille INT NOT NULL,
     IdPresentation INT NOT NULL,
-    IdBac VARCHAR(1) NOT NULL,
+    IdBac INT NOT NULL,
     IdAcheteur INT,
-    IdQualite VARCHAR(1) NOT NULL,
+    IdQualite INT NOT NULL,
     idImage INT NOT NULL,
     poidsBrutLot DECIMAL(10, 2) NOT NULL,
     prixDepart DECIMAL(10, 2) NOT NULL,
@@ -187,14 +187,14 @@ INSERT INTO TAILLE (IdTaille) VALUES
 
 -- Insertion dans la table QUALITE
 INSERT INTO QUALITE (IdQualite, descriptionQualite) VALUES
-('E', 'Extra'),
-('A', 'Glacé'),
-('B', 'Déclassé');
+(1, 'E Extra'),
+(2, 'A Glacé'),
+(3, 'B Déclassé');
 
 -- Insertion dans la table BAC
 INSERT INTO BAC (IdBac, designationTaille, tare) VALUES
-('B', 'Petite taille', 2.5),
-('F', 'Grande taille', 4.0);
+(1, 'B Petite taille', 2.5),
+(2, 'F Grande taille', 4.0);
 
 -- Insertion dans la table ACHETEUR
 INSERT INTO ACHETEUR (login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
@@ -226,14 +226,14 @@ INSERT INTO IMAGE (ImageLot) VALUES
 
 -- Insertion dans la table LOT
 INSERT INTO LOT (IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
-(1, '2024-12-07', 1, 10, 1, 'B', null, 'E', 1, 7.50, 800.00, 800.00, '2025-04-04', '2025-04-07', '05:00:00','11:08:00', 'future' , 1, 1),
-(1, '2024-12-07', 2, 20, 3, 'F', null, 'A', 2, 10.00, 400.00, 400.00, '2025-04-04', '2025-04-17', '11:09:00','16:59:59', 'future' , 1, 2),
-(1, '2024-12-07', 3, 30, 2, 'F', null, 'B', 3, 5.00, 800.00, 800.00, '2025-04-19', '2025-04-19', '05:00:00','11:59:59', 'future', 1, 3),
-(1, '2024-12-07', 2, 40, 4, 'B', null, 'A', 4, 6.50, 400.00, 400.00, '2025-03-19', '2025-03-19', '05:00:00','13:59:59', 'future', 2, 2),
-(1, '2024-12-07', 1, 50, 1, 'F', null, 'B', 5, 9.50, 800.00, 800.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 1, 1),
-(1, '2024-12-07', 3, 60, 2, 'B', null, 'A', 6, 13.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 3),
-(1, '2024-12-07', 2, 70, 3, 'B', null, 'E', 7, 4.50, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 1),
-(1, '2024-12-02', 2, 80, 4, 'F', null, 'A', 8, 8.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 2);
+(1, '2024-12-07', 1, 10, 1, 1, null, 1, 1, 7.50, 800.00, 800.00, '2025-04-04', '2025-04-07', '05:00:00','11:08:00', 'future' , 1, 1),
+(1, '2024-12-07', 2, 20, 3, 2, null, 2, 2, 10.00, 400.00, 400.00, '2025-04-04', '2025-04-17', '11:09:00','16:59:59', 'future' , 1, 2),
+(1, '2024-12-07', 3, 30, 2, 1, null, 3, 3, 5.00, 800.00, 800.00, '2025-04-19', '2025-04-19', '05:00:00','11:59:59', 'future', 1, 3),
+(1, '2024-12-07', 2, 40, 4, 1, null, 2, 4, 6.50, 400.00, 400.00, '2025-03-19', '2025-03-19', '05:00:00','13:59:59', 'future', 2, 2),
+(1, '2024-12-07', 1, 50, 1, 2, null, 3, 5, 9.50, 800.00, 800.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 1, 1),
+(1, '2024-12-07', 3, 60, 2, 1, null, 2, 6, 13.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 3),
+(1, '2024-12-07', 2, 70, 3, 1, null, 1, 7, 4.50, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 1),
+(1, '2024-12-02', 2, 80, 4, 2, null, 2, 8, 8.00, 400.00, 400.00, '2025-03-30', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 2);
 
 DELIMITER //
 CREATE TRIGGER after_lot_closed

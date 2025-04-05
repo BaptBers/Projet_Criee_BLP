@@ -87,7 +87,7 @@
                     <select id="IdBac" name="IdBac" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner une tare</option>
                         <?php foreach ($tares as $tare): ?>
-                            <option value="<?php echo $tare['designationTaille']; ?>"> <!-- Utilise 'designationTaille' ici -->
+                            <option value="<?php echo $tare['IdBac']; ?>"> <!-- Utilise 'designationTaille' ici -->
                                 <?php echo $tare['designationTaille']; ?>  <!-- Affiche la bonne valeur -->
                             </option>
                         <?php endforeach; ?>
