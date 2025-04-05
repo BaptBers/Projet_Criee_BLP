@@ -25,8 +25,8 @@
 
                 <!-- Bloc 3 : Taille, qualité et description -->
                 <div class="info-group">   
-                    <p><strong>Qualité :</strong> <strong><?= isset($lotDetails['IdQualite']) ? $lotDetails['IdQualite'] : 'Non spécifiée'; ?></strong>, <?= isset($lotDetails['descriptionQualite']) ? $lotDetails['descriptionQualite'] : 'Non spécifiée'; ?></p>
-                    <p><strong>Bac :</strong> <strong><?= isset($lotDetails['IdBac']) ? $lotDetails['IdBac'] : 'Non spécifiée'; ?></strong>, <?= isset($lotDetails['designationTaille']) ? $lotDetails['designationTaille'] : 'Non spécifiée'; ?></p>
+                    <p><strong>Qualité :</strong> <strong><?= !empty($lotDetails['designationQualite']) ? $lotDetails['designationQualite'] : ( !empty($lotDetails['descriptionQualite']) ? $lotDetails['descriptionQualite'] : 'Non spécifiée'); ?></strong></p>
+                    <p><strong>Bac :</strong> <strong><?= !empty($lotDetails['designationBac']) ? $lotDetails['designationBac'] : ( !empty($lotDetails['designationTaille']) ? $lotDetails['designationTaille'] : 'Non spécifiée'); ?></strong></p>
                     <p><strong>Poids brut du lot :</strong> <?= isset($lotDetails['poidsBrutLot']) ? $lotDetails['poidsBrutLot'] . ' kg' : 'Non spécifié'; ?></p>
                     <p><strong>Tare :</strong> <?= isset($lotDetails['tare']) ? $lotDetails['tare'] : 'Non spécifiée'; ?> kg</p>
                     
