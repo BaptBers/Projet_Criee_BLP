@@ -26,10 +26,19 @@
 
 			<!-- Ajouter un bouton de paiement -->
 			<div class="payment-button-container">
-                <form action="<?= site_url('welcome/contenu/Paiement') ?>" method="post">
+                <form action="<?= site_url('welcome/insererFacture') ?>" method="post">
+                    <!-- Montant total -->
+                    <input type="hidden" name="montantTotal" value="<?= $total ?>">
+
+                    <!-- Chaque lot dans le panier -->
+                    <?php foreach ($panier as $row): ?>
+                        <input type="hidden" name="idLot[]" value="<?= $row['IdLot'] ?>">
+                    <?php endforeach; ?>
+
                     <button type="submit" class="btn-payer">Payer</button>
                 </form>
             </div>
+            
 
         <?php else: ?>
             <!-- Si le panier est vide -->
@@ -38,4 +47,5 @@
             </div>
         <?php endif; ?>
     </div>
+
 </body>
