@@ -306,6 +306,27 @@ class Welcome extends CI_Controller {
 		}
 	}
 
+	public function insererFacture() {
+		$this->load->model('requetes');
+
+		$dateEmission = date('Y-m-d');
+		$montantTotal = $this->input->post('montantTotal');
+		$idLots = $this->input->post('idLot'); // tableau
+		$idAcheteur = $this->session->userdata('user_id');
+	
+		if (is_array($idLots)) {
+			foreach ($idLots as $idLot) {
+				$this->requetes->setFacture($dateEmission, $montantTotal, $idLot, $idAcheteur);
+			}
+		} else {
+			// Si jamais c'est un seul lot
+			$this->requetes->setFacture($dateEmission, $montantTotal, $idLots, $idAcheteur);
+		}
+
+		redirect('welcome/contenu/Accueil');
+
+	}
+
 	public function placerEnchere() {
 		if ($this->session->userdata('is_logged_in')) {
 			$idLot = $this->input->post('IdLot');

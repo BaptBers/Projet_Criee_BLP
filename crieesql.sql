@@ -78,10 +78,12 @@ CREATE TABLE IMAGE (
 
 -- Table FACTURE
 CREATE TABLE FACTURE (
-    IdFacture INT PRIMARY KEY,
+    IdFacture INT AUTO_INCREMENT PRIMARY KEY,
     dateEmission DATE NOT NULL,
     montantTotal DECIMAL(10, 2) NOT NULL,
+    IdLot INT NOT NULL,
     IdAcheteur INT NOT NULL,
+    FOREIGN KEY (IdLot) REFERENCES LOT(IdLot),
     FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)
 );
 
@@ -209,9 +211,9 @@ INSERT INTO ADMINISTRATEUR (loginAdmin, pwdAdmin, nom, prenom) VALUES
 ('admin3', 'test789', 'Laaraj', 'Mohamed');
 
 -- Insertion dans la table FACTURE
-INSERT INTO FACTURE (IdFacture, IdAcheteur, dateEmission, montantTotal) VALUES
-(1, 1, '2024-12-03', 1500.00),
-(2, 2, '2024-12-04', 1200.00);
+INSERT INTO FACTURE (IdAcheteur, IdLot , dateEmission, montantTotal) VALUES
+(1, 3,  '2024-12-03', 1500.00),
+(2, 2,'2024-12-04', 1200.00);
 
 -- Insertion dans la table IMAGE
 INSERT INTO IMAGE (ImageLot) VALUES

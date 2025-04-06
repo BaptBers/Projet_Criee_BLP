@@ -84,6 +84,24 @@ class Model_criee extends CI_Model
         }
     }
     
+    public function setFacture($dateEmission, $montantTotal, $idLot, $idAcheteur) {
+        $sql = "INSERT INTO FACTURE (dateEmission, montantTotal, IdLot, IdAcheteur)
+                VALUES (:dateEmission, :montantTotal, :idLot, :idAcheteur)";
+    
+        $stmt = $this->db->conn_id->prepare($sql);
+    
+        $stmt->bindParam(':dateEmission', $dateEmission, PDO::PARAM_STR);
+        $stmt->bindParam(':montantTotal', $montantTotal, PDO::PARAM_STR);
+        $stmt->bindParam(':idLot', $idLot, PDO::PARAM_INT);
+        $stmt->bindParam(':idAcheteur', $idAcheteur, PDO::PARAM_INT);
+    
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            $error = $stmt->errorInfo();
+            return "Erreur d'insertion : " . $error[2];
+        }
+    }
 
     public function getLotsOuvert()
     {
