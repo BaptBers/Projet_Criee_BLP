@@ -53,6 +53,11 @@ class Welcome extends CI_Controller {
 			$this->load->view('encheresencours',$data); // Créer une vue nommée formulaire.php dans VIEWS		
 		}
 
+		if($id=="confirmationPaiement")
+		{
+			$this->load->view('confirmationPaiement'); // Créer une vue nommée formulaire.php dans VIEWS		
+		}
+
 		if($id=="FuturesEncheres")
 		{
 			$data['labelFuturesEncheres']= $this->requetes->getLotsFutures();
@@ -308,28 +313,29 @@ class Welcome extends CI_Controller {
 
 	public function insererFacture() {
 		$this->load->model('requetes');
-
-		$dateEmission = date('Y-m-d');
-		$montantTotal = $this->input->post('montantTotal');
-		$idLots = $this->input->post('idLot'); // tableau
-		$idAcheteur = $this->session->userdata('user_id');
 	
-		if (is_array($idLots)) {
-			foreach ($idLots as $idLot) {
-				$this->requetes->setFacture($dateEmission, $montantTotal, $idLot, $idAcheteur);
+		$idAcheteur = $this->session->userdata('user_id');
+		$lots = $this->input->post('idLot'); 
+		$total = $this->input->post('montantTotal'); // total du panier
+	
+		//Insérer l'entête de facture
+		$idFacture = $this->requetes->setFactureEntete(date('Y-m-d'), $total, $idAcheteur);
+	
+		//Insérer chaque ligne dans facture_details
+		if (is_array($lots)) {
+			foreach ($lots as $idLot) {
+				$montant = $this->requetes->getMontantEnchereParLot($idLot);
+				$this->requetes->insertFactureDetail($idFacture, $idLot, $montant);
 				$this->requetes->supprimerDuPanier($idLot);
-
 			}
-		} else {
-			// Si jamais c'est un seul lot
-			$this->requetes->setFacture($dateEmission, $montantTotal, $idLots, $idAcheteur);
-			$this->requetes->supprimerDuPanier($idLot);
-
 		}
-
-		redirect('welcome/contenu/Accueil');
-
+	
+		
+	
+		redirect('welcome/contenu/confirmationPaiement');
 	}
+
+	
 
 	public function placerEnchere() {
 		if ($this->session->userdata('is_logged_in')) {
