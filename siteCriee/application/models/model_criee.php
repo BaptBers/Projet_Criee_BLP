@@ -103,6 +103,22 @@ class Model_criee extends CI_Model
         }
     }
 
+    public function supprimerDuPanier($idLot) {
+        $sql = "DELETE FROM panier WHERE IdLot = :idLot";
+
+        $stmt = $this->db->conn_id->prepare($sql);
+
+        $stmt->bindParam(':idLot', $idLot, PDO::PARAM_STR);
+
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            $error = $stmt->errorInfo();
+            return "Erreur de supression : " . $error[2];
+        }
+    }
+
     public function getLotsOuvert()
     {
         $search = "SELECT * FROM lot, bateau, espece, taille, bac, qualite, image, presentation WHERE bateau.IdBateau = lot.IdBateau AND espece.IdEspece = lot.IdEspece AND taille.IdTaille = lot.IdTaille AND bac.IdBac = lot.IdBac AND qualite.IdQualite = lot.IdQualite AND image.IdImage = lot.idImage AND presentation.IdPresentation = lot.IdPresentation AND statut = 'ouverte'";

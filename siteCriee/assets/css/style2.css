@@ -13,7 +13,7 @@ header {
     justify-content: space-between;
     align-items: center;
     position: relative; 
-    background-color: #b71212;
+    background-color: #272727;
     padding: 10px 20px;
     max-height: 80px;
 }
@@ -570,6 +570,6 @@ body.accueil {
 
 body.accueil h3 {
     font-size: 2.5em;
-    color: rgb(108, 13, 13); /* Texte en blanc */
+    color: rgb(26, 66, 168); /* Texte en blanc */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Ajoute une ombre pour améliorer la lisibilité */
 }
