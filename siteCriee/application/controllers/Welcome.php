@@ -317,10 +317,14 @@ class Welcome extends CI_Controller {
 		if (is_array($idLots)) {
 			foreach ($idLots as $idLot) {
 				$this->requetes->setFacture($dateEmission, $montantTotal, $idLot, $idAcheteur);
+				$this->requetes->supprimerDuPanier($idLot);
+
 			}
 		} else {
 			// Si jamais c'est un seul lot
 			$this->requetes->setFacture($dateEmission, $montantTotal, $idLots, $idAcheteur);
+			$this->requetes->supprimerDuPanier($idLot);
+
 		}
 
 		redirect('welcome/contenu/Accueil');
