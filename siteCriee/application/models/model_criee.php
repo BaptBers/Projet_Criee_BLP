@@ -84,24 +84,56 @@ class Model_criee extends CI_Model
         }
     }
     
-    public function setFacture($dateEmission, $montantTotal, $idLot, $idAcheteur) {
-        $sql = "INSERT INTO FACTURE (dateEmission, montantTotal, IdLot, IdAcheteur)
-                VALUES (:dateEmission, :montantTotal, :idLot, :idAcheteur)";
+    public function setFactureEntete($dateEmission, $montantTotal,$idAcheteur) {
+        $sql = "INSERT INTO FACTURE (dateEmission, montantTotal, IdAcheteur)
+                VALUES (:dateEmission, :montantTotal, :idAcheteur)";
     
         $stmt = $this->db->conn_id->prepare($sql);
     
         $stmt->bindParam(':dateEmission', $dateEmission, PDO::PARAM_STR);
         $stmt->bindParam(':montantTotal', $montantTotal, PDO::PARAM_STR);
-        $stmt->bindParam(':idLot', $idLot, PDO::PARAM_INT);
         $stmt->bindParam(':idAcheteur', $idAcheteur, PDO::PARAM_INT);
     
         if ($stmt->execute()) {
-            return true;
+            return $this->db->conn_id->lastInsertId(); // méthode PDO
         } else {
             $error = $stmt->errorInfo();
-            return "Erreur d'insertion : " . $error[2];
+            log_message('error', 'Erreur insertion facture : ' . $error[2]);
+            return false;
         }
     }
+
+    public function insertFactureDetail($idFacture, $idLot, $montant) {
+        $sql = "INSERT INTO facture_details (IdFacture, IdLot, montant)
+                VALUES (:idFacture, :idLot, :montant)";
+        
+        $stmt = $this->db->conn_id->prepare($sql);
+    
+        $stmt->bindParam(':idFacture', $idFacture, PDO::PARAM_INT);
+        $stmt->bindParam(':idLot', $idLot, PDO::PARAM_INT);
+        $stmt->bindParam(':montant', $montant, PDO::PARAM_STR);
+    
+        if ($stmt->execute()) {
+            return true; // Retourne true si l'insertion a réussi
+        } else {
+            $error = $stmt->errorInfo();
+            log_message('error', 'Erreur lors de l\'insertion dans facture_details : ' . $error[2]);
+            return false; // Retourne false en cas d'échec
+        }
+    }
+
+    public function getMontantEnchereParLot($idLot) {
+        $sql = "SELECT montantEnchere FROM panier WHERE IdLot = :idLot";
+        
+        $stmt = $this->db->conn_id->prepare($sql);
+        $stmt->bindParam(':idLot', $idLot, PDO::PARAM_INT);
+        
+        $stmt->execute();
+        
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? $row['montantEnchere'] : 0;
+    }
+    
 
     public function supprimerDuPanier($idLot) {
         $sql = "DELETE FROM panier WHERE IdLot = :idLot";
