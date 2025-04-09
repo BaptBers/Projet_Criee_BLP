@@ -53,15 +53,47 @@ class Welcome extends CI_Controller {
 			$this->load->view('encheresencours',$data); // Créer une vue nommée formulaire.php dans VIEWS		
 		}
 
-		if($id=="confirmationPaiement")
-		{
-			$this->load->view('confirmationPaiement'); // Créer une vue nommée formulaire.php dans VIEWS		
+		if($id == "confirmationPaiement") {
+			$idAcheteur = $this->session->userdata('user_id');
+		
+			// Charger le modèle de requêtes
+			$this->load->model('requetes');
+		
+			// Récupérer la dernière facture liée à cet acheteur
+			$facture = $this->requetes->getDerniereFacture($idAcheteur);
+		
+			if ($facture) {
+				// Récupérer les détails de la facture (lots, montant total, etc.)
+				$factureDetails = $this->requetes->getFactureDetails($facture['IdFacture']);
+		
+				// Passer les données à la vue
+				$data['facture'] = $facture;
+				$data['factureDetails'] = $factureDetails;
+		
+				// Vérifier si l'heure de la commande existe et est bien formatée
+				$heureCommande = isset($facture['heureCommande']) ? $facture['heureCommande'] : null;
+				if ($heureCommande) {
+					// Formater l'heure (au cas où elle est dans un format non standard)
+					$data['heureCommande'] = date('H:i:s', strtotime($heureCommande));
+				} else {
+					// Si l'heure est absente, afficher une valeur par défaut
+					$data['heureCommande'] = 'Heure inconnue';
+				}
+		
+				// Formater la date de la commande
+				$data['dateCommande'] = date('d/m/Y', strtotime($facture['dateCommande']));
+		
+				// Charger la vue avec les données
+				$this->load->view('confirmationPaiement', $data);
+			} else {
+				// Si aucune facture n'est trouvée pour cet acheteur, rediriger vers une page d'erreur
+				redirect('welcome/erreur');
+			}
 		}
-
 		if($id=="FuturesEncheres")
 		{
 			$data['labelFuturesEncheres']= $this->requetes->getLotsFutures();
-			$this->load->view('futuresencheres',$data); // Créer une vue nommée formulaire.php dans VIEWS		
+			$this->load->view('futuresencheres',$data); 		
 		}
 
 		if($id=="Panier")
@@ -317,9 +349,10 @@ class Welcome extends CI_Controller {
 		$idAcheteur = $this->session->userdata('user_id');
 		$lots = $this->input->post('idLot'); 
 		$total = $this->input->post('montantTotal'); // total du panier
+		$heureCommande = date('Y-m-d H:i:s');
 	
 		//Insérer l'entête de facture
-		$idFacture = $this->requetes->setFactureEntete(date('Y-m-d'), $total, $idAcheteur);
+		$idFacture = $this->requetes->setFactureEntete(date('Y-m-d'),$heureCommande , $total, $idAcheteur);
 	
 		//Insérer chaque ligne dans facture_details
 		if (is_array($lots)) {

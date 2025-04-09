@@ -79,7 +79,8 @@ CREATE TABLE IMAGE (
 -- Table FACTURE
 CREATE TABLE FACTURE (
     IdFacture INT AUTO_INCREMENT PRIMARY KEY,
-    dateEmission DATE NOT NULL,
+    dateCommande DATE NOT NULL,
+    heureCommande DATETIME NOT NULL,
     montantTotal DECIMAL(10, 2) NOT NULL,
     IdAcheteur INT NOT NULL,
     FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)

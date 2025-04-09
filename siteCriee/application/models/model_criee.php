@@ -84,24 +84,37 @@ class Model_criee extends CI_Model
         }
     }
     
-    public function setFactureEntete($dateEmission, $montantTotal,$idAcheteur) {
-        $sql = "INSERT INTO FACTURE (dateEmission, montantTotal, IdAcheteur)
-                VALUES (:dateEmission, :montantTotal, :idAcheteur)";
+    public function setFactureEntete($dateCommande, $heureCommande, $montantTotal, $idAcheteur) {
+        $sql = "INSERT INTO FACTURE (dateCommande, heureCommande, montantTotal, IdAcheteur)
+                VALUES (:dateCommande, :heureCommande, :montantTotal, :idAcheteur)";
+        
+        try {
+            // Préparation de la requête
+            $stmt = $this->db->conn_id->prepare($sql);
     
-        $stmt = $this->db->conn_id->prepare($sql);
-    
-        $stmt->bindParam(':dateEmission', $dateEmission, PDO::PARAM_STR);
-        $stmt->bindParam(':montantTotal', $montantTotal, PDO::PARAM_STR);
-        $stmt->bindParam(':idAcheteur', $idAcheteur, PDO::PARAM_INT);
-    
-        if ($stmt->execute()) {
-            return $this->db->conn_id->lastInsertId(); // méthode PDO
-        } else {
-            $error = $stmt->errorInfo();
-            log_message('error', 'Erreur insertion facture : ' . $error[2]);
+            // Bind des paramètres
+            $stmt->bindParam(':dateCommande', $dateCommande, PDO::PARAM_STR);
+            $stmt->bindParam(':heureCommande', $heureCommande, PDO::PARAM_STR);
+            $stmt->bindParam(':montantTotal', $montantTotal, PDO::PARAM_STR);
+            $stmt->bindParam(':idAcheteur', $idAcheteur, PDO::PARAM_INT);
+            
+            // Exécution de la requête
+            if ($stmt->execute()) {
+                // Retourne l'ID de la facture insérée
+                return $this->db->conn_id->lastInsertId(); 
+            } else {
+                // Si une erreur se produit
+                $error = $stmt->errorInfo();
+                log_message('error', 'Erreur lors de l\'insertion de la facture : ' . $error[2]);
+                return false;
+            }
+        } catch (Exception $e) {
+            // Gérer les exceptions
+            log_message('error', 'Exception lors de l\'insertion de la facture : ' . $e->getMessage());
             return false;
         }
     }
+    
 
     public function insertFactureDetail($idFacture, $idLot, $montant) {
         $sql = "INSERT INTO facture_details (IdFacture, IdLot, montant)
@@ -120,6 +133,25 @@ class Model_criee extends CI_Model
             log_message('error', 'Erreur lors de l\'insertion dans facture_details : ' . $error[2]);
             return false; // Retourne false en cas d'échec
         }
+    }
+
+    public function getDerniereFacture($idAcheteur) {
+        $sql = "SELECT * FROM facture WHERE IdAcheteur = :idAcheteur ORDER BY dateCommande DESC LIMIT 1";
+        $stmt = $this->db->conn_id->prepare($sql);
+        $stmt->bindParam(':idAcheteur', $idAcheteur, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    
+    public function getFactureDetails($idFacture) {
+        $sql = "SELECT f.IdLot, f.montant FROM facture_details f WHERE f.IdFacture = :idFacture";
+        $stmt = $this->db->conn_id->prepare($sql);
+        $stmt->bindParam(':idFacture', $idFacture, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getMontantEnchereParLot($idLot) {
