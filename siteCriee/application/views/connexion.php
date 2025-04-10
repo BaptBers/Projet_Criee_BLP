@@ -4,7 +4,7 @@
 	<div class="produits-container">
 	<form action="<?php echo site_url('welcome/login'); ?>" method='POST' class="conn">
 		<fieldset id="INFO" name="InfoVI">
-		<legend>Se connecter</legend>
+		<legend>SE CONNECTER</legend>
 		
 		<label for="login">Login </label>
 		<input type="login" id="login" name="login" required/><br><br>

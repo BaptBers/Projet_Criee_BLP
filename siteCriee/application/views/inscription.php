@@ -4,7 +4,7 @@
 <div class="produits-container">
     <form action="<?php echo site_url('welcome/validerInscription'); ?>" method="POST" class="conn">
         <fieldset id="InfoI" name="InfoI">
-            <legend>Créer son compte</legend>
+            <legend>CRÉER SON COMPTE</legend>
             
             <label for="login">Login </label>
             <input type="text" id="login" name="login" required/><br><br>

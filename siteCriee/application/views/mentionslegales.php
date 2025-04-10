@@ -1,20 +1,52 @@
 ﻿<body>
-	<h2 class="titre">Les mentions légales</h2>
+	<h2 class="titre">MENTIONS LÉGALES</h2>
 	<br>
-	<div class="produits-container">
-	<form class="mentions">
-		<p>Conformément à l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, 
-		il est précisé aux utilisateurs du site internet Fournil l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
-		<p>Conditions générales d’utilisation du site :
-			L’utilisation du site Fournil implique l’acceptation pleine et entière des conditions générales d’utilisation décrites ci-après. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment, les utilisateurs du site sont donc invités à les consulter régulièrement.
-			Le site est mis à jour régulièrement. De la même façon, les mentions légales peuvent être modifiées à tout moment : elles s’imposent néanmoins à l’utilisateur, qui est invité à s’y référer le plus souvent possible afin d’en prendre connaissance.
-			Services fournis :
-			Le site Fournil a pour objet de fournir une information concernant l’ensemble des activités de la société, notamment la vente de produits de boulangerie.
-			Le propriétaire du site s’efforce de fournir sur le site des informations aussi précises que possible.
-			Toutes les informations indiquées sur le site Fournil sont données à titre indicatif, et sont susceptibles d’évoluer. Par ailleurs, les renseignements figurant sur le site ne sont pas exhaustifs. 
-		</p>
-	</form>
-	</div>
+	<div class="mentions-legales">
+
+        <h2>Éditeur du site</h2>
+        <p>
+            Ce site est édité par :<br>
+            <strong>La Criée de Cornouailles</strong><br>
+            Adresse : 9 rue Schoch, 56680 Plouhinec<br>
+            Téléphone : 03 90 33 57 23<br>
+            Email : crieecornouailles@gmail.com
+        </p>
+
+        <h2>Directeur de la publication</h2>
+        <p>
+            M. BERSUDER Baptiste, M. LAARAJ Mohamed et M. PHAM Billy, directeurs et responsables de la criée.
+        </p>
+
+        <h2>Hébergement du site</h2>
+        <p>
+            Le site est hébergé par :<br>
+            <strong>WampServer Localhost (en environnement de développement)</strong><br>
+            Ce site est actuellement en phase de projet éducatif et ne représente pas un service commercial actif.
+        </p>
+
+        <h2>Propriété intellectuelle</h2>
+        <p>
+            Le contenu du site, incluant textes, images, graphismes et logo, est la propriété exclusive de La Criée de Cornouailles.
+            Toute reproduction ou utilisation sans autorisation préalable est interdite.
+        </p>
+
+        <h2>Utilisation des données personnelles</h2>
+        <p>
+            Les données collectées via les formulaires d'inscription ou de connexion sont destinées uniquement à un usage interne, 
+            pour la gestion des utilisateurs et des enchères. Aucun transfert de données n'est effectué à des tiers.
+        </p>
+
+        <h2>Cookies</h2>
+        <p>
+            Ce site n'utilise pas de cookies à des fins de suivi ou de publicité. Seuls des cookies techniques peuvent être utilisés pour la session utilisateur.
+        </p>
+
+        <h2>Limitation de responsabilité</h2>
+        <p>
+            Ce site est un projet éducatif. Les informations affichées sont fictives ou simulées, et ne sauraient engager une responsabilité juridique réelle.
+        </p>
+    </div>
+	<br>
 	<div class="bouton-retour">
 		<a href="<?php echo site_url('welcome/contenu/Accueil');?>" class="buttonRetour">Retourner à la page d'accueil</a>
 	</div>

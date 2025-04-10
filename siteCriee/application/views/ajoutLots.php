@@ -6,17 +6,6 @@
             <fieldset>
                 <legend>Informations du lot</legend>
                 
-                <!-- <label for="nomScientifique">Nom scientifique</label>
-                <input type="text" id="nomScientifique" name="nomScientifique" required><br><br> -->
-
-
-               
-
-
-                <!-- <label for="nomCommun">Nom commun</label>
-                <input type="text" id="nomCommun" name="nomCommun" required><br><br> -->
-
-
                 <label for="IdEspece">Nom commun</label>
                     <select id="IdEspece" name="IdEspece" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner un nom commun</option>
@@ -25,13 +14,8 @@
                         <?php endforeach; ?>
                     </select><br>
 
-
                 <label for="datePeche">Date de pêche</label>
                 <input type="date" id="datePeche" name="datePeche" required><br>
-
-                <!-- <label for="nomBateau">Nom du bateau</label>
-                <input type="text" id="nomBateau" name="nomBateau" required><br><br>
-                 -->
 
                  <label for="IdBateau">Nom du bateau</label>
                     <select id="IdBateau" name="IdBateau" required style="display: block; width: 100%; margin-bottom: 10px;">
@@ -41,7 +25,6 @@
                             <option value="<?php echo $bateau['IdBateau']; ?>"><?php echo $bateau['nomBateau']; ?></option>
                         <?php endforeach; ?>
                     </select><br>
-
 
                 <label for="dateOuverture">Date d'ouverture</label>
                 <input type="date" id="dateOuverture" name="dateOuverture" required><br>
@@ -60,9 +43,7 @@
 
                 <label for="poidsBrut">Poids brut (KG)</label>
                 <input type="number" id="PoidsBrut" name="PoidsBrut" step="0.25" required><br>
-
-               
-
+           
                 <label for="IdQualite">Qualité</label>
                     <select id="IdQualite" name="IdQualite" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner une qualité</option>
@@ -87,17 +68,11 @@
                     <select id="IdBac" name="IdBac" required style="display: block; width: 100%; margin-bottom: 10px;">
                         <option value="">Sélectionner une tare</option>
                         <?php foreach ($tares as $tare): ?>
-                            <option value="<?php echo $tare['IdBac']; ?>"> <!-- Utilise 'designationTaille' ici -->
-                                <?php echo $tare['designationTaille']; ?>  <!-- Affiche la bonne valeur -->
+                            <option value="<?php echo $tare['IdBac']; ?>"> 
+                                <?php echo $tare['designationTaille']; ?>  
                             </option>
                         <?php endforeach; ?>
                     </select><br>
-
-                
-                <!-- <label for="description">Description</label>
-                <textarea id="description" name="description" rows="4" required></textarea><br><br>
-                 -->
-
 
                  <label for="IdPresentation">Description</label>
                     <select id="IdPresentation" name="IdPresentation" required style="display: block; width: 100%; margin-bottom: 10px;">
@@ -109,12 +84,7 @@
                         <?php endforeach; ?>
                     </select><br>
 
-                
-
-                
-                
-                
-                <button type="submit">Valider</button>
+                    <input type="submit" value="Valider">
 
             </fieldset>
         </form>

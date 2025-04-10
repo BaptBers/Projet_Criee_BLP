@@ -1,6 +1,6 @@
 <body>
     <div class="container-panier">
-        <h1 class="panier-header">Mon panier</h1>
+        <h1 class="panier-header">MON PANIER</h1>
 
         <?php if (isset($panier) && !empty($panier)): ?>
             <!-- Si le panier contient des éléments -->

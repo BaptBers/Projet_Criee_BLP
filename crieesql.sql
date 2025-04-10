@@ -250,31 +250,27 @@ CREATE TRIGGER after_lot_closed
 AFTER UPDATE ON lot
 FOR EACH ROW
 BEGIN
-    -- Déclarer les variables nécessaires
     DECLARE winning_bidder INT;
     DECLARE winning_bid DECIMAL(10, 2);
 
-    -- Vérifier si le statut du lot a changé en "fermee"
     IF NEW.statut = 'fermee' AND OLD.statut = 'ouverte' THEN
-        -- Trouver l'acheteur ayant la plus grande enchère pour ce lot
-        SELECT IdAcheteur, MAX(montantEnchere) INTO winning_bidder, winning_bid
-        FROM historique_encheres
-        WHERE IdLot = NEW.IdLot
-        GROUP BY IdLot
-        ORDER BY winning_bid DESC
+        -- Récupérer l'acheteur ayant placé la plus grosse enchère
+        SELECT he.IdAcheteur, he.montantEnchere
+        INTO winning_bidder, winning_bid
+        FROM historique_encheres he
+        WHERE he.IdLot = NEW.IdLot
+        ORDER BY he.montantEnchere DESC, he.dateEnchere DESC
         LIMIT 1;
 
-        -- Si un gagnant est trouvé
+        -- Si on a trouvé un gagnant, on l'ajoute au panier
         IF winning_bidder IS NOT NULL THEN
-            -- Insérer l'acheteur dans la table panier
             INSERT INTO panier (IdLot, IdAcheteur, montantEnchere)
             VALUES (NEW.IdLot, winning_bidder, winning_bid);
         END IF;
     END IF;
-END; //
+END;
+//
 DELIMITER ;
-
-
 
 DELIMITER //
 
