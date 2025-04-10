@@ -5,19 +5,11 @@ html {
 
 a{
     color: white;
-    font-family: 'Ysabeau SC', sans-serif !important;
 }
 
 @font-face {
     font-family: 'Bebas Neue';
     src: url('../fonts/BebasNeue-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Ysabeau SC", sans-serif;
-    src: url('../fonts/YsabeauSC-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -64,12 +56,12 @@ header .auth-boutons {
     font-size: small;
     align-items: center;
     flex: 0 0 auto;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 header .login{
     color: #ff6600;
     text-transform: uppercase;
-    font-family: 'Ysabeau SC', sans-serif !important;
     font-size: 16px;
 }
 
