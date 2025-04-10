@@ -1,6 +1,6 @@
 <body>
     <br>
-    <h2 class="titre">Détails du lot</h2>
+    <h2 class="titre">DÉTAILS DU LOT</h2>
     <div class="enchere">
         <?php if (isset($lotDetails)) { ?>
             <!-- Image du lot -->
@@ -69,7 +69,7 @@
     </div>
 
     <div class="bouton-retour">
-        <a href="<?php echo site_url('welcome/contenu/EncheresEnCours'); ?>" class="buttonRetour">Retour</a>
+        <a href="<?php echo site_url('welcome/contenu/EncheresEnCours'); ?>" class="buttonRetour">RETOUR</a>
     </div>
 
     <script>

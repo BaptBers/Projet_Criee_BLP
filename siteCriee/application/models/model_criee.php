@@ -115,7 +115,6 @@ class Model_criee extends CI_Model
         }
     }
     
-
     public function insertFactureDetail($idFacture, $idLot, $montant) {
         $sql = "INSERT INTO facture_details (IdFacture, IdLot, montant)
                 VALUES (:idFacture, :idLot, :montant)";
@@ -143,8 +142,7 @@ class Model_criee extends CI_Model
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    
-    
+     
     public function getFactureDetails($idFacture) {
         $sql = "SELECT f.IdLot, f.montant FROM facture_details f WHERE f.IdFacture = :idFacture";
         $stmt = $this->db->conn_id->prepare($sql);

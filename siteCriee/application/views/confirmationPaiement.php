@@ -1,7 +1,6 @@
-<body class="accueil">
-    <br><br>
+<body>
+<br><br>
     <h3>Votre paiement a été validé</h3>
-    
     <div class="resume-commande">
         <p><strong>Heure de la commande :</strong> <?= $heureCommande ?></p>
         <p><strong>Date de la commande :</strong> <?= $dateCommande ?></p>
@@ -21,4 +20,3 @@
     <br><br>
     <a href="<?= site_url('welcome/contenu/Accueil') ?>">Retour à l'accueil</a>
 </body>
-</html>
