@@ -86,14 +86,6 @@ CREATE TABLE FACTURE (
     FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)
 );
 
-CREATE TABLE facture_details (
-    idDetail INT AUTO_INCREMENT PRIMARY KEY,
-    IdFacture INT NOT NULL,
-    IdLot INT NOT NULL,
-    montant DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (IdFacture) REFERENCES facture(IdFacture),
-    FOREIGN KEY (IdLot) REFERENCES lot(IdLot)
-);
 -- Table LOT
 CREATE TABLE LOT (
     IdLot INT AUTO_INCREMENT,
@@ -124,12 +116,13 @@ CREATE TABLE LOT (
     FOREIGN KEY (IdEspece) REFERENCES ESPECE(IdEspece),
     FOREIGN KEY (IdTaille) REFERENCES TAILLE(IdTaille),
     FOREIGN KEY (IdPresentation) REFERENCES PRESENTATION(IdPresentation),
+    FOREIGN KEY (IdAcheteur) REFERENCES HISTORIQUE_ENCHERES(idAcheteur),
     FOREIGN KEY (IdBac) REFERENCES BAC(IdBac),
-    FOREIGN KEY (IdAcheteur) REFERENCES HISTORIQUE_ENCHERES(IdAcheteur),
     FOREIGN KEY (IdQualite) REFERENCES QUALITE(IdQualite),
     FOREIGN KEY (IdFacture) REFERENCES FACTURE(IdFacture)
 );
 
+-- Table HISTORIQUE_ENCHERES
 CREATE TABLE HISTORIQUE_ENCHERES(
     IdLot INT NOT NULL,
     IdAcheteur INT NOT NULL,
@@ -140,6 +133,17 @@ CREATE TABLE HISTORIQUE_ENCHERES(
     FOREIGN KEY (IdLot) REFERENCES LOT(IdLot)
 );
 
+-- Table FACTURE_DETAILS
+CREATE TABLE FACTURE_DETAILS (
+    idDetail INT AUTO_INCREMENT PRIMARY KEY,
+    IdFacture INT NOT NULL,
+    IdLot INT NOT NULL,
+    montant DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (IdFacture) REFERENCES facture(IdFacture),
+    FOREIGN KEY (IdLot) REFERENCES lot(IdLot)
+);
+
+-- Table PANIER
 CREATE TABLE PANIER (
     IdPanier INT AUTO_INCREMENT PRIMARY KEY,
     IdLot INT NOT NULL,
@@ -211,9 +215,9 @@ INSERT INTO BAC (IdBac, designationTaille, tare) VALUES
 
 -- Insertion dans la table ACHETEUR
 INSERT INTO ACHETEUR (login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
-('bersuder', 'baptiste', 'Société de Pêche SA', '1 rue des Pêcheurs', 'Villemarine', '56680', 'HAB1234567'),
-('laaraj', 'mohamed', 'Pêche et Co', '2 quai du Port', 'Portville', '56710', 'HAB7654321'),
-('pham', 'billy', 'Océan Prime SARL', '3 avenue de la Mer', 'Nautilia', '56420', 'HAB9876543');
+('bersuder', 'baptiste', 'Société de Pêche SA', '1 rue des Pêcheurs', 'Villemarine', '56680', 'CP12345678'),
+('laaraj', 'mohamed', 'Pêche et Co', '2 quai du Port', 'Portville', '56710', 'CP98715367'),
+('pham', 'billy', 'Océan Prime SARL', '3 avenue de la Mer', 'Nautilia', '56420', 'CP72360915');
 
 -- Insertion dans la table ADMINISTRATEUR (nouveau)
 INSERT INTO ADMINISTRATEUR (loginAdmin, pwdAdmin, nom, prenom) VALUES
@@ -271,7 +275,6 @@ DELIMITER ;
 
 
 DELIMITER //
-
 CREATE FUNCTION calculer_total_panier(idAcheteur INT) 
 RETURNS DECIMAL(10, 2)
 DETERMINISTIC
@@ -288,11 +291,9 @@ BEGIN
     -- Retourner le total calculé
     RETURN total;
 END //
-
 DELIMITER ;
 
 DELIMITER //
-
 CREATE FUNCTION calcul_poids_net(idLot INT) 
 RETURNS DECIMAL(10, 2)
 DETERMINISTIC
@@ -306,7 +307,6 @@ BEGIN
 
     RETURN total;
 END //
-
 DELIMITER ;
 
 DELIMITER //
