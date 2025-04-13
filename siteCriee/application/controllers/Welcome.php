@@ -53,43 +53,38 @@ class Welcome extends CI_Controller {
 			$this->load->view('encheresencours',$data); // Créer une vue nommée encheresencours.php dans VIEWS		
 		}
 
-		if($id == "confirmationPaiement") {
+		if ($id == "Facture") {
 			$idAcheteur = $this->session->userdata('user_id');
 		
-			// Charger le modèle de requêtes
-			$this->load->model('requetes');
+			$factures = $this->requetes->getToutesFactures($idAcheteur);
 		
-			// Récupérer la dernière facture liée à cet acheteur
-			$facture = $this->requetes->getDerniereFacture($idAcheteur);
+			if (!empty($factures)) {
+				$facturesAvecDetails = [];
 		
-			if ($facture) {
-				// Récupérer les détails de la facture (lots, montant total, etc.)
-				$factureDetails = $this->requetes->getFactureDetails($facture['IdFacture']);
+				foreach ($factures as $facture) {
+					$details = $this->requetes->getFactureDetails($facture['IdFacture']);
+					$detailsComplets = [];
 		
-				// Passer les données à la vue
-				$data['facture'] = $facture;
-				$data['factureDetails'] = $factureDetails;
+					foreach ($details as $detail) {
+						$lot = $this->requetes->getLotById($detail['IdLot']);
+						if ($lot) {
+							$lot['montant'] = $detail['montant'];
+							$detailsComplets[] = $lot;
+						}
+					}
 		
-				// Vérifier si l'heure de la commande existe et est bien formatée
-				$heureCommande = isset($facture['heureCommande']) ? $facture['heureCommande'] : null;
-				if ($heureCommande) {
-					// Formater l'heure (au cas où elle est dans un format non standard)
-					$data['heureCommande'] = date('H:i:s', strtotime($heureCommande));
-				} else {
-					// Si l'heure est absente, afficher une valeur par défaut
-					$data['heureCommande'] = 'Heure inconnue';
+					$facture['details'] = $detailsComplets;
+					$facturesAvecDetails[] = $facture;
 				}
 		
-				// Formater la date de la commande
-				$data['dateCommande'] = date('d/m/Y', strtotime($facture['dateCommande']));
-		
-				// Charger la vue avec les données
-				$this->load->view('confirmationPaiement', $data);
+				$data['factures'] = $facturesAvecDetails;
 			} else {
-				// Si aucune facture n'est trouvée pour cet acheteur, rediriger vers une page d'erreur
-				redirect('welcome/erreur');
+				$data['factures'] = [];
 			}
+		
+			$this->load->view('facture', $data);
 		}
+		
 		if($id=="FuturesEncheres")
 		{
 			$data['labelFuturesEncheres']= $this->requetes->getLotsFutures();
@@ -149,7 +144,7 @@ class Welcome extends CI_Controller {
 		}
 
 		if($id=="ConfirmationEnchere") {
-			$this->load->view('confirmation');
+			$this->load->view('confirmationenchere');
 		}
 		
 		if($id=="EchecEnchere") {
@@ -197,8 +192,6 @@ class Welcome extends CI_Controller {
 		$this->load->view('piedPage',NULL); // Vue piedPage à créer dans le dossier VIEWS 
 		
 	}
-
-	
 
 	public function validerInscription()
 	{
@@ -356,7 +349,7 @@ class Welcome extends CI_Controller {
 				$this->requetes->supprimerDuPanier($idLot);
 			}
 		}
-		redirect('welcome/contenu/confirmationPaiement');
+		redirect('welcome/contenu/Facture');
 	}
 
 	public function placerEnchere() {

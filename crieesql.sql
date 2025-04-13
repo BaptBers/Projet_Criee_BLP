@@ -109,7 +109,7 @@ CREATE TABLE LOT (
     poidsBrutLot DECIMAL(10, 2) NOT NULL,
     prixDepart DECIMAL(10, 2) NOT NULL,
     prixEnchereActuelle DECIMAL(10, 2) NOT NULL,
-    prixFinale DECIMAL(10, 2),
+    prixFinal DECIMAL(10, 2),
     dateOuverture DATE,
     dateFin DATE,
     heureOuverture TIME,
@@ -128,7 +128,6 @@ CREATE TABLE LOT (
     FOREIGN KEY (IdAcheteur) REFERENCES HISTORIQUE_ENCHERES(IdAcheteur),
     FOREIGN KEY (IdQualite) REFERENCES QUALITE(IdQualite),
     FOREIGN KEY (IdFacture) REFERENCES FACTURE(IdFacture)
-
 );
 
 CREATE TABLE HISTORIQUE_ENCHERES(
@@ -154,27 +153,31 @@ CREATE TABLE PANIER (
 INSERT INTO BATEAU (IdBateau, immatBateau, nomBateau) VALUES
 (1, "KJ-567-PH", "Le Neptune"),
 (2, "ML-231-HA", "L'Horizon"),
-(3, "HA-903-BZ", "L'Aventurier");
+(3, "HA-903-BZ", "L'Aventurier"),
+(4, "TR-812-MN", "L'Étoile du Nord"),
+(5, "XZ-445-KL", "Le Vent du Large"),
+(6, "BN-098-ZT", "La Sirène des Mers"),
+(7, "QP-672-WX", "L’Odyssée");
 
 -- Insertion dans la table PECHE
 INSERT INTO PECHE (IdBateau, datePeche) VALUES
-(1, '2024-12-07'),
-(2, '2024-12-10'),
-(2, '2024-12-08'),
-(1, '2024-12-12'),
-(3, '2024-12-17'),
-(3, '2024-12-22');
+(1, '2025-04-07'),
+(2, '2025-04-10'),
+(3, '2025-04-08'),
+(4, '2025-04-12'),
+(6, '2025-04-13'),
+(7, '2025-04-01');
 
 -- Insertion dans la table ESPECE
 INSERT INTO ESPECE ( IdEspece, nomScientifique, nomCommun) VALUES
-(1, 'Gadus morhua', 'Morue'),
-(2, 'Sardina pilchardus', 'Sardine'),
-(3, 'Psetta maxima', 'Sole'),
+(1, 'Mullus surmuletus', 'Rouget barbet'),
+(2, 'Pollachius pollachius', 'Lieu jaune'),
+(3, 'Homarus gammarus', 'Homard'),
 (4, 'Merluccius merluccius', 'Merlu'),
-(5, 'Pollachius pollachius', 'Lieu jaune'),
-(6, 'Micromesistius poutassou', 'Merlan bleu'),
-(7, 'Scomber scombrus', 'Maquereau'),
-(8, 'Melanogrammus aeglefinus', 'Églefin');
+(5, 'Heterocarpus affinis', 'Crevettes'),
+(6, 'Sardina pilchardus ', 'Sardine'),
+(7, 'Psetta maxima', 'Sole'),
+(8, 'Scorpaena scrofa', 'Rascasse Rouge');
 
 -- Insertion dans la table PRESENTATION
 INSERT INTO PRESENTATION (IdPresentation, descriptionPresentation) VALUES
@@ -208,20 +211,15 @@ INSERT INTO BAC (IdBac, designationTaille, tare) VALUES
 
 -- Insertion dans la table ACHETEUR
 INSERT INTO ACHETEUR (login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
-('acheteur1', 'pass123', 'Société de Pêche SA', '1 rue des Pêcheurs', 'Villemarine', '75001', 'HAB1234567'),
-('acheteur2', 'pass456', 'Pêche et Co', '2 quai du Port', 'Portville', '75002', 'HAB7654321'),
-('test', 'test', 'test', 'test', 'test', 'test', 'test');
+('bersuder', 'baptiste', 'Société de Pêche SA', '1 rue des Pêcheurs', 'Villemarine', '56680', 'HAB1234567'),
+('laaraj', 'mohamed', 'Pêche et Co', '2 quai du Port', 'Portville', '56710', 'HAB7654321'),
+('pham', 'billy', 'Océan Prime SARL', '3 avenue de la Mer', 'Nautilia', '56420', 'HAB9876543');
 
 -- Insertion dans la table ADMINISTRATEUR (nouveau)
 INSERT INTO ADMINISTRATEUR (loginAdmin, pwdAdmin, nom, prenom) VALUES
-('admin1', 'test123', 'Bersuder', 'Baptiste'),
-('admin2', 'test456', 'Pham', 'Billy'),
-('admin3', 'test789', 'Laaraj', 'Mohamed');
-
--- -- Insertion dans la table FACTURE
--- INSERT INTO FACTURE (IdAcheteur, dateEmission, montantTotal) VALUES
--- (1, 3,  '2024-12-03', 1500.00),
--- (2, 2,'2024-12-04', 1200.00);
+('adminB', 'baptiste', 'Bersuder', 'Baptiste'),
+('adminL', 'mohamed', 'Laaraj', 'Mohamed'),
+('adminP', 'billy', 'Pham', 'Billy');
 
 -- Insertion dans la table IMAGE
 INSERT INTO IMAGE (ImageLot) VALUES
@@ -235,15 +233,13 @@ INSERT INTO IMAGE (ImageLot) VALUES
 ('img/lot8.jpg');
 
 -- Insertion dans la table LOT
-INSERT INTO LOT (IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage , poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
-(1, '2025-04-07', 1, 10, 1, 1, null, 1, 1, 7.50, 800.00, 800.00, '2025-04-10', '2025-04-15', '05:00:00','11:08:00', 'future' , 1, 1),
-(1, '2025-04-07', 2, 20, 3, 2, null, 2, 2, 10.00, 400.00, 400.00, '2025-04-10', '2025-04-15', '11:09:00','16:59:59', 'future' , 1, 2),
-(1, '2025-04-07', 3, 30, 2, 1, null, 3, 3, 5.00, 800.00, 800.00, '2025-04-10', '2025-04-15', '05:00:00','11:59:59', 'future', 1, 3),
-(1, '2025-04-07', 2, 40, 4, 1, null, 2, 4, 6.50, 400.00, 400.00, '2025-03-10', '2025-03-15', '05:00:00','13:59:59', 'future', 2, 2),
-(1, '2025-04-07', 1, 50, 1, 2, null, 3, 5, 9.50, 800.00, 800.00, '2025-04-25', '2025-04-30', '05:00:00','23:59:59', 'future', 1, 1),
-(1, '2025-04-07', 3, 60, 2, 1, null, 2, 6, 13.00, 400.00, 400.00, '2025-04-25', '2025-04-30', '05:00:00','23:59:59', 'future', 2, 3),
-(1, '2025-04-07', 2, 70, 3, 1, null, 1, 7, 4.50, 400.00, 400.00, '2025-04-25', '2025-04-30', '05:00:00','23:59:59', 'future', 2, 1),
-(1, '2025-04-07', 2, 80, 4, 2, null, 2, 8, 8.00, 400.00, 400.00, '2025-03-25', '2025-03-30', '05:00:00','23:59:59', 'future', 2, 2);
+INSERT INTO LOT (IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage, poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
+(1, '2025-04-07', 1, 10, 3, 1, null, 1, 1, 7.50, 8.00, 8.00, '2025-04-13', '2025-04-20', '07:00:00','08:00:00', 'future' , null, 1),
+(2, '2025-04-10', 2, 20, 1, 2, null, 2, 2, 10.00, 10.00, 10.00, '2025-04-13', '2025-04-20', '07:00:00','08:00:00', 'future' , null, 2),
+(4, '2025-04-12', 3, 30, 2, 1, null, 3, 3, 5.00, 5.00, 5.00, '2025-04-13', '2025-04-20', '07:00:00','08:00:00', 'future', null, 3),
+(6, '2025-04-13', 4, 50, 4, 2, null, 3, 4, 9.50, 7.00, 7.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 1),
+(7, '2025-04-01', 5, 60, 2, 1, null, 2, 5, 13.00, 13.00, 13.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 3),
+(3, '2025-04-08', 6, 80, 2, 2, null, 2, 6, 8.00, 6.00, 6.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 2);
 
 DELIMITER //
 CREATE TRIGGER after_lot_closed
@@ -262,8 +258,9 @@ BEGIN
         ORDER BY he.montantEnchere DESC, he.dateEnchere DESC
         LIMIT 1;
 
-        -- Si on a trouvé un gagnant, on l'ajoute au panier
+        -- Si on a trouvé un gagnant
         IF winning_bidder IS NOT NULL THEN
+            -- Insérer dans le panier
             INSERT INTO panier (IdLot, IdAcheteur, montantEnchere)
             VALUES (NEW.IdLot, winning_bidder, winning_bid);
         END IF;
@@ -271,6 +268,7 @@ BEGIN
 END;
 //
 DELIMITER ;
+
 
 DELIMITER //
 
@@ -319,5 +317,19 @@ BEGIN
     -- Déclarer les variables nécessaires
     SET NEW.statut = 'future';
 END; //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER update_lot_idfacture_prixFinal
+AFTER INSERT ON facture_details
+FOR EACH ROW
+BEGIN
+    UPDATE lot
+    SET 
+        IdFacture = NEW.IdFacture,
+        prixFinal = NEW.montant
+    WHERE IdLot = NEW.IdLot;
+END;
+//
 DELIMITER ;
 

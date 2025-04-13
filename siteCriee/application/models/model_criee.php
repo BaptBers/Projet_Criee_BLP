@@ -134,14 +134,14 @@ class Model_criee extends CI_Model
         }
     }
 
-    public function getDerniereFacture($idAcheteur) {
-        $sql = "SELECT * FROM facture WHERE IdAcheteur = :idAcheteur ORDER BY dateCommande DESC LIMIT 1";
+    public function getToutesFactures($idAcheteur) {
+        $sql = "SELECT * FROM facture WHERE IdAcheteur = :idAcheteur ORDER BY dateCommande DESC";
         $stmt = $this->db->conn_id->prepare($sql);
         $stmt->bindParam(':idAcheteur', $idAcheteur, PDO::PARAM_INT);
         $stmt->execute();
-        
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }    
      
     public function getFactureDetails($idFacture) {
         $sql = "SELECT f.IdLot, f.montant FROM facture_details f WHERE f.IdFacture = :idFacture";
@@ -163,7 +163,6 @@ class Model_criee extends CI_Model
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row ? $row['montantEnchere'] : 0;
     }
-    
 
     public function supprimerDuPanier($idLot) {
         $sql = "DELETE FROM panier WHERE IdLot = :idLot";
@@ -347,5 +346,16 @@ class Model_criee extends CI_Model
         $result = $this->db->query($sql);
         return $result->result_array();
     }
+
+    public function utilisateurADesFactures($idAcheteur) {
+        $sql = "SELECT COUNT(*) as total FROM facture WHERE IdAcheteur = :idAcheteur";
+        $stmt = $this->db->conn_id->prepare($sql);
+        $stmt->bindParam(':idAcheteur', $idAcheteur, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] > 0;
+    }
+    
 }
 ?>

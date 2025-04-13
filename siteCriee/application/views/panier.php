@@ -24,7 +24,7 @@
                 </div>
             <?php endif; ?>
 
-			<!-- Ajouter un bouton de paiement -->
+			<!-- Bouton de paiement -->
 			<div class="payment-button-container">
                 <form action="<?= site_url('welcome/insererFacture') ?>" method="post">
                     <!-- Montant total -->
@@ -39,7 +39,6 @@
                 </form>
             </div>
             
-
         <?php else: ?>
             <!-- Si le panier est vide -->
             <div class="empty-panier">
@@ -47,5 +46,7 @@
             </div>
         <?php endif; ?>
     </div>
-
+    <div class="bouton-retour">
+			<a href="<?php echo site_url('welcome/contenu/Facture');?>" class="buttonRetour">Voir mes factures</a>
+	</div>        
 </body>

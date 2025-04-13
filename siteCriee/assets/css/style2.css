@@ -419,6 +419,11 @@ footer {
     margin: auto;
 }
 
+.resultat #empty{
+    color: #333;
+    margin: auto;
+}
+
 /* Style du chronomètre */
 #timer {
     background-color: #2a2a2a;
@@ -746,4 +751,11 @@ form.formajoutlot input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+.mentions-legales h3{
+    margin-top:2%;
+}
+
+#factureId{
+    color: #e75100;
+}
 
