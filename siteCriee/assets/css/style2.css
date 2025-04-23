@@ -192,7 +192,7 @@ body img{
     color: #555;
     flex: 1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-height: 550px;
+    max-height: 770px;
     overflow-y: auto;
 }
 
@@ -205,7 +205,7 @@ body img{
 .bloc-description h2 {
     border-bottom: 2px solid #df4a00;
     padding-bottom: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -220,14 +220,15 @@ body img{
 .bloc-actualites ul {
     list-style: none;
     padding-left: 0;
+    margin-top: unset;
 }
 
 .bloc-actualites li {
-    margin: 8px 0;
+    margin: 20px 0;
 }
 
 .bloc-actualites a {
-    color: #1e5aba;
+    color: #000000;
     text-decoration: none;
     transition: 0.2s ease;
 }
@@ -237,6 +238,9 @@ body img{
     color: #21258f;
 }
 
+.bloc-description iframe{
+    width: 100%;
+}
 /* Style du footer */
 footer {
     margin-top: auto;

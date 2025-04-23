@@ -1,6 +1,7 @@
 <body>
     <br>
     <h2 class="titre">DÉTAILS DU LOT</h2>
+    <br>
     <div class="enchere">
         <?php if (isset($lotDetails)) { ?>
             <!-- Image du lot -->

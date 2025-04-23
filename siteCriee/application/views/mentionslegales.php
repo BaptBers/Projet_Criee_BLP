@@ -7,7 +7,7 @@
         <p>
             Ce site est édité par :<br>
             <strong>La Criée de Cornouailles</strong><br>
-            Adresse : 9 rue Schoch, 56680 Plouhinec<br>
+            Adresse : 1 Quai de Larmor, Plouhinec 56680<br>
             Téléphone : 03 90 33 57 23<br>
             Email : crieecornouailles@gmail.com
         </p>
