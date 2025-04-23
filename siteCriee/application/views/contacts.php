@@ -6,8 +6,8 @@
     <p>Vous avez une question sur une enchère, un lot, ou sur le fonctionnement de notre site ? Notre équipe est à votre écoute !</p>
 
     <h3>🏢 Adresse de la criée</h3>
-    <p>9 rue Schoch<br>
-    56680 Plouhinec<br>
+    <p>1 Quai de Larmor<br>
+    Plouhinec 56680<br>
     France</p>
 
     <h3>📧 Adresse e-mail</h3>
