@@ -3,53 +3,53 @@ CREATE DATABASE PROJET_CRIEE;
 USE PROJET_CRIEE;
 
 -- Table BATEAU
-CREATE TABLE BATEAU (
+CREATE TABLE bateau (
     IdBateau INT PRIMARY KEY,
     immatBateau VARCHAR(255) NOT NULL,
     nomBateau VARCHAR(255) NOT NULL
 );
 
 -- Table PECHE
-CREATE TABLE PECHE (
+CREATE TABLE peche (
     IdBateau INT,
     datePeche DATE NOT NULL,
     PRIMARY KEY(IdBateau, datePeche),
-    FOREIGN KEY (IdBateau) REFERENCES BATEAU(IdBateau)
+    FOREIGN KEY (IdBateau) REFERENCES bateau(IdBateau)
 );
 
 -- Table ESPECE
-CREATE TABLE ESPECE (
+CREATE TABLE espece (
     IdEspece INT PRIMARY KEY,
     nomScientifique VARCHAR(255) NOT NULL,
     nomCommun VARCHAR(255) NOT NULL
 );
 
 -- Table PRESENTATION
-CREATE TABLE PRESENTATION (
+CREATE TABLE presentation (
     IdPresentation INT PRIMARY KEY,
     descriptionPresentation VARCHAR(255) NOT NULL
 );
 
 -- Table TAILLE
-CREATE TABLE TAILLE (
+CREATE TABLE taille (
     IdTaille INT PRIMARY KEY
 );
 
 -- Table QUALITE
-CREATE TABLE QUALITE (
+CREATE TABLE qualite (
     IdQualite INT PRIMARY KEY,
     descriptionQualite VARCHAR(255) NOT NULL
 );
 
 -- Table BAC
-CREATE TABLE BAC (
+CREATE TABLE bac (
     IdBac INT PRIMARY KEY,
     designationTaille VARCHAR(255) NOT NULL,
     tare DECIMAL(10, 2) NOT NULL
 );
 
 -- Table ACHETEUR
-CREATE TABLE ACHETEUR (
+CREATE TABLE acheteur (
     IdAcheteur INT AUTO_INCREMENT PRIMARY KEY,
     login VARCHAR(50) NOT NULL,
     pwd VARCHAR(50) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE ACHETEUR (
 );
 
 -- Table ADMINISTRATEUR
-CREATE TABLE ADMINISTRATEUR (
+CREATE TABLE administrateur (
     IdAdmin INT AUTO_INCREMENT PRIMARY KEY,
     loginAdmin VARCHAR(50) NOT NULL UNIQUE,
     pwdAdmin VARCHAR(50) NOT NULL,
@@ -70,24 +70,24 @@ CREATE TABLE ADMINISTRATEUR (
 );
 
 -- Table IMAGE
-CREATE TABLE IMAGE (
+CREATE TABLE image (
     IdImage INT AUTO_INCREMENT PRIMARY KEY,
     ImageLot VARCHAR(255) NOT NULL
     
 );
 
 -- Table FACTURE
-CREATE TABLE FACTURE (
+CREATE TABLE facture (
     IdFacture INT AUTO_INCREMENT PRIMARY KEY,
     dateCommande DATE NOT NULL,
     heureCommande DATETIME NOT NULL,
     montantTotal DECIMAL(10, 2) NOT NULL,
     IdAcheteur INT NOT NULL,
-    FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)
+    FOREIGN KEY (IdAcheteur) REFERENCES acheteur(IdAcheteur)
 );
 
 -- Table LOT
-CREATE TABLE LOT (
+CREATE TABLE lot (
     IdLot INT AUTO_INCREMENT,
     IdBateau INT NOT NULL,
     datePeche DATE NOT NULL,
@@ -95,7 +95,6 @@ CREATE TABLE LOT (
     IdTaille INT NOT NULL,
     IdPresentation INT NOT NULL,
     IdBac INT NOT NULL,
-    IdAcheteur INT,
     IdQualite INT NOT NULL,
     idImage INT NOT NULL,
     poidsBrutLot DECIMAL(10, 2) NOT NULL,
@@ -110,31 +109,30 @@ CREATE TABLE LOT (
     IdFacture INT,
     IdAdmin INT NOT NULL, 
     PRIMARY KEY (IdLot,IdBateau,datePeche),
-    FOREIGN KEY (IdBateau, datePeche) REFERENCES PECHE(IdBateau, datePeche),
-    FOREIGN KEY (IdAdmin) REFERENCES ADMINISTRATEUR(IdAdmin),
-    FOREIGN KEY (idImage) REFERENCES IMAGE(IdImage),
-    FOREIGN KEY (IdEspece) REFERENCES ESPECE(IdEspece),
-    FOREIGN KEY (IdTaille) REFERENCES TAILLE(IdTaille),
-    FOREIGN KEY (IdPresentation) REFERENCES PRESENTATION(IdPresentation),
-    FOREIGN KEY (IdAcheteur) REFERENCES HISTORIQUE_ENCHERES(idAcheteur),
-    FOREIGN KEY (IdBac) REFERENCES BAC(IdBac),
-    FOREIGN KEY (IdQualite) REFERENCES QUALITE(IdQualite),
-    FOREIGN KEY (IdFacture) REFERENCES FACTURE(IdFacture)
+    FOREIGN KEY (IdBateau, datePeche) REFERENCES peche(IdBateau, datePeche),
+    FOREIGN KEY (IdAdmin) REFERENCES administrateur(IdAdmin),
+    FOREIGN KEY (idImage) REFERENCES image(IdImage),
+    FOREIGN KEY (IdEspece) REFERENCES espece(IdEspece),
+    FOREIGN KEY (IdTaille) REFERENCES taille(IdTaille),
+    FOREIGN KEY (IdPresentation) REFERENCES presentation(IdPresentation),
+    FOREIGN KEY (IdBac) REFERENCES bac(IdBac),
+    FOREIGN KEY (IdQualite) REFERENCES qualite(IdQualite),
+    FOREIGN KEY (IdFacture) REFERENCES facture(IdFacture)
 );
 
 -- Table HISTORIQUE_ENCHERES
-CREATE TABLE HISTORIQUE_ENCHERES(
+CREATE TABLE historique_encheres(
     IdLot INT NOT NULL,
     IdAcheteur INT NOT NULL,
     montantEnchere DECIMAL(10, 2) NOT NULL,
     dateEnchere DATETIME,
     PRIMARY KEY (IdLot, IdAcheteur, dateEnchere),
-    FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur),
-    FOREIGN KEY (IdLot) REFERENCES LOT(IdLot)
+    FOREIGN KEY (IdAcheteur) REFERENCES acheteur(IdAcheteur),
+    FOREIGN KEY (IdLot) REFERENCES lot(IdLot)
 );
 
 -- Table FACTURE_DETAILS
-CREATE TABLE FACTURE_DETAILS (
+CREATE TABLE facture_details (
     idDetail INT AUTO_INCREMENT PRIMARY KEY,
     IdFacture INT NOT NULL,
     IdLot INT NOT NULL,
@@ -144,17 +142,17 @@ CREATE TABLE FACTURE_DETAILS (
 );
 
 -- Table PANIER
-CREATE TABLE PANIER (
+CREATE TABLE panier (
     IdPanier INT AUTO_INCREMENT PRIMARY KEY,
     IdLot INT NOT NULL,
     IdAcheteur INT NOT NULL,
     montantEnchere DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (IdLot) REFERENCES LOT(IdLot),
-    FOREIGN KEY (IdAcheteur) REFERENCES ACHETEUR(IdAcheteur)
+    FOREIGN KEY (IdLot) REFERENCES lot(IdLot),
+    FOREIGN KEY (IdAcheteur) REFERENCES acheteur(IdAcheteur)
 );
 
 -- Insertion dans la table BATEAU
-INSERT INTO BATEAU (IdBateau, immatBateau, nomBateau) VALUES
+INSERT INTO bateau (IdBateau, immatBateau, nomBateau) VALUES
 (1, "KJ-567-PH", "Le Neptune"),
 (2, "ML-231-HA", "L'Horizon"),
 (3, "HA-903-BZ", "L'Aventurier"),
@@ -164,7 +162,7 @@ INSERT INTO BATEAU (IdBateau, immatBateau, nomBateau) VALUES
 (7, "QP-672-WX", "L’Odyssée");
 
 -- Insertion dans la table PECHE
-INSERT INTO PECHE (IdBateau, datePeche) VALUES
+INSERT INTO peche (IdBateau, datePeche) VALUES
 (1, '2025-04-07'),
 (2, '2025-04-10'),
 (3, '2025-04-08'),
@@ -173,7 +171,7 @@ INSERT INTO PECHE (IdBateau, datePeche) VALUES
 (7, '2025-04-01');
 
 -- Insertion dans la table ESPECE
-INSERT INTO ESPECE ( IdEspece, nomScientifique, nomCommun) VALUES
+INSERT INTO espece ( IdEspece, nomScientifique, nomCommun) VALUES
 (1, 'Mullus surmuletus', 'Rouget barbet'),
 (2, 'Pollachius pollachius', 'Lieu jaune'),
 (3, 'Homarus gammarus', 'Homard'),
@@ -184,14 +182,14 @@ INSERT INTO ESPECE ( IdEspece, nomScientifique, nomCommun) VALUES
 (8, 'Scorpaena scrofa', 'Rascasse Rouge');
 
 -- Insertion dans la table PRESENTATION
-INSERT INTO PRESENTATION (IdPresentation, descriptionPresentation) VALUES
+INSERT INTO presentation (IdPresentation, descriptionPresentation) VALUES
 (1, 'Filets'),
 (2, 'Entier'),
 (3, 'Vidé'),
 (4, 'Morceaux');
 
 -- Insertion dans la table TAILLE
-INSERT INTO TAILLE (IdTaille) VALUES
+INSERT INTO taille (IdTaille) VALUES
 (10),
 (20),
 (30),
@@ -203,30 +201,30 @@ INSERT INTO TAILLE (IdTaille) VALUES
 (90);
 
 -- Insertion dans la table QUALITE
-INSERT INTO QUALITE (IdQualite, descriptionQualite) VALUES
+INSERT INTO qualite (IdQualite, descriptionQualite) VALUES
 (1, 'E Extra'),
 (2, 'A Glacé'),
 (3, 'B Déclassé');
 
 -- Insertion dans la table BAC
-INSERT INTO BAC (IdBac, designationTaille, tare) VALUES
+INSERT INTO bac (IdBac, designationTaille, tare) VALUES
 (1, 'B Petite taille', 2.5),
 (2, 'F Grande taille', 4.0);
 
 -- Insertion dans la table ACHETEUR
-INSERT INTO ACHETEUR (login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
+INSERT INTO acheteur (login, pwd, raisonSocialeEntreprise, adresse, ville, codePostal, numHabilitation) VALUES
 ('bersuder', 'baptiste', 'Société de Pêche SA', '1 rue des Pêcheurs', 'Villemarine', '56680', 'CP12345678'),
 ('laaraj', 'mohamed', 'Pêche et Co', '2 quai du Port', 'Portville', '56710', 'CP98715367'),
 ('pham', 'billy', 'Océan Prime SARL', '3 avenue de la Mer', 'Nautilia', '56420', 'CP72360915');
 
 -- Insertion dans la table ADMINISTRATEUR (nouveau)
-INSERT INTO ADMINISTRATEUR (loginAdmin, pwdAdmin, nom, prenom) VALUES
+INSERT INTO administrateur (loginAdmin, pwdAdmin, nom, prenom) VALUES
 ('adminB', 'baptiste', 'Bersuder', 'Baptiste'),
 ('adminL', 'mohamed', 'Laaraj', 'Mohamed'),
 ('adminP', 'billy', 'Pham', 'Billy');
 
 -- Insertion dans la table IMAGE
-INSERT INTO IMAGE (ImageLot) VALUES
+INSERT INTO image (ImageLot) VALUES
 ('img/lot1.jpg'),
 ('img/lot2.jpg'),
 ('img/lot3.jpg'),
@@ -237,13 +235,13 @@ INSERT INTO IMAGE (ImageLot) VALUES
 ('img/lot8.jpg');
 
 -- Insertion dans la table LOT
-INSERT INTO LOT (IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdAcheteur, IdQualite, IdImage, poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
-(1, '2025-04-07', 1, 10, 3, 1, null, 1, 1, 7.50, 8.00, 8.00, '2025-04-13', '2025-04-20', '07:00:00','08:00:00', 'future' , null, 1),
-(2, '2025-04-10', 2, 20, 1, 2, null, 2, 2, 10.00, 10.00, 10.00, '2025-04-13', '2025-04-20', '07:00:00','08:00:00', 'future' , null, 2),
-(4, '2025-04-12', 3, 30, 2, 1, null, 3, 3, 5.00, 5.00, 5.00, '2025-04-13', '2025-04-20', '07:00:00','08:00:00', 'future', null, 3),
-(6, '2025-04-13', 4, 50, 4, 2, null, 3, 4, 9.50, 7.00, 7.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 1),
-(7, '2025-04-01', 5, 60, 2, 1, null, 2, 5, 13.00, 13.00, 13.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 3),
-(3, '2025-04-08', 6, 80, 2, 2, null, 2, 6, 8.00, 6.00, 6.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 2);
+INSERT INTO lot (IdBateau, datePeche, IdEspece, IdTaille, IdPresentation, IdBac, IdQualite, IdImage, poidsBrutLot, prixDepart, prixEnchereActuelle, dateOuverture, dateFin, heureOuverture, heureFin, statut, IdFacture, IdAdmin) VALUES
+(1, '2025-04-07', 1, 10, 3, 1, 1, 1, 7.50, 8.00, 8.00, '2025-04-26', '2025-04-26', '07:00:00','23:00:00', 'future' , null, 1),
+(2, '2025-04-10', 2, 20, 1, 2, 2, 2, 10.00, 10.00, 10.00, '2025-04-26', '2025-04-26', '07:00:00','23:00:00', 'future' , null, 2),
+(4, '2025-04-12', 3, 30, 2, 1, 3, 3, 5.00, 5.00, 5.00, '2025-04-26', '2025-04-26', '07:00:00','23:00:00', 'future', null, 3),
+(6, '2025-04-13', 4, 50, 4, 2, 3, 4, 9.50, 7.00, 7.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 1),
+(7, '2025-04-01', 5, 60, 2, 1, 2, 5, 13.00, 13.00, 13.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 3),
+(3, '2025-04-08', 6, 80, 2, 2, 2, 6, 8.00, 6.00, 6.00, '2025-04-30', '2025-05-02', '07:00:00','08:00:00', 'future', null, 2);
 
 DELIMITER //
 CREATE TRIGGER after_lot_closed
@@ -272,7 +270,6 @@ BEGIN
 END;
 //
 DELIMITER ;
-
 
 DELIMITER //
 CREATE FUNCTION calculer_total_panier(idAcheteur INT) 
@@ -314,7 +311,6 @@ CREATE TRIGGER before_lot_insert
 BEFORE INSERT ON lot
 FOR EACH ROW
 BEGIN
-    -- Déclarer les variables nécessaires
     SET NEW.statut = 'future';
 END; //
 DELIMITER ;

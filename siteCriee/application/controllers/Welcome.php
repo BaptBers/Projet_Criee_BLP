@@ -39,13 +39,12 @@ class Welcome extends CI_Controller {
 	
 	public function contenu($id)
 	{
-		$this->load->view('enTete');
-		//$this->load->view('menu');
-	
 		// Met à jour les enchères avant d'afficher les pages
-		$this->requetes->updateEncheresOuvertes();  // Pour ouvrir les enchères futures
-		$this->requetes->updateEncheresExpirees();  // Pour fermer les enchères ouvertes expirées
+		$this->requetes->updateEncheresOuvertes();
+		$this->requetes->updateEncheresExpirees();
 
+		$this->load->view('enTete');
+		
 		if($id=="EncheresEnCours")
 		{
 			$data['labelEncheresEnCours']= $this->requetes->getLotsOuvert();
@@ -258,11 +257,17 @@ class Welcome extends CI_Controller {
 				'IdAdmin' => $this->session->userdata('user_id') 
 			];
 		
+			// Appel au modèle pour insérer peche dans la base de données
+			$this->requetes->setPeche(
+				$lotData['IdBateau'],
+				$lotData['datePeche']
+			);
+
 			// Appel au modèle pour insérer le lot dans la base de données
 			$this->requetes->setLot(
 				$lotData['IdBateau'],
-				$lotData['IdEspece'],
 				$lotData['datePeche'],
+				$lotData['IdEspece'],			
 				$lotData['IdTaille'],
 				$lotData['IdPresentation'],
 				$lotData['IdBac'],
@@ -275,12 +280,6 @@ class Welcome extends CI_Controller {
 				$lotData['heureOuverture'],
 				$lotData['heureFin'],
 				$lotData['IdAdmin']
-			);
-
-			// Appel au modèle pour insérer peche dans la base de données
-			$this->requetes->setPeche(
-				$lotData['IdBateau'],
-				$lotData['datePeche']
 			);
 		
 			// Rediriger après insertion
