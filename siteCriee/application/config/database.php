@@ -74,11 +74,11 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost; dbname=projet_criee; charset=utf8;',
-	'hostname' => 'localhost',
+	'dsn'	=> 'mysql:host=mysql; dbname=PROJET_CRIEE; charset=utf8;',
+	'hostname' => 'mysql',
 	'username' => 'root',
-	'password' => '',
-	'database' => 'projet_criee',
+	'password' => 'root',
+	'database' => 'PROJET_CRIEE',
 	'dbdriver' => 'pdo',//mysqli',
 	'dbprefix' => '',
 	'pconnect' => TRUE,
